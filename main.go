@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 	"os/user"
-	"ssh_client_parser/repl"
+
+	"ssh-client-parser/repl"
 )
 
 func main() {

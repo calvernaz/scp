@@ -3,7 +3,7 @@ package lexer
 import (
 	"testing"
 
-	"ssh_client_parser/token"
+	"ssh-client-parser/token"
 )
 
 func TestNextToken(t *testing.T) {

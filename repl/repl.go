@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"ssh_client_parser/lexer"
-	"ssh_client_parser/token"
+
+	"ssh-client-parser/lexer"
+	"ssh-client-parser/token"
 )
 
 const PROMPT = ">> "

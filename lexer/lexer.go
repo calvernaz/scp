@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"ssh_client_parser/token"
+	"ssh-client-parser/token"
 )
 
 type Lexer struct {
