@@ -9,12 +9,14 @@ const (
 
 	// Identifiers + literals
 	HOST  = "Host"
+	MATCH = "Match"
 	STAR  = "*"
 	COMMA = ","
 )
 
 var keywords = map[string]TokenType{
-	"Host": HOST,
+	"Host":  HOST,
+	"Match": MATCH,
 }
 
 func LookupIndent(ident string) TokenType {

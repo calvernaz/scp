@@ -7,7 +7,9 @@ import (
 )
 
 func TestNextToken(t *testing.T) {
-	input := `Host *`
+	input := `Host *
+Host weirdloop
+`
 
 	tests := []struct {
 		expectedType    token.TokenType
@@ -15,6 +17,8 @@ func TestNextToken(t *testing.T) {
 	}{
 		{token.HOST, "Host"},
 		{token.STAR, "*"},
+		{token.HOST, "Host"},
+		{token.IDENT, "weirdloop"},
 		{token.EOF, ""},
 	}
 

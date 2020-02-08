@@ -49,7 +49,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	}
 }
 
-func (p *Parser) parseHostStatement() *ast.ConfigStatement {
-	stmt := &ast.ConfigStatement{ Name: p.curToken }
+func (p *Parser) parseHostStatement() *ast.HostStatement {
+	stmt := &ast.HostStatement{Token: p.curToken}
 	return stmt
 }
