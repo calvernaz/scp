@@ -30,10 +30,39 @@ func TestMatchStatement(t *testing.T) {
 
 	for i, tt := range tests {
 		stmt := program.Statements[i]
-		if !testConfigStatement(t, stmt, tt.expectedString) {
+		if !testMatchConfigStatement(t, stmt, tt.expectedString) {
 			return
 		}
 	}
+}
+
+func testMatchConfigStatement(t *testing.T, s ast.Statement, name string) bool {
+	if s.TokenLiteral() != "Match" {
+		t.Errorf("s.TokenLiteral not 'Match'. got=%q", s.TokenLiteral())
+	}
+
+	configStmt, ok := s.(*ast.MatchStatement)
+	if !ok {
+		t.Errorf("s not *ast.ConfigStatement. got=%T", s)
+		return false
+	}
+
+	if configStmt.Token.Literal != name {
+		t.Errorf("configStmt.Name not '%s'. got=%s", name, configStmt.Token)
+		return false
+	}
+
+	if configStmt.TokenLiteral() != name {
+		t.Errorf("configStmt.TokenLiteral() not '%s'. got=%s", name, configStmt.TokenLiteral())
+		return false
+	}
+
+	if configStmt.Condition != "host" {
+		t.Errorf("configStmt.Condition not '%s'. got=%s", "host", configStmt.Condition)
+		return false
+	}
+
+	return true
 }
 
 func TestHostStatement(t *testing.T) {
@@ -61,13 +90,13 @@ func TestHostStatement(t *testing.T) {
 
 	for i, tt := range tests {
 		stmt := program.Statements[i]
-		if !testConfigStatement(t, stmt, tt.expectedString) {
+		if !testHostConfigStatement(t, stmt, tt.expectedString) {
 			return
 		}
 	}
 }
 
-func testConfigStatement(t *testing.T, s ast.Statement, name string) bool {
+func testHostConfigStatement(t *testing.T, s ast.Statement, name string) bool {
 	if s.TokenLiteral() != "Host" {
 		t.Errorf("s.TokenLiteral not 'Host'. got=%q", s.TokenLiteral())
 	}
