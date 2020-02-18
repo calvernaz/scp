@@ -82,7 +82,7 @@ func (l *Lexer) readString() string {
 }
 
 func isLetter(ch byte) bool {
-	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_' || ch == '.'
 }
 
 func newToken(tokenType token.TokenType, ch byte) token.Token {

@@ -11,6 +11,7 @@ type Parser struct {
 
 	curToken  token.Token
 	peekToken token.Token
+	errors    []string
 }
 
 func New(l *lexer.Lexer) *Parser {
@@ -62,8 +63,10 @@ func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.HOST:
 		return p.parseHostStatement()
-	case token.MATCH:
-		return p.parseMatchStatement()
+	case token.HOSTNAME:
+		return p.parseHostnameStatement()
+	//case token.MATCH:
+	//	return p.parseMatchStatement()
 	default:
 		return nil
 	}
@@ -71,23 +74,55 @@ func (p *Parser) parseStatement() ast.Statement {
 
 func (p *Parser) parseHostStatement() *ast.HostStatement {
 	stmt := &ast.HostStatement{Token: p.curToken}
-	return stmt
-}
-
-func (p *Parser) parseMatchStatement() *ast.MatchStatement {
-	match := &ast.MatchStatement{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.Host) {
-		match.Condition = token.Host
+	if p.curTokenIs(token.STRING) {
+		stmt.Value = p.curToken.Literal
 	}
 
-	if !p.expectPeek(token.STRING) {
-		return nil
+	if !p.expectPeek(token.HOST) || p.expectPeek(token.MATCH) {
+		stmt.Statement = p.parseBlockStatement()
 	}
 
-	match.Value = p.curToken.Literal
-
-	return match
+	return stmt
 }
+
+//func (p *Parser) parseMatchStatement() *ast.MatchStatement {
+//	match := &ast.MatchStatement{Token: p.curToken}
+//
+//	p.nextToken()
+//
+//	if p.curTokenIs(token.Host) {
+//		match.Condition = token.Host
+//	}
+//
+//	if !p.expectPeek(token.STRING) {
+//		return nil
+//	}
+//
+//	match.Value = p.curToken.Literal
+//
+//	return match
+//}
+
+func (p *Parser) parseBlockStatement() *ast.BlockStatement {
+	block := &ast.BlockStatement{Token: p.curToken}
+	block.Statements = []ast.Statement{}
+
+	p.nextToken()
+
+	for !p.curTokenIs(token.MATCH) && !p.curTokenIs(token.HOST) && !p.curTokenIs(token.EOF){
+		stmt := p.parseStatement()
+		if  stmt != nil {
+			block.Statements = append(block.Statements, stmt)
+		}
+		p.nextToken()
+	}
+	return block
+}
+
+func (p *Parser) Errors() []string {
+	return p.errors
+}
+
