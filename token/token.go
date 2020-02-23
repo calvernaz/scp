@@ -7,20 +7,31 @@ const (
 	EOF     = "EOF"
 	IDENT   = "IDENT"
 	STRING  = "STRING"
-
+	INT     = "INT"
 	// Identifiers + literals
-	HOST  = "Host"
-	MATCH = "Match"
-	HOSTNAME = "HostName"
-
-	STAR  = "*"
-	COMMA = ","
+	HOST              = "Host"
+	MATCH             = "Match"
+	HOSTNAME          = "HostName"
+	IDENTIFY_FILE     = "IdentityFile"
+	USER              = "User"
+	PORT              = "Port"
+	USE_KEY_CHAIN     = "UseKeyChain"
+	ADD_KEYS_TO_AGENT = "AddKeysToAgent"
+	LOCAL_FORWARD     = "LocalForward"
+	STAR              = "*"
+	COMMA             = ","
 )
 
 var keywords = map[string]TokenType{
-	"Host":     HOST,
-	"HostName": HOSTNAME,
-	"Match":    MATCH,
+	"Host":           HOST,
+	"HostName":       HOSTNAME,
+	"Match":          MATCH,
+	"IdentityFile":   IDENTIFY_FILE,
+	"User":           USER,
+	"Port":           PORT,
+	"UseKeyChain":    USE_KEY_CHAIN,
+	"AddKeysToAgent": ADD_KEYS_TO_AGENT,
+	"LocalForward":   LOCAL_FORWARD,
 }
 
 func LookupIndent(ident string) TokenType {

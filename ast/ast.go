@@ -2,6 +2,7 @@ package ast
 
 import (
 	"bytes"
+
 	"ssh-client-parser/token"
 )
 
@@ -9,7 +10,12 @@ var (
 	_ Statement = (*HostStatement)(nil)
 	_ Statement = (*BlockStatement)(nil)
 	_ Statement = (*HostNameStatement)(nil)
-
+	_ Statement = (*IdentityFileStatement)(nil)
+	_ Statement = (*UserStatement)(nil)
+	_ Statement = (*PortStatement)(nil)
+	_ Statement = (*UseKeyStatement)(nil)
+	_ Statement = (*AddKeysToAgentStatement)(nil)
+	_ Statement = (*LocalForwardStatement)(nil)
 	// _ Statement = (*MatchStatement)(nil)
 )
 
@@ -22,18 +28,19 @@ type Statement interface {
 	Node
 }
 
-// Program
-type Program struct {
+// SshConfig data structure holds Host and Match blocks.
+type SshConfig struct {
 	Statements []Statement
 }
-func (p *Program) TokenLiteral() string {
+
+func (p *SshConfig) TokenLiteral() string {
 	if len(p.Statements) > 0 {
 		return p.Statements[0].TokenLiteral()
 	} else {
 		return ""
 	}
 }
-func (p *Program) String() string {
+func (p *SshConfig) String() string {
 	var out bytes.Buffer
 
 	for _, s := range p.Statements {
@@ -43,10 +50,52 @@ func (p *Program) String() string {
 	return out.String()
 }
 
+// HostStatement statement
+type HostStatement struct {
+	Token token.Token // the 'Host' token
+	Value string
+
+	Statement *BlockStatement
+}
+
+func (ls *HostStatement) TokenLiteral() string {
+	return ls.Token.Literal
+}
+func (ls *HostStatement) String() string {
+	var out bytes.Buffer
+
+	out.WriteString(ls.Token.Literal)
+	out.WriteString(ls.Value)
+
+	for _, s := range ls.Statement.Statements {
+		out.WriteString(s.String())
+	}
+
+	return out.String()
+}
+
+// BlockStatement anything after the 'Host' statement
+type BlockStatement struct {
+	Statements []Statement
+}
+
+func (b *BlockStatement) TokenLiteral() string {
+	return ""
+}
+func (b *BlockStatement) String() string {
+	var out bytes.Buffer
+	for _, s := range b.Statements {
+		out.WriteString(s.String())
+	}
+	return out.String()
+}
+
+// HostNameStatement hostname inside the Host block
 type HostNameStatement struct {
 	Token token.Token
 	Value string
 }
+
 func (h HostNameStatement) TokenLiteral() string {
 	return h.Token.Literal
 }
@@ -56,20 +105,94 @@ func (h HostNameStatement) String() string {
 	return out.String()
 }
 
-// BlockStatement anything after the 'Host' statement
-type BlockStatement struct {
+// IdentityFile
+type IdentityFileStatement struct {
 	Token token.Token
 	Value string
-	Statements []Statement
 }
-func (b *BlockStatement) TokenLiteral() string {
-	return b.Token.Literal
+
+func (i *IdentityFileStatement) TokenLiteral() string {
+	return i.Token.Literal
 }
-func (b *BlockStatement) String() string {
+func (i IdentityFileStatement) String() string {
 	var out bytes.Buffer
-	for _, s := range b.Statements {
-		out.WriteString(s.String())
-	}
+	out.WriteString(i.Value)
+	return out.String()
+}
+
+// User
+type UserStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (u UserStatement) TokenLiteral() string {
+	return u.Token.Literal
+}
+func (u UserStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(u.Value)
+	return out.String()
+}
+
+// Port
+type PortStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (u PortStatement) TokenLiteral() string {
+	return u.Token.Literal
+}
+func (u PortStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(u.Value)
+	return out.String()
+}
+
+// UseKeyStatement
+type UseKeyStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (u UseKeyStatement) TokenLiteral() string {
+	return u.Token.Literal
+}
+
+func (u UseKeyStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(u.Value)
+	return out.String()
+}
+
+type AddKeysToAgentStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (a AddKeysToAgentStatement) TokenLiteral() string {
+	return a.Token.Literal
+}
+
+func (a AddKeysToAgentStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(a.Value)
+	return out.String()
+}
+
+type LocalForwardStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (l LocalForwardStatement) TokenLiteral() string {
+	return l.Token.Literal
+}
+
+func (l LocalForwardStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(l.Value)
 	return out.String()
 }
 
@@ -97,26 +220,3 @@ func (b *BlockStatement) String() string {
 //
 //	return out.String()
 //}
-
-// HostStatement statement
-type HostStatement struct {
-	Token      token.Token // the 'Host' token
-	Value      string
-
-	Statement *BlockStatement
-}
-func (ls *HostStatement) TokenLiteral() string {
-	return ls.Token.Literal
-}
-func (ls *HostStatement) String() string {
-	var out bytes.Buffer
-
-	out.WriteString(ls.Token.Literal)
-	out.WriteString(ls.Value)
-
-	for _, s := range ls.Statement.Statements {
-		out.WriteString(s.String())
-	}
-
-	return out.String()
-}

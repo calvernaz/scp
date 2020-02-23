@@ -1,0 +1,106 @@
+Host *
+    UseKeyChain yes
+
+Host be-mobile.bitbucket.org
+    IdentifyFile ~/.ssh/be-mobile
+    HostName bitbucket.org
+    User calvernaz@weirdloop.org
+    UseKeyChain yes
+    AddKeysToAgent yes
+
+Host LiveSenseRep.bitbucket.org
+    IdentifyFile ~/.ssh/id-rsa
+    HostName bitbucket.org
+    UseKeyChain yes
+    AddKeysToAgent yes
+
+Host development-livesense
+    IdentifyFile ~/.ssh/ireland-dev.pem
+    User ec2-User
+    HostName 52.30.91.239
+    Port 22
+    AddKeysToAgent yes
+
+Host development-mysql-rabbit
+    IdentifyFile ~/.ssh/ireland-dev.pem
+    HostName 54.229.55.55
+    User ec2-User
+    LocalForward 127.0.0.1:27012 127.0.0.1:27012
+    Port 22
+Host datamart-storage-production
+    IdentifyFile /Users/calvernaz/.ssh/Sydney_SSH_Access.pem
+    HostName ec2-54-206-54-253.ap-southeast-2.compute.amazonaws.com
+    LocalForward 3306 dev1.cxs9xklihcza.ap-southeast-2.rds.amazonaws.com:3306
+    User ec2-User
+    Port 22
+Host staging-livesenseweb
+    IdentifyFile /Users/calvernaz/.ssh/ireland-dev.pem
+    HostName 52.211.34.154
+    User ec2-User
+    Port 22
+Host medusa-digitalocean
+    HostName 95.85.7.32
+    User calvernaz
+    Port 22
+Host staging-livedata
+    IdentifyFile /Users/calvernaz/.ssh/Sydney_SSH_Access.pem
+    HostName 13.211.6.123
+    User ec2-User
+    Port 22
+Host livesense-rancher-registry
+    IdentifyFile /Users/calvernaz/.ssh/ireland-dev.pem
+    HostName 52.31.192.223
+    User ec2-User
+    Port 22
+Host livesense-archiva-jenkins
+    IdentifyFile /Users/calvernaz/.ssh/ireland-dev.pem
+    HostName 52.19.29.8
+    User ec2-User
+    Port 22
+Host production-livedata
+    IdentifyFile /Users/calvernaz/.ssh/Sydney_SSH_Access.pem
+    HostName 52.63.2.119
+    User ec2-User
+    Port 22
+Host gitlab-ci-runner
+    HostName 198.211.120.56
+    User root
+    Port 22
+Host production-livesenseweb
+    IdentifyFile /Users/calvernaz/.ssh/Sydney_SSH_Access.pem
+    HostName 52.62.189.149
+    User ec2-User
+    Port 22
+Host scup-main-twilio-voice
+    IdentifyFile /Users/calvernaz/.ssh/Sydney_SSH_Access.pem
+    HostName 54.153.211.202
+    User ubuntu
+    Port 22
+Host weirdloop-aws
+    IdentifyFile /Users/calvernaz/.ssh/weirdloop-aws.pem
+    HostName 52.209.219.240
+    User ec2-User
+    Port 22
+Host raspberry
+    HostName raspberrypi.local
+    User pi
+    Port 22
+Host qnap
+    HostName 192.168.1.4
+    User admin
+    Port 22
+Host openvpn-livesense
+    IdentifyFile "/Users/calvernaz/.ssh/ireland-dev.pem"
+    HostName 34.250.130.168
+    User openvpnas
+    Port 22
+
+Host weirdloop-linode
+    HostName 139.162.212.15
+    User calvernaz
+    Port 22
+Host onprem.livesense.com.au
+    IdentifyFile "/Users/calvernaz/.ssh/Sydney_SSH_Access.pem"
+    HostName 54.79.104.59
+    User ec2-User
+    Port 22

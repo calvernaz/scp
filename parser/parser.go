@@ -46,17 +46,19 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 	}
 }
 
-func (p *Parser) ParseProgram() *ast.Program {
-	program := &ast.Program{}
-	program.Statements = []ast.Statement{}
+func (p *Parser) ParseConfig() *ast.SshConfig {
+	// ssh config data structure
+	config := &ast.SshConfig{}
+	config.Statements = []ast.Statement{}
+
 	for p.curToken.Type != token.EOF {
 		stmt := p.parseStatement()
 		if stmt != nil {
-			program.Statements = append(program.Statements, stmt)
+			config.Statements = append(config.Statements, stmt)
 		}
 		p.nextToken()
 	}
-	return program
+	return config
 }
 
 func (p *Parser) parseStatement() ast.Statement {
@@ -65,6 +67,18 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseHostStatement()
 	case token.HOSTNAME:
 		return p.parseHostnameStatement()
+	case token.IDENTIFY_FILE:
+		return p.parseIdentityFileStatement()
+	case token.USER:
+		return p.parseUserStatement()
+	case token.PORT:
+		return p.parsePortStatement()
+	case token.USE_KEY_CHAIN:
+		return p.parseUseKeyStatement()
+	case token.ADD_KEYS_TO_AGENT:
+		return p.parseAddKeysToAgentStatement()
+	case token.LOCAL_FORWARD:
+		return p.parseLocalForwardStatement()
 	//case token.MATCH:
 	//	return p.parseMatchStatement()
 	default:
@@ -77,7 +91,7 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.STRING) {
+	if p.curTokenIs(token.STRING) || p.curTokenIs(token.STAR) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -86,6 +100,26 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 	}
 
 	return stmt
+}
+
+func (p *Parser) parseBlockStatement() *ast.BlockStatement {
+	block := &ast.BlockStatement{}
+	block.Statements = []ast.Statement{}
+
+	p.nextToken()
+
+	for !p.curTokenIs(token.MATCH) && !p.curTokenIs(token.HOST) && !p.curTokenIs(token.EOF) {
+		stmt := p.parseStatement()
+		if stmt != nil {
+			block.Statements = append(block.Statements, stmt)
+		}
+		p.nextToken()
+	}
+	return block
+}
+
+func (p *Parser) Errors() []string {
+	return p.errors
 }
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {
@@ -105,24 +139,3 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 //
 //	return match
 //}
-
-func (p *Parser) parseBlockStatement() *ast.BlockStatement {
-	block := &ast.BlockStatement{Token: p.curToken}
-	block.Statements = []ast.Statement{}
-
-	p.nextToken()
-
-	for !p.curTokenIs(token.MATCH) && !p.curTokenIs(token.HOST) && !p.curTokenIs(token.EOF){
-		stmt := p.parseStatement()
-		if  stmt != nil {
-			block.Statements = append(block.Statements, stmt)
-		}
-		p.nextToken()
-	}
-	return block
-}
-
-func (p *Parser) Errors() []string {
-	return p.errors
-}
-

@@ -1,6 +1,8 @@
 package parser
 
 import (
+	"io/ioutil"
+	"os"
 	"testing"
 
 	"ssh-client-parser/ast"
@@ -13,9 +15,9 @@ import (
 //	l := lexer.New(input)
 //	p := New(l)
 //
-//	program := p.ParseProgram()
+//	program := p.ParseConfig()
 //	if program == nil {
-//		t.Fatalf("ParseProgram() return nil")
+//		t.Fatalf("ParseConfig() return nil")
 //	}
 //
 //	if len(program.Statements) != 1 {
@@ -65,13 +67,55 @@ import (
 //	return true
 //}
 
+func TestSshConfig(t *testing.T) {
+	file, err := os.Open("testdata/ssh_config")
+	if err != nil {
+		t.FailNow()
+	}
+
+	input, err := ioutil.ReadAll(file)
+	if err != nil {
+		t.FailNow()
+	}
+
+	l := lexer.New(string(input))
+	p := New(l)
+	program := p.ParseConfig()
+	checkParserErrors(t, p)
+
+	if len(program.Statements) != 1 {
+		t.Fatalf("program does not contain %d statements. got=%d\n", 1, len(program.Statements))
+	}
+
+	stmt, ok := program.Statements[0].(*ast.HostStatement)
+	if !ok {
+		t.Fatalf("program.Statements[0] is not ast.HostStatement. got=%T", program.Statements[0])
+	}
+
+	blockStmt := stmt.Statement
+	if len(blockStmt.Statements) != 1 {
+		t.Fatalf("program does not contain %d block statements. got=%d\n", 1, len(stmt.Statement.Statements))
+	}
+
+	hostnameStmt, ok := blockStmt.Statements[0].(*ast.HostNameStatement)
+	if !ok {
+		t.Fatalf("blockStatement.statment[0] is not HostNameStatement. got=%T", hostnameStmt)
+	}
+}
+
 func TestHostBlockStatement(t *testing.T) {
 	input := `Host "some-domain.com"
-HostName server.com
+    HostName server.com
+    IdentityFile "/Users/calvernaz/.ssh/Sydney_SSH_Access.pem"
+    UseKeyChain yes
+    AddKeysToAgent yes
+    LocalForward 127.0.0.1:27012 127.0.0.1:27012
+    User ec2-user
+    Port 22
 `
 	l := lexer.New(input)
 	p := New(l)
-	program := p.ParseProgram()
+	program := p.ParseConfig()
 	checkParserErrors(t, p)
 
 	if len(program.Statements) != 1 {
@@ -114,9 +158,9 @@ func TestHostStatement(t *testing.T) {
 	l := lexer.New(input)
 	p := New(l)
 
-	program := p.ParseProgram()
+	program := p.ParseConfig()
 	if program == nil {
-		t.Fatalf("ParseProgram() return nil")
+		t.Fatalf("ParseConfig() return nil")
 	}
 
 	if len(program.Statements) != 1 {
