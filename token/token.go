@@ -1,5 +1,9 @@
 package token
 
+import (
+	"strings"
+)
+
 type TokenType string
 
 const (
@@ -23,19 +27,19 @@ const (
 )
 
 var keywords = map[string]TokenType{
-	"Host":           HOST,
-	"HostName":       HOSTNAME,
-	"Match":          MATCH,
-	"IdentityFile":   IDENTITY_FILE,
-	"User":           USER,
-	"Port":           PORT,
-	"UseKeyChain":    USE_KEY_CHAIN,
-	"AddKeysToAgent": ADD_KEYS_TO_AGENT,
-	"LocalForward":   LOCAL_FORWARD,
+	"host":           HOST,
+	"hostname":       HOSTNAME,
+	"match":          MATCH,
+	"identityfile":   IDENTITY_FILE,
+	"user":           USER,
+	"port":           PORT,
+	"usekeychain":    USE_KEY_CHAIN,
+	"addkeystoagent": ADD_KEYS_TO_AGENT,
+	"localforward":   LOCAL_FORWARD,
 }
 
 func LookupIndent(ident string) TokenType {
-	if tok, ok := keywords[ident]; ok {
+	if tok, ok := keywords[strings.ToLower(ident)]; ok {
 		return tok
 	}
 	return IDENT
