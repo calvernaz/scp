@@ -12,7 +12,7 @@ const (
 	HOST              = "Host"
 	MATCH             = "Match"
 	HOSTNAME          = "HostName"
-	IDENTIFY_FILE     = "IdentityFile"
+	IDENTITY_FILE     = "IdentityFile"
 	USER              = "User"
 	PORT              = "Port"
 	USE_KEY_CHAIN     = "UseKeyChain"
@@ -26,7 +26,7 @@ var keywords = map[string]TokenType{
 	"Host":           HOST,
 	"HostName":       HOSTNAME,
 	"Match":          MATCH,
-	"IdentityFile":   IDENTIFY_FILE,
+	"IdentityFile":   IDENTITY_FILE,
 	"User":           USER,
 	"Port":           PORT,
 	"UseKeyChain":    USE_KEY_CHAIN,

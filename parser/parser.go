@@ -24,6 +24,21 @@ func New(l *lexer.Lexer) *Parser {
 	return p
 }
 
+// ParseConfig entrypoint to parse the SSH configuration
+func (p *Parser) ParseConfig() *ast.SshConfig {
+	config := &ast.SshConfig{}
+	config.Statements = []ast.Statement{}
+
+	for p.curToken.Type != token.EOF {
+		stmt := p.parseStatement()
+		if stmt != nil {
+			config.Statements = append(config.Statements, stmt)
+		}
+		//p.nextToken()
+	}
+	return config
+}
+
 func (p *Parser) nextToken() {
 	p.curToken = p.peekToken
 	p.peekToken = p.l.NextToken()
@@ -46,28 +61,13 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 	}
 }
 
-func (p *Parser) ParseConfig() *ast.SshConfig {
-	// ssh config data structure
-	config := &ast.SshConfig{}
-	config.Statements = []ast.Statement{}
-
-	for p.curToken.Type != token.EOF {
-		stmt := p.parseStatement()
-		if stmt != nil {
-			config.Statements = append(config.Statements, stmt)
-		}
-		p.nextToken()
-	}
-	return config
-}
-
 func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.HOST:
 		return p.parseHostStatement()
 	case token.HOSTNAME:
 		return p.parseHostnameStatement()
-	case token.IDENTIFY_FILE:
+	case token.IDENTITY_FILE:
 		return p.parseIdentityFileStatement()
 	case token.USER:
 		return p.parseUserStatement()
@@ -91,11 +91,14 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.STRING) || p.curTokenIs(token.STAR) {
+	// Host <value>
+	if p.curTokenIs(token.STAR) || p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	if !p.expectPeek(token.HOST) || p.expectPeek(token.MATCH) {
+	// we proceed with the host block parsing
+	// if the next token is not "Host"
+	if !p.expectPeek(token.HOST) {
 		stmt.Statement = p.parseBlockStatement()
 	}
 
@@ -108,12 +111,14 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 
 	p.nextToken()
 
-	for !p.curTokenIs(token.MATCH) && !p.curTokenIs(token.HOST) && !p.curTokenIs(token.EOF) {
+	//for !p.curTokenIs(token.MATCH) && !p.curTokenIs(token.HOST) && !p.curTokenIs(token.EOF) {
+	for !p.expectPeek(token.HOST) && !p.curTokenIs(token.EOF) {
 		stmt := p.parseStatement()
 		if stmt != nil {
 			block.Statements = append(block.Statements, stmt)
+		} else {
+			p.nextToken()
 		}
-		p.nextToken()
 	}
 	return block
 }

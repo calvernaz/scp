@@ -83,7 +83,7 @@ func TestSshConfig(t *testing.T) {
 	program := p.ParseConfig()
 	checkParserErrors(t, p)
 
-	if len(program.Statements) != 1 {
+	if len(program.Statements) != 10 {
 		t.Fatalf("program does not contain %d statements. got=%d\n", 1, len(program.Statements))
 	}
 
@@ -97,10 +97,6 @@ func TestSshConfig(t *testing.T) {
 		t.Fatalf("program does not contain %d block statements. got=%d\n", 1, len(stmt.Statement.Statements))
 	}
 
-	hostnameStmt, ok := blockStmt.Statements[0].(*ast.HostNameStatement)
-	if !ok {
-		t.Fatalf("blockStatement.statment[0] is not HostNameStatement. got=%T", hostnameStmt)
-	}
 }
 
 func TestHostBlockStatement(t *testing.T) {

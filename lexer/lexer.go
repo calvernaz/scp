@@ -27,26 +27,32 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.STAR, l.ch)
 	case ',':
 		tok = newToken(token.COMMA, l.ch)
-	case '"':
-		tok.Type = token.STRING
-		tok.Literal = l.readString()
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
 	default:
-		if isLetter(l.ch) {
+		if isIdentifier(l.ch) {
 			tok.Literal = l.readIdentifier()
 			tok.Type = token.LookupIndent(tok.Literal)
 			return tok
-		} else if isDigit(l.ch) {
-			tok.Type = token.INT
-			tok.Literal = l.readNumber()
+		} else if isString(l.ch) {
+			tok.Literal = l.readString()
+			tok.Type = token.LookupIndent(tok.Literal)
+
+			//if isLetter(l.ch) || isExtraCharacter(l.ch) {
+		//} else if isDigit(l.ch) {
+		//	tok.Type = token.INT
+		//	tok.Literal = l.readNumber()
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
 	}
 	l.readChar()
 	return tok
+}
+
+func isIdentifier(ch byte) bool {
+	return isLetter(ch) || isDigit(ch) || isExtraCharacter(ch)
 }
 
 func (l *Lexer) skipWhitespace() {
@@ -57,7 +63,7 @@ func (l *Lexer) skipWhitespace() {
 
 func (l *Lexer) readIdentifier() string {
 	position := l.position
-	for isLetter(l.ch) || isDigit(l.ch) {
+	for isLetter(l.ch) || isDigit(l.ch) || isExtraCharacter(l.ch) {
 		l.readChar()
 	}
 	return l.input[position:l.position]
@@ -85,7 +91,15 @@ func (l *Lexer) readString() string {
 }
 
 func isLetter(ch byte) bool {
-	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_' || ch == '.' || ch == '-'
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z'
+}
+
+func isExtraCharacter(ch byte) bool {
+	return ch == '/' || ch == '_' || ch == '.' || ch == '-' || ch == '~' || ch == '@'
+}
+
+func isString(ch byte) bool {
+	return ch == '"'
 }
 
 func (l *Lexer) readNumber() string {

@@ -22,7 +22,7 @@ func (p *Parser) parseIdentityFileStatement() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.STRING) {
+	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -46,7 +46,7 @@ func (p *Parser) parsePortStatement() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.INT) {
+	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
 	}
 
