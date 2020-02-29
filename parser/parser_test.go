@@ -102,7 +102,7 @@ func TestSshConfig(t *testing.T) {
 func TestHostBlockStatement(t *testing.T) {
 	input := `Host "some-domain.com"
     HostName server.com
-    IdentityFile "/Users/calvernaz/.ssh/Sydney_SSH_Access.pem"
+    IdentityFile "/Users/user/.ssh/key.pem"
     UseKeyChain yes
     AddKeysToAgent yes
     LocalForward 127.0.0.1:27012 127.0.0.1:27012
@@ -124,8 +124,8 @@ func TestHostBlockStatement(t *testing.T) {
 	}
 
 	blockStmt := stmt.Statement
-	if len(blockStmt.Statements) != 1 {
-		t.Fatalf("program does not contain %d block statements. got=%d\n", 1, len(stmt.Statement.Statements))
+	if len(blockStmt.Statements) != 7 {
+		t.Fatalf("program does not contain %d block statements. got=%d\n", 7, len(stmt.Statement.Statements))
 	}
 
 	hostnameStmt, ok := blockStmt.Statements[0].(*ast.HostNameStatement)
