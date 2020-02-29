@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"ssh-client-parser/ast"
-	"ssh-client-parser/lexer"
+	"github.com/calvernaz/scp/ast"
+	"github.com/calvernaz/scp/lexer"
 )
 
 //func TestMatchStatement(t *testing.T) {

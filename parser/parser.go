@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"ssh-client-parser/ast"
-	"ssh-client-parser/lexer"
-	"ssh-client-parser/token"
+	"github.com/calvernaz/scp/ast"
+	"github.com/calvernaz/scp/lexer"
+	"github.com/calvernaz/scp/token"
 )
 
 type Parser struct {

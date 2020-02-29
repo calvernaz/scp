@@ -3,7 +3,7 @@ package ast
 import (
 	"bytes"
 
-	"ssh-client-parser/token"
+	"github.com/calvernaz/scp/token"
 )
 
 var (
