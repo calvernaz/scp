@@ -1,4 +1,7 @@
+# Comments
+# Another command
 Host *
+    # Also comments
     UseKeyChain yes
 
 Host a.bitbucket.org
@@ -10,6 +13,7 @@ Host a.bitbucket.org
 
 Host b.bitbucket.org
     IdentityFile ~/.ssh/id-rsa
+    # Comments here
     HostName bitbucket.org
     UseKeyChain yes
     AddKeysToAgent yes

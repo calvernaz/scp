@@ -20,6 +20,7 @@ func New(input string) *Lexer {
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
+start:
 	l.skipWhitespace()
 
 	switch l.ch {
@@ -38,7 +39,9 @@ func (l *Lexer) NextToken() token.Token {
 		} else if isString(l.ch) {
 			tok.Literal = l.readString()
 			tok.Type = token.LookupIndent(tok.Literal)
-
+		} else if isComment(l.ch) {
+			l.skipComments()
+			goto start
 			//if isLetter(l.ch) || isExtraCharacter(l.ch) {
 		//} else if isDigit(l.ch) {
 		//	tok.Type = token.INT
@@ -58,6 +61,15 @@ func isIdentifier(ch byte) bool {
 func (l *Lexer) skipWhitespace() {
 	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
 		l.readChar()
+	}
+}
+
+func (l *Lexer) skipComments() {
+	for {
+		l.readChar()
+		if l.ch == '\n' || l.ch == '\r' {
+			break
+		}
 	}
 }
 
@@ -102,6 +114,10 @@ func isString(ch byte) bool {
 	return ch == '"'
 }
 
+func isComment(ch byte) bool {
+	return ch == '#'
+}
+
 func (l *Lexer) readNumber() string {
 	position := l.position
 	for isDigit(l.ch) {
@@ -109,6 +125,7 @@ func (l *Lexer) readNumber() string {
 	}
 	return l.input[position:l.position]
 }
+
 
 func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9' || ch == '.' || ch == ':'

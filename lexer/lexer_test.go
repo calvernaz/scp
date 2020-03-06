@@ -45,8 +45,8 @@ func TestNextStringToken(t *testing.T) {
 		expectedType token.TokenType
 		expectedLiteral string
 	} {
-		{ token.STRING, "foobar"},
-		{ token.STRING, "foo bar"},
+		{ token.IDENT, "foobar"},
+		{ token.IDENT, "foo bar"},
 		{ token.EOF, ""},
 	}
 

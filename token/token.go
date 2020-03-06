@@ -24,6 +24,7 @@ const (
 	LOCAL_FORWARD     = "LocalForward"
 	STAR              = "*"
 	COMMA             = ","
+	HASH              = "#"
 )
 
 var keywords = map[string]TokenType{
