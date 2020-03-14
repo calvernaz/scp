@@ -68,7 +68,7 @@ import (
 //}
 
 func TestSshConfig(t *testing.T) {
-	file, err := os.Open("testdata/ssh_config")
+	file, err := os.Open("testdata/ssh_Qconfig")
 	if err != nil {
 		t.FailNow()
 	}

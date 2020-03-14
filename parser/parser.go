@@ -89,8 +89,6 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseServerAlive()
 	case token.COMPRESION:
 		return p.parseCompression()
-	case token.COMPRESSION_LEVEL:
-		return p.parseCompressionLevel()
 	case token.USER_KNOWN_HOSTS_FILE:
 		return p.parseUserKnownHostsFile()
 	case token.STRICT_HOST_KEY_CHECKING:
