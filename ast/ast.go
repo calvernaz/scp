@@ -16,6 +16,11 @@ var (
 	_ Statement = (*UseKeyStatement)(nil)
 	_ Statement = (*AddKeysToAgentStatement)(nil)
 	_ Statement = (*LocalForwardStatement)(nil)
+	_ Statement = (*ControlMasterStatement)(nil)
+	_ Statement = (*ControlPersistStatement)(nil)
+	_ Statement = (*ServerAliveOptionStatement)(nil)
+	_ Statement = (*CompressionStatement)(nil)
+	_ Statement = (*CompressionLevelStatement)(nil)
 	// _ Statement = (*MatchStatement)(nil)
 )
 
@@ -193,6 +198,82 @@ func (l LocalForwardStatement) TokenLiteral() string {
 func (l LocalForwardStatement) String() string {
 	var out bytes.Buffer
 	out.WriteString(l.Value)
+	return out.String()
+}
+
+
+type ControlMasterStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (c ControlMasterStatement) TokenLiteral() string {
+	return c.Token.Literal
+}
+
+func (c ControlMasterStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
+}
+
+type ControlPersistStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (c ControlPersistStatement) TokenLiteral() string {
+	return c.Token.Literal
+}
+
+func (c ControlPersistStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
+}
+
+type ServerAliveOptionStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (s ServerAliveOptionStatement) TokenLiteral() string {
+	return s.Token.Literal
+}
+
+func (s ServerAliveOptionStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(s.Value)
+	return out.String()
+}
+
+type CompressionStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (c CompressionStatement) TokenLiteral() string {
+	return c.Token.Literal
+}
+
+func (c CompressionStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
+}
+
+type CompressionLevelStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (c CompressionLevelStatement) TokenLiteral() string {
+	return c.Token.Literal
+}
+
+func (c CompressionLevelStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(c.Value)
 	return out.String()
 }
 

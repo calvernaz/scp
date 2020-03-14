@@ -93,3 +93,72 @@ func (p *Parser) parseLocalForwardStatement() ast.Statement {
 	}
 	return stmt
 }
+
+func (p *Parser) parseControlMaster() ast.Statement {
+	stmt := &ast.ControlMasterStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	p.nextToken()
+
+	return stmt
+}
+
+func (p *Parser) parseControlPersist() ast.Statement {
+	stmt := &ast.ControlPersistStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	p.nextToken()
+
+	return stmt
+}
+
+
+func (p *Parser) parseServerAlive() ast.Statement {
+	stmt := &ast.ServerAliveOptionStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	p.nextToken()
+
+	return stmt
+}
+
+
+func (p *Parser) parseCompression() ast.Statement {
+	stmt := &ast.CompressionStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}
+
+
+func (p *Parser) parseCompressionLevel() ast.Statement {
+	stmt := &ast.CompressionLevelStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}

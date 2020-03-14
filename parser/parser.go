@@ -79,6 +79,18 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseAddKeysToAgentStatement()
 	case token.LOCAL_FORWARD:
 		return p.parseLocalForwardStatement()
+	case token.CONTROL_MASTER:
+		return p.parseControlMaster()
+	case token.CONTROL_PATH:
+		return p.parseControlPath()
+	case token.CONTROL_PERSIST:
+		return p.parseControlPersist()
+	case token.SERVER_ALIVE_INTERVAL,token.SERVER_ALIVE_COUNT_MAX:
+		return p.parseServerAlive()
+	case token.COMPRESION:
+		return p.parseCompression()
+	case token.COMPRESSION_LEVEL:
+		return p.parseCompressionLevel()
 	//case token.MATCH:
 	//	return p.parseMatchStatement()
 	default:
@@ -126,6 +138,19 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 func (p *Parser) Errors() []string {
 	return p.errors
 }
+
+func (p *Parser) parseControlPath() ast.Statement {
+	stmt := &ast.IdentityFileStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}
+
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {
 //	match := &ast.MatchStatement{Token: p.curToken}
