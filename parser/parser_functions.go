@@ -162,3 +162,64 @@ func (p *Parser) parseCompressionLevel() ast.Statement {
 
 	return stmt
 }
+
+
+func (p *Parser) parseUserKnownHostsFile() ast.Statement {
+	stmt := &ast.UserKnownHostsFileStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}
+
+func (p *Parser) parseStrictHostKeyChecking() ast.Statement {
+	stmt := &ast.StrictHostKeyCheckingStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}
+
+func (p *Parser) parseProxyCommand() ast.Statement {
+	stmt := &ast.ProxyCommandStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}
+
+func (p *Parser) parseForwardAgent() ast.Statement {
+	stmt := &ast.ForwardAgentStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}
+
+func (p *Parser) parseLogLevel() ast.Statement {
+	stmt := &ast.LogLevelStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}

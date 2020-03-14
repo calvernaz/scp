@@ -91,6 +91,16 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseCompression()
 	case token.COMPRESSION_LEVEL:
 		return p.parseCompressionLevel()
+	case token.USER_KNOWN_HOSTS_FILE:
+		return p.parseUserKnownHostsFile()
+	case token.STRICT_HOST_KEY_CHECKING:
+		return p.parseStrictHostKeyChecking()
+	case token.PROXY_COMMAND:
+		return p.parseProxyCommand()
+	case token.FORWARD_AGENT:
+		return p.parseForwardAgent()
+	case token.LOG_LEVEL:
+		return p.parseLogLevel()
 	//case token.MATCH:
 	//	return p.parseMatchStatement()
 	default:
@@ -150,6 +160,7 @@ func (p *Parser) parseControlPath() ast.Statement {
 
 	return stmt
 }
+
 
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {

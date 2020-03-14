@@ -21,6 +21,11 @@ var (
 	_ Statement = (*ServerAliveOptionStatement)(nil)
 	_ Statement = (*CompressionStatement)(nil)
 	_ Statement = (*CompressionLevelStatement)(nil)
+	_ Statement = (*UserKnownHostsFileStatement)(nil)
+	_ Statement = (*StrictHostKeyCheckingStatement)(nil)
+	_ Statement = (*ProxyCommandStatement)(nil)
+	_ Statement = (*ForwardAgentStatement)(nil)
+	_ Statement = (*LogLevelStatement)(nil)
 	// _ Statement = (*MatchStatement)(nil)
 )
 
@@ -274,6 +279,81 @@ func (c CompressionLevelStatement) TokenLiteral() string {
 func (c CompressionLevelStatement) String() string {
 	var out bytes.Buffer
 	out.WriteString(c.Value)
+	return out.String()
+}
+
+type UserKnownHostsFileStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (u UserKnownHostsFileStatement) TokenLiteral() string {
+	return u.Token.Literal
+}
+
+func (u UserKnownHostsFileStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(u.Value)
+	return out.String()
+}
+
+type StrictHostKeyCheckingStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (s StrictHostKeyCheckingStatement) TokenLiteral() string {
+	return s.Token.Literal
+}
+
+func (s StrictHostKeyCheckingStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(s.Value)
+	return out.String()
+}
+
+type ProxyCommandStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (p ProxyCommandStatement) TokenLiteral() string {
+	return p.Token.Literal
+}
+
+func (p ProxyCommandStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
+}
+
+type ForwardAgentStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (f ForwardAgentStatement) TokenLiteral() string {
+	return f.Token.Literal
+}
+
+func (f ForwardAgentStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(f.Value)
+	return out.String()
+}
+
+type LogLevelStatement struct {
+	Token token.Token
+	Value string
+}
+
+func (l LogLevelStatement) TokenLiteral() string {
+	return l.Token.Literal
+}
+
+func (l LogLevelStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(l.Value)
 	return out.String()
 }
 
