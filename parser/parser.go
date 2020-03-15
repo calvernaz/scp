@@ -85,7 +85,7 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseControlPath()
 	case token.CONTROL_PERSIST:
 		return p.parseControlPersist()
-	case token.SERVER_ALIVE_INTERVAL,token.SERVER_ALIVE_COUNT_MAX:
+	case token.SERVER_ALIVE_INTERVAL, token.SERVER_ALIVE_COUNT_MAX:
 		return p.parseServerAlive()
 	case token.COMPRESION:
 		return p.parseCompression()
@@ -99,6 +99,68 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseForwardAgent()
 	case token.LOG_LEVEL:
 		return p.parseLogLevel()
+	case token.CANONICALIZE_FALLBACK_LOCAL:
+	case token.CANONICALIZE_HOSTNAME:
+	case token.CANONICALIZE_MAX_DOTS:
+	case token.CANONICALIZE_PERMITTED_CNAMES:
+	case token.CA_SIGNATURE_ALGORITHMS:
+	case token.CERTIFICATE_FILE:
+	case token.CHALLENGE_RESPONSE_AUTHENTICATION:
+	case token.CHECK_HOST_IP:
+	case token.CIPHERS:
+	case token.CLEAR_ALL_FORWARDINGS:
+	case token.CONNECTION_ATTEMPTS:
+	case token.CONNECTION_TIMEOUT:
+	case token.DYNAMIC_FORWARD:
+	case token.ESCAPE_CHAR:
+	case token.EXIT_ON_FORWARD_FAILURE:
+	case token.FINGERPRINT_HASH:
+	case token.FORWARD_X11:
+	case token.FORWARD_X11_TIMEOUT:
+	case token.FORWARD_X11_TRUSTED:
+	case token.GATEWAY_PORTS:
+	case token.GLOBAL_KNOWN_HOSTS_FILE:
+	case token.GSSAPI_AUTHENTICATION:
+	case token.GSSAPI_DELEGATE_CREDENTIALS:
+	case token.HASH_KNOWN_HOSTS:
+	case token.HOSTBASED_AUTHENTICATION:
+	case token.HOSTBASED_KEY_TYPES:
+	case token.HOSTBASED_KEY_ALGORITHMS:
+	case token.HOST_KEY_ALIAS:
+	case token.IDENTITIES_ONLY:
+	case token.IDENTITY_AGENT:
+	case token.IP_QOS:
+	case token.KBD_INTERACTIVE_AUTHENTICATION:
+	case token.KBD_INTERACTIVE_DEVICES:
+	case token.KEX_ALGORITHMS:
+	case token.LOCAL_COMMAND:
+	case token.MACS:
+	case token.NO_HOST_AUTHENTICATION_FOR_LOCALHOST:
+	case token.NUMBER_OF_PASSWORD_PROMPTS:
+	case token.PASSWORD_AUTHENTICATION:
+	case token.PERMIT_LOCAL_COMMAND:
+	case token.PCKS11_PROVIDER:
+	case token.PREFERRED_AUTHENTICATIONS:
+	case token.PROXY_JUMP:
+	case token.PROXY_USE_FDPASS:
+	case token.PUBKEY_ACCEPTED_KEY_TYPES:
+	case token.PUBKEY_AUTHENTICATION:
+	case token.REKEY_LIMIT:
+	case token.REMOTE_COMMAND:
+	case token.REMOTE_FORWARD:
+	case token.REQUEST_TTY:
+	case token.SEND_ENV:
+	case token.SET_ENV:
+	case token.STREAM_LOCAL_BIND_MASK:
+	case token.STREAM_LOCAL_BIND_UNLINK:
+	case token.TCP_KEEP_ALIVE:
+	case token.TUNNEL:
+	case token.TUNNEL_DEVICE:
+	case token.UPDATE_HOST_KEYS:
+	case token.VERIFY_HOST_KEY_DNS:
+	case token.VISUAL_HOST_KEY:
+	case token.XAUTH_LOCATION:
+		return p.parseHostStatement()
 	//case token.MATCH:
 	//	return p.parseMatchStatement()
 	default:
@@ -158,8 +220,6 @@ func (p *Parser) parseControlPath() ast.Statement {
 
 	return stmt
 }
-
-
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {
 //	match := &ast.MatchStatement{Token: p.curToken}
