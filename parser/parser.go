@@ -66,19 +66,19 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.HOST:
 		return p.parseHostStatement()
 	case token.HOSTNAME:
-		return p.parseHostnameStatement()
+		return p.parseHostname()
 	case token.IDENTITY_FILE:
-		return p.parseIdentityFileStatement()
+		return p.parseIdentityFile()
 	case token.USER:
-		return p.parseUserStatement()
+		return p.parseUser()
 	case token.PORT:
-		return p.parsePortStatement()
+		return p.parsePort()
 	case token.USE_KEY_CHAIN:
-		return p.parseUseKeyStatement()
+		return p.parseUseKeyChain()
 	case token.ADD_KEYS_TO_AGENT:
-		return p.parseAddKeysToAgentStatement()
+		return p.parseAddKeysToAgent()
 	case token.LOCAL_FORWARD:
-		return p.parseLocalForwardStatement()
+		return p.parseLocalForward()
 	case token.CONTROL_MASTER:
 		return p.parseControlMaster()
 	case token.CONTROL_PATH:
@@ -100,65 +100,125 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.LOG_LEVEL:
 		return p.parseLogLevel()
 	case token.CANONICALIZE_FALLBACK_LOCAL:
+		return p.parseCanonicalizeFallback()
 	case token.CANONICALIZE_HOSTNAME:
+		return p.parseCanonicalizeHostname()
 	case token.CANONICALIZE_MAX_DOTS:
+		return p.parseCanonicalizeMaxDots()
 	case token.CANONICALIZE_PERMITTED_CNAMES:
+		return p.parseCanonicalizePermittedCNames()
 	case token.CA_SIGNATURE_ALGORITHMS:
+		return p.parseCaSignatureAlgorithms()
 	case token.CERTIFICATE_FILE:
+		return p.parseCertificateFile()
 	case token.CHALLENGE_RESPONSE_AUTHENTICATION:
+		return p.parseChallengeAuthentication()
 	case token.CHECK_HOST_IP:
+		return p.parseCheckHostIP()
 	case token.CIPHERS:
+		return p.parseCiphers()
 	case token.CLEAR_ALL_FORWARDINGS:
+		return p.parseClearAllForwarding()
 	case token.CONNECTION_ATTEMPTS:
+		return p.parseConnectionAttempts()
 	case token.CONNECTION_TIMEOUT:
+		return p.parseConnectionTimeout()
 	case token.DYNAMIC_FORWARD:
+		return p.parseDynamicForward()
 	case token.ESCAPE_CHAR:
+		return p.parseEscapeChar()
 	case token.EXIT_ON_FORWARD_FAILURE:
+		return p.parseExitOnForwardFailure()
 	case token.FINGERPRINT_HASH:
+		return p.parseFingerprintHash()
 	case token.FORWARD_X11:
+		return p.parseForwardX11()
 	case token.FORWARD_X11_TIMEOUT:
+		return p.parseForwardX11Timeout()
 	case token.FORWARD_X11_TRUSTED:
+		return p.parseForwardX11Trusted()
 	case token.GATEWAY_PORTS:
+		return p.parseGatewayPorts()
 	case token.GLOBAL_KNOWN_HOSTS_FILE:
+		return p.parseGlobalKnownHostsFile()
 	case token.GSSAPI_AUTHENTICATION:
+		return p.parseGSSApiAuthentication()
 	case token.GSSAPI_DELEGATE_CREDENTIALS:
+		return p.parseGSSApiDelegateCredentials()
 	case token.HASH_KNOWN_HOSTS:
+		return p.parseHashKnownHosts()
 	case token.HOSTBASED_AUTHENTICATION:
+		return p.parseHostBasedAuthentication()
 	case token.HOSTBASED_KEY_TYPES:
+		return p.parseHostBasedKeyTypes()
 	case token.HOSTBASED_KEY_ALGORITHMS:
+		return p.parseHostBasedKeyAlgorithms()
 	case token.HOST_KEY_ALIAS:
+		return p.parseHostKeyAlias()
 	case token.IDENTITIES_ONLY:
+		return p.parseIdentitiesOnly()
 	case token.IDENTITY_AGENT:
+		return p.parseIdentityAgent()
 	case token.IP_QOS:
+		return p.parseIPQoS()
 	case token.KBD_INTERACTIVE_AUTHENTICATION:
+		return p.parseKbdInteractiveAuthentication()
 	case token.KBD_INTERACTIVE_DEVICES:
+		return p.parseKbdInteractiveDevices()
 	case token.KEX_ALGORITHMS:
+		return p.parseKeyAlgorithms()
 	case token.LOCAL_COMMAND:
+		return p.parseLocalCommand()
 	case token.MACS:
+		return p.parseMacs()
 	case token.NO_HOST_AUTHENTICATION_FOR_LOCALHOST:
+		return p.parseNoHostAuthentication()
 	case token.NUMBER_OF_PASSWORD_PROMPTS:
+		return p.parseNumberOfPasswordPrompts()
 	case token.PASSWORD_AUTHENTICATION:
+		return p.parsePasswordAuthentication()
 	case token.PERMIT_LOCAL_COMMAND:
+		return p.parsePermitLocalCommand()
 	case token.PCKS11_PROVIDER:
+		return p.parsePCKS11Provider()
 	case token.PREFERRED_AUTHENTICATIONS:
+		return p.parsePreferredAuthentications()
 	case token.PROXY_JUMP:
+		return p.parseProxyJump()
 	case token.PROXY_USE_FDPASS:
+		return p.parseProxyUseFD()
 	case token.PUBKEY_ACCEPTED_KEY_TYPES:
+		return p.parsePubkeyAcceptedKeyTypes()
 	case token.PUBKEY_AUTHENTICATION:
+		return p.parsePubkeyAuthentication()
 	case token.REKEY_LIMIT:
+		return p.parseRekeyLimit()
 	case token.REMOTE_COMMAND:
+		return p.parseRemoteCommand()
 	case token.REMOTE_FORWARD:
+		return p.parseRemoteForward()
 	case token.REQUEST_TTY:
+		return p.parseRequestTTY()
 	case token.SEND_ENV:
+		return p.parseSendEnv()
 	case token.SET_ENV:
+		return p.parseSetEnv()
 	case token.STREAM_LOCAL_BIND_MASK:
+		return p.parseStreamLocalBindMask()
 	case token.STREAM_LOCAL_BIND_UNLINK:
+		return p.parseStreamLocalBindUnlink()
 	case token.TCP_KEEP_ALIVE:
+		return p.parseTcpKeepAlive()
 	case token.TUNNEL:
+		return p.parseTunnel()
 	case token.TUNNEL_DEVICE:
+		return p.parseTunnelDevice()
 	case token.UPDATE_HOST_KEYS:
+		return p.parseUpdateHostKeys()
 	case token.VERIFY_HOST_KEY_DNS:
+		return p.parseVerifyHostKeyDNS()
 	case token.VISUAL_HOST_KEY:
+		return p.parseVisualHostKey()
 	case token.XAUTH_LOCATION:
 		return p.parseHostStatement()
 	//case token.MATCH:
@@ -210,7 +270,7 @@ func (p *Parser) Errors() []string {
 }
 
 func (p *Parser) parseControlPath() ast.Statement {
-	stmt := &ast.IdentityFileStatement{Token: p.curToken}
+	stmt := &ast.IdentityFile{Token: p.curToken}
 
 	p.nextToken()
 
@@ -220,6 +280,7 @@ func (p *Parser) parseControlPath() ast.Statement {
 
 	return stmt
 }
+
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {
 //	match := &ast.MatchStatement{Token: p.curToken}

@@ -128,9 +128,9 @@ func TestHostBlockStatement(t *testing.T) {
 		t.Fatalf("program does not contain %d block statements. got=%d\n", 7, len(stmt.Statement.Statements))
 	}
 
-	hostnameStmt, ok := blockStmt.Statements[0].(*ast.HostNameStatement)
+	hostnameStmt, ok := blockStmt.Statements[0].(*ast.HostName)
 	if !ok {
-		t.Fatalf("blockStatement.statment[0] is not HostNameStatement. got=%T", hostnameStmt)
+		t.Fatalf("blockStatement.statment[0] is not HostName. got=%T", hostnameStmt)
 	}
 }
 
