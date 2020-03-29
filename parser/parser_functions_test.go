@@ -13,7 +13,7 @@ func TestParser_parseStatement(t *testing.T) {
 
 	tests := []struct {
 		input string
-		want ast.Statement
+		want  ast.Statement
 	}{
 		{
 			input: "HostName host1.example.com",
@@ -37,7 +37,7 @@ func TestParser_parseStatement(t *testing.T) {
 		},
 		{
 			input: "User user1",
-			want:  &ast.User{
+			want: &ast.User{
 				Token: token.Token{
 					Type:    token.USER,
 					Literal: "User",
@@ -57,7 +57,7 @@ func TestParser_parseStatement(t *testing.T) {
 		},
 		{
 			input: "UseKeyChain yes",
-			want:  &ast.UseKeyChain{
+			want: &ast.UseKeyChain{
 				Token: token.Token{
 					Type:    token.USE_KEY_CHAIN,
 					Literal: "UseKeyChain",
@@ -77,7 +77,7 @@ func TestParser_parseStatement(t *testing.T) {
 		},
 		{
 			input: "LocalForward 8443 127.0.0.1:443",
-			want:  &ast.LocalForward{
+			want: &ast.LocalForward{
 				Token: token.Token{
 					Type:    token.LOCAL_FORWARD,
 					Literal: "LocalForward",
@@ -87,12 +87,182 @@ func TestParser_parseStatement(t *testing.T) {
 		},
 		{
 			input: "ControlMaster yes",
-			want:  &ast.ControlMaster{
+			want: &ast.ControlMaster{
 				Token: token.Token{
 					Type:    token.CONTROL_MASTER,
 					Literal: "ControlMaster",
 				},
 				Value: "yes",
+			},
+		},
+		{
+			input: "ControlPersist no",
+			want: &ast.ControlPersist{
+				Token: token.Token{
+					Type:    token.CONTROL_PERSIST,
+					Literal: "ControlPersist",
+				},
+				Value: "no",
+			},
+		},
+		{
+			input: "DynamicForward localhost:3333",
+			want: &ast.DynamicForward{
+				Token: token.Token{
+					Type:    token.DYNAMIC_FORWARD,
+					Literal: "DynamicForward",
+				},
+				Value: "localhost:3333",
+			},
+		},
+		{
+			input: "EscapeChar ~",
+			want: &ast.EscapeChar{
+				Token: token.Token{
+					Type:    token.ESCAPE_CHAR,
+					Literal: "EscapeChar",
+				},
+				Value: "~",
+			},
+		},
+		{
+			input: "ExitOnForwardFailure yes",
+			want: &ast.ExitOnForwardFailure{
+				Token: token.Token{
+					Type:    token.EXIT_ON_FORWARD_FAILURE,
+					Literal: "ExitOnForwardFailure",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "FingerprintHash sha256",
+			want: &ast.FingerprintHash{
+				Token: token.Token{
+					Type:    token.FINGERPRINT_HASH,
+					Literal: "FingerprintHash",
+				},
+				Value: "sha256",
+			},
+		},
+		{
+			input: "ForwardAgent yes",
+			want: &ast.ForwardAgent{
+				Token: token.Token{
+					Type:    token.FORWARD_AGENT,
+					Literal: "ForwardAgent",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "ForwardX11Timeout 0",
+			want: &ast.ForwardX11Timeout{
+				Token: token.Token{
+					Type:    token.FORWARD_X11_TIMEOUT,
+					Literal: "ForwardX11Timeout",
+				},
+				Value: "0",
+			},
+		},
+		{
+			input: "ForwardX11Trusted yes",
+			want: &ast.ForwardX11Trusted{
+				Token: token.Token{
+					Type:    token.FORWARD_X11_TRUSTED,
+					Literal: "ForwardX11Trusted",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "GatewayPorts yes",
+			want: &ast.GatewayPorts{
+				Token: token.Token{
+					Type:    token.GATEWAY_PORTS,
+					Literal: "GatewayPorts",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "GlobalKnownHostsFile /etc/ssh/ssh_known_hosts, /etc/ssh/ssh_known_hosts2, /etc/ssh/ssh_known_hosts3",
+			want: &ast.GlobalKnownHostsFile{
+				Token: token.Token{
+					Type:    token.GLOBAL_KNOWN_HOSTS_FILE,
+					Literal: "GlobalKnownHostsFile",
+				},
+				Value: "/etc/ssh/ssh_known_hosts, /etc/ssh/ssh_known_hosts2, /etc/ssh/ssh_known_hosts3",
+			},
+		},
+		{
+			input: "GSSAPIAuthentication yes",
+			want: &ast.GSSApiAuthentication{
+				Token: token.Token{
+					Type:    token.GSSAPI_AUTHENTICATION,
+					Literal: "GSSAPIAuthentication",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "GSSAPIDeleteCredentials yes",
+			want: &ast.GSSApiDelegateCredentials{
+				Token: token.Token{
+					Type:    token.GSSAPI_DELEGATE_CREDENTIALS,
+					Literal: "GSSAPIDeleteCredentials",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "HashKnownHosts yes",
+			want: &ast.HashKnownHosts{
+				Token: token.Token{
+					Type:    token.HASH_KNOWN_HOSTS,
+					Literal: "HashKnownHosts",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "HostbasedAuthentication yes",
+			want: &ast.HostBasedAuthentication{
+				Token: token.Token{
+					Type:    token.HOSTBASED_AUTHENTICATION,
+					Literal: "HostbasedAuthentication",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input:"HostbasedKeyTypes ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
+			want: &ast.HostBasedKeyTypes{
+				Token: token.Token{
+					Type:    token.HOSTBASED_KEY_TYPES,
+					Literal: "HostbasedKeyTypes",
+				},
+				Value: "ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
+			},
+		},
+		{
+			input: "HostKeyAlgorithms ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
+			want: &ast.HostKeyAlgorithms{
+				Token: token.Token{
+					Type:    token.HOSTBASED_KEY_ALGORITHMS,
+					Literal: "HostKeyAlgorithms",
+				},
+				Value: "ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
+			},
+		},
+		{
+			input: "HostKeyAlias server1",
+			want: &ast.HostKeyAlias{
+				Token: token.Token{
+					Type:    token.HOST_KEY_ALIAS,
+					Literal: "HostKeyAlias",
+				},
+				Value: "server1",
 			},
 		},
 	}

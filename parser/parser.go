@@ -152,7 +152,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.HOSTBASED_KEY_TYPES:
 		return p.parseHostBasedKeyTypes()
 	case token.HOSTBASED_KEY_ALGORITHMS:
-		return p.parseHostBasedKeyAlgorithms()
+		return p.parseHostKeyAlgorithms()
 	case token.HOST_KEY_ALIAS:
 		return p.parseHostKeyAlias()
 	case token.IDENTITIES_ONLY:

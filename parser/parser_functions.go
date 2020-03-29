@@ -110,7 +110,7 @@ func (p *Parser) parseControlMaster() ast.Statement {
 }
 
 func (p *Parser) parseControlPersist() ast.Statement {
-	stmt := &ast.ControlPersistStatement{Token: p.curToken}
+	stmt := &ast.ControlPersist{Token: p.curToken}
 
 	p.nextToken()
 
@@ -198,7 +198,7 @@ func (p *Parser) parseProxyCommand() ast.Statement {
 }
 
 func (p *Parser) parseForwardAgent() ast.Statement {
-	stmt := &ast.ForwardAgentStatement{Token: p.curToken}
+	stmt := &ast.ForwardAgent{Token: p.curToken}
 
 	p.nextToken()
 
@@ -480,6 +480,11 @@ func (p *Parser) parseGlobalKnownHostsFile() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
+	}
+
 	return stmt
 }
 
@@ -497,7 +502,7 @@ func (p *Parser) parseGSSApiAuthentication() ast.Statement {
 }
 
 func (p *Parser) parseGSSApiDelegateCredentials() ast.Statement {
-	stmt := &ast.GSSApiDeleteCredentials{Token: p.curToken}
+	stmt := &ast.GSSApiDelegateCredentials{Token: p.curToken}
 
 	p.nextToken()
 
@@ -544,16 +549,26 @@ func (p *Parser) parseHostBasedKeyTypes() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
+	}
+
 	return stmt
 }
 
-func (p *Parser) parseHostBasedKeyAlgorithms() ast.Statement {
-	stmt := &ast.HostBasedKeyAlgorithms{Token: p.curToken}
+func (p *Parser) parseHostKeyAlgorithms() ast.Statement {
+	stmt := &ast.HostKeyAlgorithms{Token: p.curToken}
 
 	p.nextToken()
 
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
+	}
+
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
 
 	return stmt

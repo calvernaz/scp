@@ -17,14 +17,14 @@ var (
 	_ Statement = (*AddKeysToAgent)(nil)
 	_ Statement = (*LocalForward)(nil)
 	_ Statement = (*ControlMaster)(nil)
-	_ Statement = (*ControlPersistStatement)(nil)
+	_ Statement = (*ControlPersist)(nil)
 	_ Statement = (*ServerAliveOptionStatement)(nil)
 	_ Statement = (*CompressionStatement)(nil)
 	_ Statement = (*CompressionLevelStatement)(nil)
 	_ Statement = (*UserKnownHostsFileStatement)(nil)
 	_ Statement = (*StrictHostKeyCheckingStatement)(nil)
 	_ Statement = (*ProxyCommandStatement)(nil)
-	_ Statement = (*ForwardAgentStatement)(nil)
+	_ Statement = (*ForwardAgent)(nil)
 	_ Statement = (*LogLevelStatement)(nil)
 	_ Statement = (*CanonicalizeFallbackLocal)(nil)
 	_ Statement = (*CanonicalizeHostname)(nil)
@@ -48,11 +48,11 @@ var (
 	_ Statement = (*GatewayPorts)(nil)
 	_ Statement = (*GlobalKnownHostsFile)(nil)
 	_ Statement = (*GSSApiAuthentication)(nil)
-	_ Statement = (*GSSApiDeleteCredentials)(nil)
+	_ Statement = (*GSSApiDelegateCredentials)(nil)
 	_ Statement = (*HashKnownHosts)(nil)
 	_ Statement = (*HostBasedAuthentication)(nil)
 	_ Statement = (*HostBasedKeyTypes)(nil)
-	_ Statement = (*HostBasedKeyAlgorithms)(nil)
+	_ Statement = (*HostKeyAlgorithms)(nil)
 	_ Statement = (*HostKeyAlias)(nil)
 	_ Statement = (*IdentitiesOnly)(nil)
 	_ Statement = (*IdentityAgent)(nil)
@@ -282,16 +282,16 @@ func (c ControlMaster) String() string {
 	return out.String()
 }
 
-type ControlPersistStatement struct {
+type ControlPersist struct {
 	Token token.Token
 	Value string
 }
 
-func (c ControlPersistStatement) TokenLiteral() string {
+func (c ControlPersist) TokenLiteral() string {
 	return c.Token.Literal
 }
 
-func (c ControlPersistStatement) String() string {
+func (c ControlPersist) String() string {
 	var out bytes.Buffer
 	out.WriteString(c.Value)
 	return out.String()
@@ -387,16 +387,16 @@ func (p ProxyCommandStatement) String() string {
 	return out.String()
 }
 
-type ForwardAgentStatement struct {
+type ForwardAgent struct {
 	Token token.Token
 	Value string
 }
 
-func (f ForwardAgentStatement) TokenLiteral() string {
+func (f ForwardAgent) TokenLiteral() string {
 	return f.Token.Literal
 }
 
-func (f ForwardAgentStatement) String() string {
+func (f ForwardAgent) String() string {
 	var out bytes.Buffer
 	out.WriteString(f.Value)
 	return out.String()
@@ -689,11 +689,13 @@ type GlobalKnownHostsFile struct {
 }
 
 func (g GlobalKnownHostsFile) TokenLiteral() string {
-	panic("implement me")
+	return g.Token.Literal
 }
 
 func (g GlobalKnownHostsFile) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(g.Value)
+	return out.String()
 }
 
 type GSSApiAuthentication struct {
@@ -710,16 +712,16 @@ func (g GSSApiAuthentication) String() string {
 }
 
 
-type GSSApiDeleteCredentials struct {
+type GSSApiDelegateCredentials struct {
 	Token token.Token
 	Value string
 }
 
-func (g GSSApiDeleteCredentials) TokenLiteral() string {
+func (g GSSApiDelegateCredentials) TokenLiteral() string {
 	panic("implement me")
 }
 
-func (g GSSApiDeleteCredentials) String() string {
+func (g GSSApiDelegateCredentials) String() string {
 	panic("implement me")
 }
 
@@ -755,24 +757,28 @@ type HostBasedKeyTypes struct {
 }
 
 func (h HostBasedKeyTypes) TokenLiteral() string {
-	panic("implement me")
+	return h.Token.Literal
 }
 
 func (h HostBasedKeyTypes) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(h.Value)
+	return out.String()
 }
 
-type HostBasedKeyAlgorithms struct {
+type HostKeyAlgorithms struct {
 	Token token.Token
 	Value string
 }
 
-func (h HostBasedKeyAlgorithms) TokenLiteral() string {
-	panic("implement me")
+func (h HostKeyAlgorithms) TokenLiteral() string {
+	return h.Token.Literal
 }
 
-func (h HostBasedKeyAlgorithms) String() string {
-	panic("implement me")
+func (h HostKeyAlgorithms) String() string {
+	var out bytes.Buffer
+	out.WriteString(h.Value)
+	return out.String()
 }
 
 type HostKeyAlias struct {

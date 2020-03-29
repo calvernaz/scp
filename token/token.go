@@ -48,7 +48,7 @@ const (
 	GATEWAY_PORTS                        = "GatewayPorts"
 	GLOBAL_KNOWN_HOSTS_FILE              = "GlobalKnownHostsFile"
 	GSSAPI_AUTHENTICATION                = "GSSAPIAuthentication"
-	GSSAPI_DELEGATE_CREDENTIALS          = "GSSAPIDeleteCredentials"
+	GSSAPI_DELEGATE_CREDENTIALS          = "GSSAPIDelegateCredentials"
 	HASH_KNOWN_HOSTS                     = "HashKnownHosts"
 	HOST                                 = "Host"
 	HOSTBASED_AUTHENTICATION             = "HostbasedAuthentication"
