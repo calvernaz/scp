@@ -813,11 +813,13 @@ type IdentityAgent struct {
 }
 
 func (i IdentityAgent) TokenLiteral() string {
-	panic("implement me")
+	return i.Token.Literal
 }
 
 func (i IdentityAgent) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(i.Value)
+	return out.String()
 }
 
 type IPQoS struct {
@@ -826,11 +828,13 @@ type IPQoS struct {
 }
 
 func (i IPQoS) TokenLiteral() string {
-	panic("implement me")
+	return i.Token.Literal
 }
 
 func (i IPQoS) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(i.Value)
+	return out.String()
 }
 
 type KbdInteractiveAuthentication struct {
@@ -853,11 +857,13 @@ type KbdInteractiveDevices struct {
 }
 
 func (k KbdInteractiveDevices) TokenLiteral() string {
-	panic("implement me")
+	return k.Token.Literal
 }
 
 func (k KbdInteractiveDevices) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(k.Value)
+	return out.String()
 }
 
 type KeyAlgorithms struct {
@@ -879,11 +885,13 @@ type LocalCommand struct {
 }
 
 func (l LocalCommand) TokenLiteral() string {
-	panic("implement me")
+	return l.Token.Literal
 }
 
 func (l LocalCommand) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(l.Value)
+	return out.String()
 }
 
 type Macs struct {

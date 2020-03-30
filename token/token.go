@@ -62,7 +62,7 @@ const (
 	IP_QOS                               = "IPQoS"
 	KBD_INTERACTIVE_AUTHENTICATION       = "KbdInteractiveAuthentication"
 	KBD_INTERACTIVE_DEVICES              = "KbdInteractiveDevices"
-	KEX_ALGORITHMS                       = "KexAlgorithms"
+	HOST_KEY_ALGORITHMS                  = "HostKeyAlgorithms"
 	LOCAL_COMMAND                        = "LocalCommand"
 	LOCAL_FORWARD                        = "LocalForward"
 	LOG_LEVEL                            = "LogLevel"
@@ -141,7 +141,6 @@ var keywords = map[string]TokenType{
 	"host":                             HOST,
 	"hostbasedauthentication":          HOSTBASED_AUTHENTICATION,
 	"hostbasedkeytypes":                HOSTBASED_KEY_TYPES,
-	"hostkeyalgorithms":                HOSTBASED_KEY_ALGORITHMS,
 	"hostkeyalias":                     HOST_KEY_ALIAS,
 	"hostname":                         HOSTNAME,
 	"identitiesonly":                   IDENTITIES_ONLY,
@@ -150,7 +149,7 @@ var keywords = map[string]TokenType{
 	"ipqos":                            IP_QOS,
 	"kbdinteractiveauthentication":     KBD_INTERACTIVE_AUTHENTICATION,
 	"kbdinteractivedevices":            KBD_INTERACTIVE_DEVICES,
-	"keyalgorithms":                    KEX_ALGORITHMS,
+	"hostkeyalgorithms":                HOST_KEY_ALGORITHMS,
 	"localcommand":                     LOCAL_COMMAND,
 	"localforward":                     LOCAL_FORWARD,
 	"loglevel":                         LOG_LEVEL,

@@ -265,6 +265,87 @@ func TestParser_parseStatement(t *testing.T) {
 				Value: "server1",
 			},
 		},
+		{
+			input: "IdentitiesOnly yes",
+			want: &ast.IdentitiesOnly{
+				Token: token.Token{
+					Type:    token.IDENTITIES_ONLY,
+					Literal: "IdentitiesOnly",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "IdentityAgent ~/.dir/agent.sock",
+			want: &ast.IdentityAgent{
+				Token: token.Token{
+					Type:    token.IDENTITY_AGENT,
+					Literal: "IdentityAgent",
+				},
+				Value: "~/.dir/agent.sock",
+			},
+		},
+		{
+			input: "IdentityFile ~/.ssh/id_ecdsa",
+			want: &ast.IdentityFile{
+				Token: token.Token{
+					Type:    token.IDENTITY_FILE,
+					Literal: "IdentityFile",
+				},
+				Value: "~/.ssh/id_ecdsa",
+			},
+		},
+		{
+			input: "IPQoS af31",
+			want: &ast.IPQoS{
+				Token: token.Token{
+					Type:    token.IP_QOS,
+					Literal: "IPQoS",
+				},
+				Value: "af31",
+			},
+		},
+		{
+			input: "KbdInteractiveAuthentication no",
+			want: &ast.KbdInteractiveAuthentication{
+				Token: token.Token{
+					Type:    token.KBD_INTERACTIVE_AUTHENTICATION,
+					Literal: "KbdInteractiveAuthentication",
+				},
+				Value: "no",
+			},
+		},
+		{
+			input: "KbdInteractiveDevices pam, skey, bsdauth",
+			want: &ast.KbdInteractiveDevices{
+				Token: token.Token{
+					Type:    token.KBD_INTERACTIVE_DEVICES,
+					Literal: "KbdInteractiveDevices",
+				},
+				Value: "pam, skey, bsdauth",
+			},
+		},
+		{
+			input: "LocalCommand rsync -e ssh %d/testfile %r@%n:testfile",
+			want: &ast.LocalCommand{
+				Token: token.Token{
+					Type:    token.LOCAL_COMMAND,
+					Literal: "LocalCommand",
+				},
+				Value: "rsync -e ssh %d/testfile %r@%n:testfile",
+			},
+		},
+		{
+			input: "LogLevel DEBUG",
+			want: &ast.LogLevelStatement{
+				Token: token.Token{
+					Type:    token.LOG_LEVEL,
+					Literal: "LogLevel",
+				},
+				Value: "DEBUG",
+			},
+		},
+
 	}
 
 	for _, tt := range tests {

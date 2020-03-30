@@ -165,8 +165,6 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseKbdInteractiveAuthentication()
 	case token.KBD_INTERACTIVE_DEVICES:
 		return p.parseKbdInteractiveDevices()
-	case token.KEX_ALGORITHMS:
-		return p.parseKeyAlgorithms()
 	case token.LOCAL_COMMAND:
 		return p.parseLocalCommand()
 	case token.MACS:

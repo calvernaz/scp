@@ -648,6 +648,11 @@ func (p *Parser) parseKbdInteractiveDevices() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
+	}
+
 	return stmt
 }
 
@@ -674,6 +679,9 @@ func (p *Parser) parseLocalCommand() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.IDENT) {
+		stmt.Value = stmt.Value + " " + p.curToken.Literal
+	}
 	return stmt
 }
 
