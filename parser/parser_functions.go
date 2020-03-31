@@ -194,6 +194,9 @@ func (p *Parser) parseProxyCommand() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.IDENT) {
+		stmt.Value = stmt.Value + " " + p.curToken.Literal
+	}
 	return stmt
 }
 
@@ -695,6 +698,11 @@ func (p *Parser) parseMacs() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
+	}
+
 	return stmt
 }
 
@@ -769,6 +777,11 @@ func (p *Parser) parsePreferredAuthentications() ast.Statement {
 
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
+	}
+
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
 
 	return stmt

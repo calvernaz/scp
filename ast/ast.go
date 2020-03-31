@@ -900,11 +900,13 @@ type Macs struct {
 }
 
 func (m Macs) TokenLiteral() string {
-	panic("implement me")
+	return m.Token.Literal
 }
 
 func (m Macs) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(m.Value)
+	return out.String()
 }
 
 

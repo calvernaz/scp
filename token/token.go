@@ -72,7 +72,7 @@ const (
 	NUMBER_OF_PASSWORD_PROMPTS           = "NumberOfPasswordPrompts"
 	PASSWORD_AUTHENTICATION              = "PasswordAuthentication"
 	PERMIT_LOCAL_COMMAND                 = "PermitLocalCommand"
-	PCKS11_PROVIDER                      = "PKCS11Provider"
+	PKCS11_PROVIDER                      = "PKCS11Provider"
 	PORT                                 = "Port"
 	PREFERRED_AUTHENTICATIONS            = "PreferredAuthentications"
 	PROXY_COMMAND                        = "ProxyCommand"
@@ -158,7 +158,7 @@ var keywords = map[string]TokenType{
 	"numberofpasswordprompts":          NUMBER_OF_PASSWORD_PROMPTS,
 	"passwordauthentication":           PASSWORD_AUTHENTICATION,
 	"permitlocalcommand":               PERMIT_LOCAL_COMMAND,
-	"pkcs11provider":                   PCKS11_PROVIDER,
+	"pkcs11provider":                   PKCS11_PROVIDER,
 	"port":                             PORT,
 	"preferredauthentications":         PREFERRED_AUTHENTICATIONS,
 	"proxycommand":                     PROXY_COMMAND,

@@ -177,7 +177,7 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parsePasswordAuthentication()
 	case token.PERMIT_LOCAL_COMMAND:
 		return p.parsePermitLocalCommand()
-	case token.PCKS11_PROVIDER:
+	case token.PKCS11_PROVIDER:
 		return p.parsePCKS11Provider()
 	case token.PREFERRED_AUTHENTICATIONS:
 		return p.parsePreferredAuthentications()

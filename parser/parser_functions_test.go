@@ -345,7 +345,106 @@ func TestParser_parseStatement(t *testing.T) {
 				Value: "DEBUG",
 			},
 		},
-
+		{
+			input: "MACs hmac-sha2-256, hmac-sha2-512, hmac-sha1",
+			want: &ast.Macs{
+				Token: token.Token{
+					Type:    token.MACS,
+					Literal: "MACs",
+				},
+				Value: "hmac-sha2-256, hmac-sha2-512, hmac-sha1",
+			},
+		},
+		{
+			input: "NoHostAuthenticationForLocalhost yes",
+			want: &ast.NoHostAuthentication{
+				Token: token.Token{
+					Type:    token.NO_HOST_AUTHENTICATION_FOR_LOCALHOST,
+					Literal: "NoHostAuthenticationForLocalhost",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "NumberOfPasswordPrompts 1",
+			want: &ast.NumberOfPasswordPrompts{
+				Token: token.Token{
+					Type:    token.NUMBER_OF_PASSWORD_PROMPTS,
+					Literal: "NumberOfPasswordPrompts",
+				},
+				Value: "1",
+			},
+		},
+		{
+			input: "PasswordAuthentication no",
+			want: &ast.PasswordAuthentication{
+				Token: token.Token{
+					Type:    token.PASSWORD_AUTHENTICATION,
+					Literal: "PasswordAuthentication",
+				},
+				Value: "no",
+			},
+		},
+		{
+			input: "PermitLocalCommand yes",
+			want: &ast.PermitLocalCommand{
+				Token: token.Token{
+					Type:    token.PERMIT_LOCAL_COMMAND,
+					Literal: "PermitLocalCommand",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "PKCS11Provider /usr/lib/i386-linux-gnu/opensc-pkcs11.so",
+			want: &ast.PCKS11Provider{
+				Token: token.Token{
+					Type:    token.PKCS11_PROVIDER,
+					Literal: "PKCS11Provider",
+				},
+				Value: "/usr/lib/i386-linux-gnu/opensc-pkcs11.so",
+			},
+		},
+		{
+			input: "PreferredAuthentications password, keyboard-interactive",
+			want: &ast.PreferredAuthentications{
+				Token: token.Token{
+					Type:    token.PREFERRED_AUTHENTICATIONS,
+					Literal: "PreferredAuthentications",
+				},
+				Value: "password, keyboard-interactive",
+			},
+		},
+		{
+			input: "ProxyCommand ssh -l jerry %h nc server2.nixcraft.com 22",
+			want: &ast.ProxyCommandStatement{
+				Token: token.Token{
+					Type:    token.PROXY_COMMAND,
+					Literal: "ProxyCommand",
+				},
+				Value: "ssh -l jerry %h nc server2.nixcraft.com 22",
+			},
+		},
+		{
+			input: "ProxyJump bastion-host-nickname",
+			want: &ast.ProxyJump{
+				Token: token.Token{
+					Type:    token.PROXY_JUMP,
+					Literal: "ProxyJump",
+				},
+				Value: "bastion-host-nickname",
+			},
+		},
+		{
+			input: "ProxyUseFdpass yes",
+			want: &ast.ProxyUserFDPass{
+				Token: token.Token{
+					Type:    token.PROXY_USE_FDPASS,
+					Literal: "ProxyUseFdpass",
+				},
+				Value: "yes",
+			},
+		},
 	}
 
 	for _, tt := range tests {
