@@ -860,6 +860,9 @@ func (p *Parser) parseRemoteCommand() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.IDENT) {
+		stmt.Value = stmt.Value + " " + p.curToken.Literal
+	}
 	return stmt
 }
 
@@ -873,6 +876,9 @@ func (p *Parser) parseRemoteForward() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.IDENT) {
+		stmt.Value = stmt.Value + " " + p.curToken.Literal
+	}
 	return stmt
 }
 
@@ -899,6 +905,9 @@ func (p *Parser) parseSendEnv() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.IDENT) {
+		stmt.Value = stmt.Value + " " + p.curToken.Literal
+	}
 	return stmt
 }
 

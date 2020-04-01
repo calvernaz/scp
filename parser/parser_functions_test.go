@@ -236,7 +236,7 @@ func TestParser_parseStatement(t *testing.T) {
 			},
 		},
 		{
-			input:"HostbasedKeyTypes ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
+			input: "HostbasedKeyTypes ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
 			want: &ast.HostBasedKeyTypes{
 				Token: token.Token{
 					Type:    token.HOSTBASED_KEY_TYPES,
@@ -443,6 +443,76 @@ func TestParser_parseStatement(t *testing.T) {
 					Literal: "ProxyUseFdpass",
 				},
 				Value: "yes",
+			},
+		},
+		{
+			input: "PubkeyAcceptedKeyTypes +ssh-dss",
+			want: &ast.PubkeyAcceptedKeyTypes{
+				Token: token.Token{
+					Type:    token.PUBKEY_ACCEPTED_KEY_TYPES,
+					Literal: "PubkeyAcceptedKeyTypes",
+				},
+				Value: "+ssh-dss",
+			},
+		},
+		{
+			input: "PubkeyAuthentication yes",
+			want: &ast.PubkeyAuthentication{
+				Token: token.Token{
+					Type:    token.PUBKEY_AUTHENTICATION,
+					Literal: "PubkeyAuthentication",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "RekeyLimit 1G",
+			want: &ast.RekeyLimit{
+				Token: token.Token{
+					Type:    token.REKEY_LIMIT,
+					Literal: "RekeyLimit",
+				},
+				Value: "1G",
+			},
+		},
+		{
+			input: "RemoteCommand cd /tmp && bash",
+			want: &ast.RemoteCommand{
+				Token: token.Token{
+					Type:    token.REMOTE_COMMAND,
+					Literal: "RemoteCommand",
+				},
+				Value: "cd /tmp && bash",
+			},
+		},
+		{
+			input: "RemoteForward 55555 localhost:22",
+			want: &ast.RemoteForward{
+				Token: token.Token{
+					Type:    token.REMOTE_FORWARD,
+					Literal: "RemoteForward",
+				},
+				Value: "55555 localhost:22",
+			},
+		},
+		{
+			input: "RequestTTY force",
+			want: &ast.RequestTTY{
+				Token: token.Token{
+					Type:    token.REQUEST_TTY,
+					Literal: "RequestTTY",
+				},
+				Value: "force",
+			},
+		},
+		{
+			input: "SendEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES",
+			want: &ast.SendEnv{
+				Token: token.Token{
+					Type:    token.SEND_ENV,
+					Literal: "SendEnv",
+				},
+				Value: "LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES",
 			},
 		},
 	}

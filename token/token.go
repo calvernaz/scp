@@ -168,7 +168,7 @@ var keywords = map[string]TokenType{
 	"pubkeyauthentication":             PUBKEY_AUTHENTICATION,
 	"rekeylimit":                       REKEY_LIMIT,
 	"remotecommand":                    REMOTE_COMMAND,
-	"remiteforward":                    REMOTE_FORWARD,
+	"remoteforward":                    REMOTE_FORWARD,
 	"requesttty":                       REQUEST_TTY,
 	"sendenv":                          SEND_ENV,
 	"serveraliveinterval":              SERVER_ALIVE_INTERVAL,

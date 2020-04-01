@@ -43,9 +43,9 @@ start:
 			l.skipComments()
 			goto start
 			//if isLetter(l.ch) || isExtraCharacter(l.ch) {
-		//} else if isDigit(l.ch) {
-		//	tok.Type = token.INT
-		//	tok.Literal = l.readNumber()
+			//} else if isDigit(l.ch) {
+			//	tok.Type = token.INT
+			//	tok.Literal = l.readNumber()
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
@@ -107,7 +107,8 @@ func isLetter(ch byte) bool {
 }
 
 func isExtraCharacter(ch byte) bool {
-	return ch == '/' || ch == '_' || ch == '.' || ch == '-' || ch == '~' || ch == '@' || ch == '%' || ch == ':'
+	return ch == '/' || ch == '_' || ch == '.' || ch == '-' || ch ==
+		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&'
 }
 
 func isString(ch byte) bool {
@@ -125,7 +126,6 @@ func (l *Lexer) readNumber() string {
 	}
 	return l.input[position:l.position]
 }
-
 
 func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9' || ch == '.' || ch == ':'

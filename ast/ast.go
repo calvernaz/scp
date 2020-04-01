@@ -1020,11 +1020,13 @@ type PubkeyAcceptedKeyTypes struct {
 }
 
 func (p PubkeyAcceptedKeyTypes) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 func (p PubkeyAcceptedKeyTypes) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 
@@ -1060,11 +1062,13 @@ type RemoteCommand struct {
 }
 
 func (r RemoteCommand) TokenLiteral() string {
-	panic("implement me")
+	return r.Token.Literal
 }
 
 func (r RemoteCommand) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(r.Value)
+	return out.String()
 }
 
 type RemoteForward struct {
@@ -1073,11 +1077,13 @@ type RemoteForward struct {
 }
 
 func (r RemoteForward) TokenLiteral() string {
-	panic("implement me")
+	return r.Token.Literal
 }
 
 func (r RemoteForward) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(r.Value)
+	return out.String()
 }
 
 type RequestTTY struct {
