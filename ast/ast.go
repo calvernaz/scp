@@ -18,11 +18,11 @@ var (
 	_ Statement = (*LocalForward)(nil)
 	_ Statement = (*ControlMaster)(nil)
 	_ Statement = (*ControlPersist)(nil)
-	_ Statement = (*ServerAliveOptionStatement)(nil)
+	_ Statement = (*ServerAliveOption)(nil)
 	_ Statement = (*CompressionStatement)(nil)
 	_ Statement = (*CompressionLevelStatement)(nil)
-	_ Statement = (*UserKnownHostsFileStatement)(nil)
-	_ Statement = (*StrictHostKeyCheckingStatement)(nil)
+	_ Statement = (*UserKnownHostsFile)(nil)
+	_ Statement = (*StrictHostKeyChecking)(nil)
 	_ Statement = (*ProxyCommandStatement)(nil)
 	_ Statement = (*ForwardAgent)(nil)
 	_ Statement = (*LogLevelStatement)(nil)
@@ -86,6 +86,7 @@ var (
 	_ Statement = (*UpdateHostKeys)(nil)
 	_ Statement = (*VerifyHostKeyDNS)(nil)
 	_ Statement = (*VisualHostKey)(nil)
+	_ Statement = (*XAuthLocation)(nil)
 	// _ Statement = (*MatchStatement)(nil)
 )
 
@@ -297,16 +298,16 @@ func (c ControlPersist) String() string {
 	return out.String()
 }
 
-type ServerAliveOptionStatement struct {
+type ServerAliveOption struct {
 	Token token.Token
 	Value string
 }
 
-func (s ServerAliveOptionStatement) TokenLiteral() string {
+func (s ServerAliveOption) TokenLiteral() string {
 	return s.Token.Literal
 }
 
-func (s ServerAliveOptionStatement) String() string {
+func (s ServerAliveOption) String() string {
 	var out bytes.Buffer
 	out.WriteString(s.Value)
 	return out.String()
@@ -342,31 +343,31 @@ func (c CompressionLevelStatement) String() string {
 	return out.String()
 }
 
-type UserKnownHostsFileStatement struct {
+type UserKnownHostsFile struct {
 	Token token.Token
 	Value string
 }
 
-func (u UserKnownHostsFileStatement) TokenLiteral() string {
+func (u UserKnownHostsFile) TokenLiteral() string {
 	return u.Token.Literal
 }
 
-func (u UserKnownHostsFileStatement) String() string {
+func (u UserKnownHostsFile) String() string {
 	var out bytes.Buffer
 	out.WriteString(u.Value)
 	return out.String()
 }
 
-type StrictHostKeyCheckingStatement struct {
+type StrictHostKeyChecking struct {
 	Token token.Token
 	Value string
 }
 
-func (s StrictHostKeyCheckingStatement) TokenLiteral() string {
+func (s StrictHostKeyChecking) TokenLiteral() string {
 	return s.Token.Literal
 }
 
-func (s StrictHostKeyCheckingStatement) String() string {
+func (s StrictHostKeyChecking) String() string {
 	var out bytes.Buffer
 	out.WriteString(s.Value)
 	return out.String()
@@ -1118,11 +1119,13 @@ type SetEnv struct {
 }
 
 func (s SetEnv) TokenLiteral() string {
-	panic("implement me")
+	return s.Token.Literal
 }
 
 func (s SetEnv) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(s.Value)
+	return out.String()
 }
 
 type StreamLocalBindMask struct {
@@ -1227,6 +1230,21 @@ func (v *VisualHostKey) TokenLiteral() string {
 
 func (v *VisualHostKey) String() string {
 	panic("implement me")
+}
+
+type XAuthLocation struct {
+	Token token.Token
+	Value string
+}
+
+func (x *XAuthLocation) TokenLiteral() string {
+	return x.Token.Literal
+}
+
+func (x *XAuthLocation) String() string {
+	var out bytes.Buffer
+	out.WriteString(x.Value)
+	return out.String()
 }
 
 // MatchStatement statement

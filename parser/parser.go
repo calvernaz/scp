@@ -218,7 +218,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.VISUAL_HOST_KEY:
 		return p.parseVisualHostKey()
 	case token.XAUTH_LOCATION:
-		return p.parseHostStatement()
+		return p.parseXAuthLocation()
 	//case token.MATCH:
 	//	return p.parseMatchStatement()
 	default:
@@ -278,6 +278,7 @@ func (p *Parser) parseControlPath() ast.Statement {
 
 	return stmt
 }
+
 
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {

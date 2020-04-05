@@ -124,7 +124,7 @@ func (p *Parser) parseControlPersist() ast.Statement {
 }
 
 func (p *Parser) parseServerAlive() ast.Statement {
-	stmt := &ast.ServerAliveOptionStatement{Token: p.curToken}
+	stmt := &ast.ServerAliveOption{Token: p.curToken}
 
 	p.nextToken()
 
@@ -162,7 +162,7 @@ func (p *Parser) parseCompressionLevel() ast.Statement {
 }
 
 func (p *Parser) parseUserKnownHostsFile() ast.Statement {
-	stmt := &ast.UserKnownHostsFileStatement{Token: p.curToken}
+	stmt := &ast.UserKnownHostsFile{Token: p.curToken}
 
 	p.nextToken()
 
@@ -170,16 +170,26 @@ func (p *Parser) parseUserKnownHostsFile() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
+	}
+
 	return stmt
 }
 
 func (p *Parser) parseStrictHostKeyChecking() ast.Statement {
-	stmt := &ast.StrictHostKeyCheckingStatement{Token: p.curToken}
+	stmt := &ast.StrictHostKeyChecking{Token: p.curToken}
 
 	p.nextToken()
 
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
+	}
+
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
 
 	return stmt
@@ -1017,6 +1027,19 @@ func (p *Parser) parseVerifyHostKeyDNS() ast.Statement {
 
 func (p *Parser) parseVisualHostKey() ast.Statement {
 	stmt := &ast.VisualHostKey{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}
+
+
+func (p *Parser) parseXAuthLocation() ast.Statement {
+	stmt := &ast.XAuthLocation{Token: p.curToken}
 
 	p.nextToken()
 

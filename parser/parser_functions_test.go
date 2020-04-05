@@ -515,6 +515,146 @@ func TestParser_parseStatement(t *testing.T) {
 				Value: "LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES",
 			},
 		},
+		{
+			input: "ServerAliveInterval 10",
+			want: &ast.ServerAliveOption{
+				Token: token.Token{
+					Type:    token.SERVER_ALIVE_INTERVAL,
+					Literal: "ServerAliveInterval",
+				},
+				Value: "10",
+			},
+		},
+		{
+			input: "ServerAliveCountMax 3",
+			want: &ast.ServerAliveOption{
+				Token: token.Token{
+					Type:    token.SERVER_ALIVE_COUNT_MAX,
+					Literal: "ServerAliveCountMax",
+				},
+				Value: "3",
+			},
+		},
+		{
+			input: "SetEnv FOO=bar",
+			want: &ast.SetEnv{
+				Token: token.Token{
+					Type:    token.SET_ENV,
+					Literal: "SetEnv",
+				},
+				Value: "FOO=bar",
+			},
+		},
+		{
+			input: "StreamLocalBindMask 0177",
+			want: &ast.StreamLocalBindMask{
+				Token: token.Token{
+					Type:    token.STREAM_LOCAL_BIND_MASK,
+					Literal: "StreamLocalBindMask",
+				},
+				Value: "0177",
+			},
+		},
+		{
+			input: "StreamLocalBindUnlink yes",
+			want: &ast.StreamLocalBindUnlink{
+				Token: token.Token{
+					Type:    token.STREAM_LOCAL_BIND_UNLINK,
+					Literal: "StreamLocalBindUnlink",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "StrictHostKeyChecking chacha20-poly1305@openssh.com, aes128-ctr, aes192-ctr, aes256-ctr",
+			want: &ast.StrictHostKeyChecking{
+				Token: token.Token{
+					Type:    token.STRICT_HOST_KEY_CHECKING,
+					Literal: "StrictHostKeyChecking",
+				},
+				Value: "chacha20-poly1305@openssh.com, aes128-ctr, aes192-ctr, aes256-ctr",
+			},
+		},
+		{
+			input: "TCPKeepAlive no",
+			want: &ast.TcpKeepAlive{
+				Token: token.Token{
+					Type:    token.TCP_KEEP_ALIVE,
+					Literal: "TCPKeepAlive",
+				},
+				Value: "no",
+			},
+		},
+		{
+			input: "Tunnel point-to-point",
+			want: &ast.Tunnel{
+				Token: token.Token{
+					Type:    token.TUNNEL,
+					Literal: "Tunnel",
+				},
+				Value: "point-to-point",
+			},
+		},
+		{
+			input: "TunnelDevice any",
+			want: &ast.TunnelDevice{
+				Token: token.Token{
+					Type:    token.TUNNEL_DEVICE,
+					Literal: "TunnelDevice",
+				},
+				Value: "any",
+			},
+		},
+		{
+			input: "UpdateHostKeys ask",
+			want: &ast.UpdateHostKeys{
+				Token: token.Token{
+					Type:    token.UPDATE_HOST_KEYS,
+					Literal: "UpdateHostKeys",
+				},
+				Value: "ask",
+			},
+		},
+		{
+			input: "UserKnownHostsFile ~/.ssh/known_hosts, ~/.ssh/known_hosts2",
+			want: &ast.UserKnownHostsFile{
+				Token: token.Token{
+					Type:    token.USER_KNOWN_HOSTS_FILE,
+					Literal: "UserKnownHostsFile",
+				},
+				Value: "~/.ssh/known_hosts, ~/.ssh/known_hosts2",
+			},
+		},
+		{
+			input: "VerifyHostKeyDNS yes",
+			want: &ast.VerifyHostKeyDNS{
+				Token: token.Token{
+					Type:    token.VERIFY_HOST_KEY_DNS,
+					Literal: "VerifyHostKeyDNS",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "VisualHostKey yes",
+			want: &ast.VisualHostKey{
+				Token: token.Token{
+					Type:    token.VISUAL_HOST_KEY,
+					Literal: "VisualHostKey",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "XAuthLocation /usr/X11R6/bin/xauth",
+			want: &ast.XAuthLocation{
+				Token: token.Token{
+					Type:    token.XAUTH_LOCATION,
+					Literal: "XAuthLocation",
+				},
+				Value: "/usr/X11R6/bin/xauth",
+			},
+		},
 	}
 
 	for _, tt := range tests {
