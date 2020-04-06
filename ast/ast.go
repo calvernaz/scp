@@ -87,6 +87,7 @@ var (
 	_ Statement = (*VerifyHostKeyDNS)(nil)
 	_ Statement = (*VisualHostKey)(nil)
 	_ Statement = (*XAuthLocation)(nil)
+	_ Statement = (*ControlPath)(nil)
 	// _ Statement = (*MatchStatement)(nil)
 )
 
@@ -1244,6 +1245,21 @@ func (x *XAuthLocation) TokenLiteral() string {
 func (x *XAuthLocation) String() string {
 	var out bytes.Buffer
 	out.WriteString(x.Value)
+	return out.String()
+}
+
+type ControlPath struct {
+	Token token.Token
+	Value string
+}
+
+func (c ControlPath) TokenLiteral() string {
+	return c.Token.Literal
+}
+
+func (c ControlPath) String() string {
+	var out bytes.Buffer
+	out.WriteString(c.Value)
 	return out.String()
 }
 

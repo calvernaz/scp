@@ -655,6 +655,56 @@ func TestParser_parseStatement(t *testing.T) {
 				Value: "/usr/X11R6/bin/xauth",
 			},
 		},
+		{
+			input: "ControlPath ~/.ssh/control-%h-%p-%r",
+			want: &ast.ControlPath{
+				Token: token.Token{
+					Type:    token.CONTROL_PATH,
+					Literal: "ControlPath",
+				},
+				Value: "~/.ssh/control-%h-%p-%r",
+			},
+		},
+		{
+			input: "Compression no",
+			want: &ast.CompressionStatement{
+				Token: token.Token{
+					Type:    token.COMPRESSION,
+					Literal: "Compression",
+				},
+				Value: "no",
+			},
+		},
+		{
+			input: "ForwardX11 yes",
+			want: &ast.ForwardX11{
+				Token: token.Token{
+					Type:    token.FORWARD_X11,
+					Literal: "ForwardX11",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "ConnectionTimeout 0",
+			want: &ast.ConnectionTimeout{
+				Token: token.Token{
+					Type:    token.CONNECTION_TIMEOUT,
+					Literal: "ConnectionTimeout",
+				},
+				Value: "0",
+			},
+		},
+		{
+			input: "ConnectionAttempts 1",
+			want: &ast.ConnectionAttempts{
+				Token: token.Token{
+					Type:    token.CONNECTION_ATTEMPTS,
+					Literal: "ConnectionAttempts",
+				},
+				Value: "1",
+			},
+		},
 	}
 
 	for _, tt := range tests {

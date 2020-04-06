@@ -1049,3 +1049,15 @@ func (p *Parser) parseXAuthLocation() ast.Statement {
 
 	return stmt
 }
+
+func (p *Parser) parseControlPath() ast.Statement {
+	stmt := &ast.ControlPath{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.IDENT) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
+}

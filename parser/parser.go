@@ -87,7 +87,7 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseControlPersist()
 	case token.SERVER_ALIVE_INTERVAL, token.SERVER_ALIVE_COUNT_MAX:
 		return p.parseServerAlive()
-	case token.COMPRESION:
+	case token.COMPRESSION:
 		return p.parseCompression()
 	case token.USER_KNOWN_HOSTS_FILE:
 		return p.parseUserKnownHostsFile()
@@ -267,17 +267,6 @@ func (p *Parser) Errors() []string {
 	return p.errors
 }
 
-func (p *Parser) parseControlPath() ast.Statement {
-	stmt := &ast.IdentityFile{Token: p.curToken}
-
-	p.nextToken()
-
-	if p.curTokenIs(token.IDENT) {
-		stmt.Value = p.curToken.Literal
-	}
-
-	return stmt
-}
 
 
 
