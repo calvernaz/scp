@@ -68,7 +68,7 @@ import (
 //}
 
 func TestSshConfig(t *testing.T) {
-	file, err := os.Open("testdata/ssh_Qconfig")
+	file, err := os.Open("testdata/sshconfig")
 	if err != nil {
 		t.FailNow()
 	}
@@ -131,6 +131,33 @@ func TestHostBlockStatement(t *testing.T) {
 	hostnameStmt, ok := blockStmt.Statements[0].(*ast.HostName)
 	if !ok {
 		t.Fatalf("blockStatement.statment[0] is not HostName. got=%T", hostnameStmt)
+	}
+}
+
+func TestIncorrectHostStatement(t *testing.T) {
+	input := `Host Host 10.217.198.*
+  ProxyCommand sh -c "~/.ssh/hostmatch.py %h %p"
+  IdentityFile ~/.ssh/key.key
+  StrictHostKeyChecking no
+  User ec2-user`
+
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParseConfig()
+	checkParserErrors(t, p)
+
+	if len(program.Statements) != 1 {
+		t.Fatalf("program does not contain %d statements. got=%d\n", 1, len(program.Statements))
+	}
+
+	stmt, ok := program.Statements[0].(*ast.HostStatement)
+	if !ok {
+		t.Fatalf("program.Statements[0] is not ast.HostStatement. got=%T", program.Statements[0])
+	}
+
+	blockStmt := stmt.Statement
+	if len(blockStmt.Statements) != 4 {
+		t.Fatalf("program does not contain %d block statements. got=%d\n", 7, len(stmt.Statement.Statements))
 	}
 }
 

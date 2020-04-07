@@ -24,8 +24,6 @@ start:
 	l.skipWhitespace()
 
 	switch l.ch {
-	case '*':
-		tok = newToken(token.STAR, l.ch)
 	case ',':
 		tok = newToken(token.COMMA, l.ch)
 	case 0:
@@ -108,7 +106,7 @@ func isLetter(ch byte) bool {
 
 func isExtraCharacter(ch byte) bool {
 	return ch == '/' || ch == '_' || ch == '.' || ch == '-' || ch ==
-		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&' || ch == '=' || ch == '*'
+		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&' || ch == '=' || ch == '*' || ch == '?'
 }
 
 func isString(ch byte) bool {
@@ -127,6 +125,10 @@ func (l *Lexer) readNumber() string {
 	return l.input[position:l.position]
 }
 
+func (l *Lexer) Input() string {
+	return l.input
+}
+
 func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9' || ch == '.' || ch == ':'
 }
@@ -134,3 +136,4 @@ func isDigit(ch byte) bool {
 func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
+

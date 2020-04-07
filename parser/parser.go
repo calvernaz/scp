@@ -1,6 +1,10 @@
 package parser
 
 import (
+	"fmt"
+	"log"
+	"strings"
+
 	"github.com/calvernaz/scp/ast"
 	"github.com/calvernaz/scp/lexer"
 	"github.com/calvernaz/scp/token"
@@ -33,8 +37,10 @@ func (p *Parser) ParseConfig() *ast.SshConfig {
 		stmt := p.parseStatement()
 		if stmt != nil {
 			config.Statements = append(config.Statements, stmt)
+		} else if len(p.errors) > 0 {
+			log.Fatal(p.errors)
 		}
-		//p.nextToken()
+		p.nextToken()
 	}
 	return config
 }
@@ -229,12 +235,17 @@ func (p *Parser) parseStatement() ast.Statement {
 func (p *Parser) parseHostStatement() *ast.HostStatement {
 	stmt := &ast.HostStatement{Token: p.curToken}
 
-	p.nextToken()
-
 	// Host <value>
-	if p.curTokenIs(token.STAR) || p.curTokenIs(token.IDENT) {
-		stmt.Value = p.curToken.Literal
+	var s []string
+	if  !p.expectPeek(token.IDENT) {
+		p.errors = append(p.errors, fmt.Sprintf("invalid Host declaration at line: %q", p.l.Input()))
+		return nil
 	}
+
+	for p.expectPeek(token.IDENT) {
+		s = append(s, p.curToken.Literal)
+	}
+	stmt.Value = strings.Join(s, " ")
 
 	// we proceed with the host block parsing
 	// if the next token is not "Host"
@@ -251,8 +262,7 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 
 	p.nextToken()
 
-	//for !p.curTokenIs(token.MATCH) && !p.curTokenIs(token.HOST) && !p.curTokenIs(token.EOF) {
-	for !p.expectPeek(token.HOST) && !p.curTokenIs(token.EOF) {
+	for !p.peekTokenIs(token.HOST) && !p.curTokenIs(token.EOF) {
 		stmt := p.parseStatement()
 		if stmt != nil {
 			block.Statements = append(block.Statements, stmt)

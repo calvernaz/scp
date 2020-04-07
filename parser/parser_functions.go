@@ -118,7 +118,7 @@ func (p *Parser) parseControlPersist() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
-	p.nextToken()
+	//p.nextToken()
 
 	return stmt
 }
@@ -131,8 +131,6 @@ func (p *Parser) parseServerAlive() ast.Statement {
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
 	}
-
-	p.nextToken()
 
 	return stmt
 }
@@ -185,11 +183,6 @@ func (p *Parser) parseStrictHostKeyChecking() ast.Statement {
 
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
-	}
-
-	for p.expectPeek(token.COMMA) {
-		p.nextToken()
-		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
 
 	return stmt
