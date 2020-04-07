@@ -705,6 +705,106 @@ func TestParser_parseStatement(t *testing.T) {
 				Value: "1",
 			},
 		},
+		{
+			input: "CheckHostIP no",
+			want: &ast.CheckHostIP{
+				Token: token.Token{
+					Type:    token.CHECK_HOST_IP,
+					Literal: "CheckHostIP",
+				},
+				Value: "no",
+			},
+		},
+		{
+			input: "Ciphers aes128-ctr,aes192-ctr,aes256-ctr",
+			want: &ast.Ciphers{
+				Token: token.Token{
+					Type:    token.CIPHERS,
+					Literal: "Ciphers",
+				},
+				Value: "aes128-ctr, aes192-ctr, aes256-ctr",
+			},
+		},
+		{
+			input: "ClearAllForwardings yes",
+			want: &ast.ClearAllForwardings{
+				Token: token.Token{
+					Type:    token.CLEAR_ALL_FORWARDINGS,
+					Literal: "ClearAllForwardings",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "ChallengeResponseAuthentication no",
+			want: &ast.ChallengeAuthentication{
+				Token: token.Token{
+					Type:    token.CHALLENGE_RESPONSE_AUTHENTICATION,
+					Literal: "ChallengeResponseAuthentication",
+				},
+				Value: "no",
+			},
+		},
+		{
+			input: "CanonicalizeFallbackLocal yes",
+			want: &ast.CanonicalizeFallbackLocal{
+				Token: token.Token{
+					Type:    token.CANONICALIZE_FALLBACK_LOCAL,
+					Literal: "CanonicalizeFallbackLocal",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "CanonicalizeHostname yes",
+			want: &ast.CanonicalizeHostname{
+				Token: token.Token{
+					Type:    token.CANONICALIZE_HOSTNAME,
+					Literal: "CanonicalizeHostname",
+				},
+				Value: "yes",
+			},
+		},
+		{
+			input: "CanonicalizeMaxDots 0",
+			want: &ast.CanonicalizeMaxDots{
+				Token: token.Token{
+					Type:    token.CANONICALIZE_MAX_DOTS,
+					Literal: "CanonicalizeMaxDots",
+				},
+				Value: "0",
+			},
+		},
+		{
+			input: "CanonicalizePermittedCNAMEs mail.*.example.com:anycast-mail.int.example.com dns*.example.com:dns*.dmz.example.com",
+			want: &ast.CanonicalizePermittedCNames{
+				Token: token.Token{
+					Type:    token.CANONICALIZE_PERMITTED_CNAMES,
+					Literal: "CanonicalizePermittedCNAMEs",
+				},
+				Value: "mail.*.example.com:anycast-mail.int.example.com dns*.example.com:dns*.dmz.example.com",
+			},
+		},
+		{
+			input: "CASignatureAlgorithms ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521",
+			want: &ast.CASignatureAlgorithms{
+				Token: token.Token{
+					Type:    token.CA_SIGNATURE_ALGORITHMS,
+					Literal: "CASignatureAlgorithms",
+				},
+				Value: "ecdsa-sha2-nistp256, ecdsa-sha2-nistp384, ecdsa-sha2-nistp521",
+			},
+		},
+		{
+			input: "CertificateFile ~/.ssh/id_ecdsa",
+			want: &ast.CertificateFile{
+				Token: token.Token{
+					Type:    token.CERTIFICATE_FILE,
+					Literal: "CertificateFile",
+				},
+				Value: "~/.ssh/id_ecdsa",
+			},
+		},
 	}
 
 	for _, tt := range tests {

@@ -35,7 +35,7 @@ var (
 	_ Statement = (*ChallengeAuthentication)(nil)
 	_ Statement = (*CheckHostIP)(nil)
 	_ Statement = (*Ciphers)(nil)
-	_ Statement = (*ClearAllForwarding)(nil)
+	_ Statement = (*ClearAllForwardings)(nil)
 	_ Statement = (*ConnectionAttempts)(nil)
 	_ Statement = (*ConnectionTimeout)(nil)
 	_ Statement = (*DynamicForward)(nil)
@@ -464,11 +464,13 @@ type CanonicalizePermittedCNames struct {
 }
 
 func (c CanonicalizePermittedCNames) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 func (c CanonicalizePermittedCNames) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 type CASignatureAlgorithms struct {
@@ -537,16 +539,16 @@ func (c Ciphers) String() string {
 	panic("implement me")
 }
 
-type ClearAllForwarding struct {
+type ClearAllForwardings struct {
 	Token token.Token
 	Value string
 }
 
-func (c ClearAllForwarding) TokenLiteral() string {
+func (c ClearAllForwardings) TokenLiteral() string {
 	panic("implement me")
 }
 
-func (c ClearAllForwarding) String() string {
+func (c ClearAllForwardings) String() string {
 	panic("implement me")
 }
 

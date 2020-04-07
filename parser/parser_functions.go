@@ -282,6 +282,9 @@ func (p *Parser) parseCanonicalizePermittedCNames() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.IDENT) {
+		stmt.Value = stmt.Value + " " + p.curToken.Literal
+	}
 	return stmt
 }
 
@@ -292,6 +295,11 @@ func (p *Parser) parseCaSignatureAlgorithms() ast.Statement {
 
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
+	}
+
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
 
 	return stmt
@@ -344,11 +352,16 @@ func (p *Parser) parseCiphers() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
+	}
+
 	return stmt
 }
 
 func (p *Parser) parseClearAllForwarding() ast.Statement {
-	stmt := &ast.ClearAllForwarding{Token: p.curToken}
+	stmt := &ast.ClearAllForwardings{Token: p.curToken}
 
 	p.nextToken()
 

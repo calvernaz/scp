@@ -108,7 +108,7 @@ func isLetter(ch byte) bool {
 
 func isExtraCharacter(ch byte) bool {
 	return ch == '/' || ch == '_' || ch == '.' || ch == '-' || ch ==
-		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&' || ch == '='
+		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&' || ch == '=' || ch == '*'
 }
 
 func isString(ch byte) bool {
