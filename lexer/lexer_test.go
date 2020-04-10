@@ -16,7 +16,7 @@ Host weirdloop
 		expectedLiteral string
 	}{
 		{token.HOST, "Host"},
-		{token.STAR, "*"},
+		{token.IDENT, "*"},
 		{token.HOST, "Host"},
 		{token.IDENT, "weirdloop"},
 		{token.EOF, ""},
