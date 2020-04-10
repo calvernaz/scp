@@ -83,8 +83,8 @@ func TestSshConfig(t *testing.T) {
 	program := p.ParseConfig()
 	checkParserErrors(t, p)
 
-	if len(program.Statements) != 10 {
-		t.Fatalf("program does not contain %d statements. got=%d\n", 1, len(program.Statements))
+	if len(program.Statements) != 159 {
+		t.Fatalf("program does not contain %d statements. got=%d\n", 159, len(program.Statements))
 	}
 
 	stmt, ok := program.Statements[0].(*ast.HostStatement)
@@ -161,20 +161,6 @@ func TestIncorrectHostStatement(t *testing.T) {
 	}
 }
 
-func checkParserErrors(t *testing.T, p *Parser) {
-	errors := p.Errors()
-
-	if len(errors) == 0 {
-		return
-	}
-
-	t.Errorf("parser has %d errors", len(errors))
-	for _, msg := range errors {
-		t.Errorf("parser error: %q", msg)
-	}
-	t.FailNow()
-}
-
 func TestHostStatement(t *testing.T) {
 	input := `Host *`
 
@@ -228,4 +214,18 @@ func testHostConfigStatement(t *testing.T, s ast.Statement, name string) bool {
 	}
 
 	return true
+}
+
+func checkParserErrors(t *testing.T, p *Parser) {
+	errors := p.Errors()
+
+	if len(errors) == 0 {
+		return
+	}
+
+	t.Errorf("parser has %d errors", len(errors))
+	for _, msg := range errors {
+		t.Errorf("parser error: %q", msg)
+	}
+	t.FailNow()
 }

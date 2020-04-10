@@ -38,7 +38,8 @@ func (p *Parser) ParseConfig() *ast.SshConfig {
 		if stmt != nil {
 			config.Statements = append(config.Statements, stmt)
 		} else if len(p.errors) > 0 {
-			log.Fatal(p.errors)
+			log.Println("parsing errors were found")
+			return config
 		}
 		p.nextToken()
 	}
@@ -237,8 +238,8 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 
 	// Host <value>
 	var s []string
-	if  !p.expectPeek(token.IDENT) {
-		p.errors = append(p.errors, fmt.Sprintf("invalid Host declaration at line: %q", p.l.Input()))
+	if  !p.peekTokenIs(token.IDENT) {
+		p.errors = append(p.errors, fmt.Sprint("failed to parse host statement"))
 		return nil
 	}
 

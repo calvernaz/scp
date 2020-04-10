@@ -104,8 +104,6 @@ func (p *Parser) parseControlMaster() ast.Statement {
 		stmt.Value = p.curToken.Literal
 	}
 
-	p.nextToken()
-
 	return stmt
 }
 
@@ -117,8 +115,6 @@ func (p *Parser) parseControlPersist() ast.Statement {
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
 	}
-
-	//p.nextToken()
 
 	return stmt
 }
@@ -183,6 +179,11 @@ func (p *Parser) parseStrictHostKeyChecking() ast.Statement {
 
 	if p.curTokenIs(token.IDENT) {
 		stmt.Value = p.curToken.Literal
+	}
+
+	for p.expectPeek(token.COMMA) {
+		p.nextToken()
+		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
 
 	return stmt
@@ -674,20 +675,6 @@ func (p *Parser) parseKbdInteractiveDevices() ast.Statement {
 
 	return stmt
 }
-
-
-func (p *Parser) parseKeyAlgorithms() ast.Statement {
-	stmt := &ast.KeyAlgorithms{Token: p.curToken}
-
-	p.nextToken()
-
-	if p.curTokenIs(token.IDENT) {
-		stmt.Value = p.curToken.Literal
-	}
-
-	return stmt
-}
-
 
 func (p *Parser) parseLocalCommand() ast.Statement {
 	stmt := &ast.LocalCommand{Token: p.curToken}

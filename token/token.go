@@ -10,38 +10,35 @@ const (
 	ILLEGAL = "ILLEGAL"
 	EOF     = "EOF"
 	IDENT   = "IDENT"
-	STRING  = "STRING"
-	INT     = "INT"
 	STAR    = "*"
 	COMMA   = ","
-	HASH    = "#"
 
 	ADD_KEYS_TO_AGENT                    = "AddKeysToAgent"
 	ADDRESS_FAMILY                       = "AddressFamily"
 	BATCH_MODE                           = "BatchMode"
 	BIND_ADDRESS                         = "BindAddress"
 	CANONICAL_DOMAINS                    = "CanonicalDomains"
-	CANONICALIZE_FALLBACK_LOCAL       = "CanonicalizeFallbackLocal"
-	CANONICALIZE_HOSTNAME             = "CanonicalizeHostname"
-	CANONICALIZE_MAX_DOTS             = "CanonicalizeMaxDots"
-	CANONICALIZE_PERMITTED_CNAMES     = "CanonicalizePermittedCNAMEs"
-	CA_SIGNATURE_ALGORITHMS           = "CASignatureAlgorithms"
-	CERTIFICATE_FILE                  = "CertificateFile"
-	CHALLENGE_RESPONSE_AUTHENTICATION = "ChallengeResponseAuthentication"
-	CHECK_HOST_IP                     = "CheckHostIP"
-	CIPHERS                           = "Ciphers"
-	CLEAR_ALL_FORWARDINGS             = "ClearAllForwardings"
-	COMPRESSION                       = "Compression"
-	CONNECTION_ATTEMPTS               = "ConnectionAttempts"
-	CONNECTION_TIMEOUT                = "ConnectionTimeout"
-	CONTROL_MASTER                    = "ControlMaster"
-	CONTROL_PATH                      = "ControlPath"
-	CONTROL_PERSIST                   = "ControlPersist"
-	DYNAMIC_FORWARD                   = "DynamicForward"
-	ESCAPE_CHAR                       = "EscapeChar"
-	EXIT_ON_FORWARD_FAILURE           = "ExitOnForwardFailure"
-	FINGERPRINT_HASH                  = "FingerprintHash"
-	FORWARD_AGENT                     = "ForwardAgent"
+	CANONICALIZE_FALLBACK_LOCAL          = "CanonicalizeFallbackLocal"
+	CANONICALIZE_HOSTNAME                = "CanonicalizeHostname"
+	CANONICALIZE_MAX_DOTS                = "CanonicalizeMaxDots"
+	CANONICALIZE_PERMITTED_CNAMES        = "CanonicalizePermittedCNAMEs"
+	CA_SIGNATURE_ALGORITHMS              = "CASignatureAlgorithms"
+	CERTIFICATE_FILE                     = "CertificateFile"
+	CHALLENGE_RESPONSE_AUTHENTICATION    = "ChallengeResponseAuthentication"
+	CHECK_HOST_IP                        = "CheckHostIP"
+	CIPHERS                              = "Ciphers"
+	CLEAR_ALL_FORWARDINGS                = "ClearAllForwardings"
+	COMPRESSION                          = "Compression"
+	CONNECTION_ATTEMPTS                  = "ConnectionAttempts"
+	CONNECTION_TIMEOUT                   = "ConnectionTimeout"
+	CONTROL_MASTER                       = "ControlMaster"
+	CONTROL_PATH                         = "ControlPath"
+	CONTROL_PERSIST                      = "ControlPersist"
+	DYNAMIC_FORWARD                      = "DynamicForward"
+	ESCAPE_CHAR                          = "EscapeChar"
+	EXIT_ON_FORWARD_FAILURE              = "ExitOnForwardFailure"
+	FINGERPRINT_HASH                     = "FingerprintHash"
+	FORWARD_AGENT                        = "ForwardAgent"
 	FORWARD_X11                          = "ForwardX11"
 	FORWARD_X11_TIMEOUT                  = "ForwardX11Timeout"
 	FORWARD_X11_TRUSTED                  = "ForwardX11Trusted"
@@ -109,27 +106,27 @@ var keywords = map[string]TokenType{
 	"batchmode":                        BATCH_MODE,
 	"bindaddress":                      BIND_ADDRESS,
 	"canonicaldomains":                 CANONICAL_DOMAINS,
-	"canonicalizefallbacklocal":       CANONICALIZE_FALLBACK_LOCAL,
-	"canonicalizehostname":            CANONICALIZE_HOSTNAME,
-	"canonicalizemaxdots":             CANONICALIZE_MAX_DOTS,
-	"canonicalizepermittedcnames":     CANONICALIZE_PERMITTED_CNAMES,
-	"casignaturealgorithms":           CA_SIGNATURE_ALGORITHMS,
-	"certificatefile":                 CERTIFICATE_FILE,
-	"challengeresponseauthentication": CHALLENGE_RESPONSE_AUTHENTICATION,
-	"checkhostip":                     CHECK_HOST_IP,
-	"ciphers":                         CIPHERS,
-	"clearallforwardings":             CLEAR_ALL_FORWARDINGS,
-	"compression":                     COMPRESSION,
-	"connectionattempts":              CONNECTION_ATTEMPTS,
-	"connectiontimeout":               CONNECTION_TIMEOUT,
-	"controlmaster":                   CONTROL_MASTER,
-	"controlpath":                     CONTROL_PATH,
-	"controlpersist":                  CONTROL_PERSIST,
-	"dynamicforward":                  DYNAMIC_FORWARD,
-	"escapechar":                      ESCAPE_CHAR,
-	"exitonforwardfailure":            EXIT_ON_FORWARD_FAILURE,
-	"fingerprinthash":                 FINGERPRINT_HASH,
-	"forwardagent":                    FORWARD_AGENT,
+	"canonicalizefallbacklocal":        CANONICALIZE_FALLBACK_LOCAL,
+	"canonicalizehostname":             CANONICALIZE_HOSTNAME,
+	"canonicalizemaxdots":              CANONICALIZE_MAX_DOTS,
+	"canonicalizepermittedcnames":      CANONICALIZE_PERMITTED_CNAMES,
+	"casignaturealgorithms":            CA_SIGNATURE_ALGORITHMS,
+	"certificatefile":                  CERTIFICATE_FILE,
+	"challengeresponseauthentication":  CHALLENGE_RESPONSE_AUTHENTICATION,
+	"checkhostip":                      CHECK_HOST_IP,
+	"ciphers":                          CIPHERS,
+	"clearallforwardings":              CLEAR_ALL_FORWARDINGS,
+	"compression":                      COMPRESSION,
+	"connectionattempts":               CONNECTION_ATTEMPTS,
+	"connectiontimeout":                CONNECTION_TIMEOUT,
+	"controlmaster":                    CONTROL_MASTER,
+	"controlpath":                      CONTROL_PATH,
+	"controlpersist":                   CONTROL_PERSIST,
+	"dynamicforward":                   DYNAMIC_FORWARD,
+	"escapechar":                       ESCAPE_CHAR,
+	"exitonforwardfailure":             EXIT_ON_FORWARD_FAILURE,
+	"fingerprinthash":                  FINGERPRINT_HASH,
+	"forwardagent":                     FORWARD_AGENT,
 	"forwardx11":                       FORWARD_X11,
 	"forwardx11timeout":                FORWARD_X11_TIMEOUT,
 	"forwardx11trusted":                FORWARD_X11_TRUSTED,

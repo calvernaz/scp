@@ -106,7 +106,7 @@ func isLetter(ch byte) bool {
 
 func isExtraCharacter(ch byte) bool {
 	return ch == '/' || ch == '_' || ch == '.' || ch == '-' || ch ==
-		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&' || ch == '=' || ch == '*' || ch == '?'
+		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&' || ch == '=' || ch == '*' || ch == '?' || ch == '!'
 }
 
 func isString(ch byte) bool {
@@ -136,4 +136,3 @@ func isDigit(ch byte) bool {
 func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
-

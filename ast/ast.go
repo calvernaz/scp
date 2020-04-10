@@ -59,7 +59,6 @@ var (
 	_ Statement = (*IPQoS)(nil)
 	_ Statement = (*KbdInteractiveAuthentication)(nil)
 	_ Statement = (*KbdInteractiveDevices)(nil)
-	_ Statement = (*KeyAlgorithms)(nil)
 	_ Statement = (*LocalCommand)(nil)
 	_ Statement = (*Macs)(nil)
 	_ Statement = (*NoHostAuthentication)(nil)
@@ -868,19 +867,6 @@ func (k KbdInteractiveDevices) String() string {
 	var out bytes.Buffer
 	out.WriteString(k.Value)
 	return out.String()
-}
-
-type KeyAlgorithms struct {
-	Token token.Token
-	Value string
-}
-
-func (k KeyAlgorithms) TokenLiteral() string {
-	panic("implement me")
-}
-
-func (k KeyAlgorithms) String() string {
-	panic("implement me")
 }
 
 type LocalCommand struct {
