@@ -40,10 +40,6 @@ start:
 		} else if isComment(l.ch) {
 			l.skipComments()
 			goto start
-			//if isLetter(l.ch) || isExtraCharacter(l.ch) {
-			//} else if isDigit(l.ch) {
-			//	tok.Type = token.INT
-			//	tok.Literal = l.readNumber()
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
