@@ -1,5 +1,6 @@
 package ast
 
+import "C"
 import (
 	"bytes"
 
@@ -485,12 +486,14 @@ type CanonicalizeFallbackLocal struct {
 
 // TokenLiteral ...
 func (c *CanonicalizeFallbackLocal) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c *CanonicalizeFallbackLocal) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // CanonicalizeHostname ...
@@ -501,12 +504,14 @@ type CanonicalizeHostname struct {
 
 // TokenLiteral ...
 func (c CanonicalizeHostname) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c CanonicalizeHostname) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // CanonicalizeMaxDots ...
@@ -517,12 +522,14 @@ type CanonicalizeMaxDots struct {
 
 // TokenLiteral ...
 func (c CanonicalizeMaxDots) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String
 func (c CanonicalizeMaxDots) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // CanonicalizePermittedCNames ...
@@ -551,12 +558,14 @@ type CASignatureAlgorithms struct {
 
 // TokenLiteral ...
 func (c *CASignatureAlgorithms) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c *CASignatureAlgorithms) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // CertificateFile ...
@@ -567,12 +576,14 @@ type CertificateFile struct {
 
 // TokenLiteral ...
 func (c CertificateFile) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c CertificateFile) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // ChallengeAuthentication ...
@@ -583,12 +594,14 @@ type ChallengeAuthentication struct {
 
 // TokenLiteral ...
 func (c ChallengeAuthentication) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c ChallengeAuthentication) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // CheckHostIP ...
@@ -599,12 +612,14 @@ type CheckHostIP struct {
 
 // TokenLiteral ...
 func (c CheckHostIP) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c CheckHostIP) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // Ciphers ...
@@ -615,11 +630,13 @@ type Ciphers struct {
 
 // TokenLiteral ...
 func (c Ciphers) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 func (c Ciphers) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // ClearAllForwardings ...
@@ -630,12 +647,15 @@ type ClearAllForwardings struct {
 
 // TokenLiteral ...
 func (c ClearAllForwardings) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c ClearAllForwardings) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
+
 }
 
 // ConnectionAttempts ...
@@ -646,11 +666,13 @@ type ConnectionAttempts struct {
 
 // TokenLiteral ...
 func (c ConnectionAttempts) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 func (c ConnectionAttempts) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // ConnectionTimeout ...
@@ -661,12 +683,14 @@ type ConnectionTimeout struct {
 
 // TokenLiteral ...
 func (c ConnectionTimeout) TokenLiteral() string {
-	panic("implement me")
+	return c.Token.Literal
 }
 
 // String ...
 func (c ConnectionTimeout) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(c.Value)
+	return out.String()
 }
 
 // DynamicForward ...
@@ -677,12 +701,14 @@ type DynamicForward struct {
 
 // TokenLiteral ...
 func (d DynamicForward) TokenLiteral() string {
-	panic("implement me")
+	return d.Token.Literal
 }
 
 // String ...
 func (d DynamicForward) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(d.Value)
+	return out.String()
 }
 
 // EscapeChar ...
@@ -693,12 +719,14 @@ type EscapeChar struct {
 
 // TokenLiteral ...
 func (e EscapeChar) TokenLiteral() string {
-	panic("implement me")
+	return e.Token.Literal
 }
 
 // String ...
 func (e EscapeChar) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(e.Value)
+	return out.String()
 }
 
 // ExitOnForwardFailure ...
@@ -709,11 +737,13 @@ type ExitOnForwardFailure struct {
 
 // TokenLiteral ...
 func (e ExitOnForwardFailure) TokenLiteral() string {
-	panic("implement me")
+	return e.Token.Literal
 }
 
 func (e ExitOnForwardFailure) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(e.Value)
+	return out.String()
 }
 
 // FingerprintHash ...
@@ -724,13 +754,14 @@ type FingerprintHash struct {
 
 // TokenLiteral ...
 func (f FingerprintHash) TokenLiteral() string {
-
-	panic("implement me")
+	return f.Token.Literal
 }
 
 // String ...
 func (f FingerprintHash) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(f.Value)
+	return out.String()
 }
 
 // ForwardX11 ...
@@ -741,12 +772,14 @@ type ForwardX11 struct {
 
 // TokenLiteral ...
 func (f ForwardX11) TokenLiteral() string {
-	panic("implement me")
+	return f.Token.Literal
 }
 
 // String ...
 func (f ForwardX11) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(f.Value)
+	return out.String()
 }
 
 // ForwardX11Timeout ...
@@ -757,12 +790,15 @@ type ForwardX11Timeout struct {
 
 // TokenLiteral ...
 func (f ForwardX11Timeout) TokenLiteral() string {
-	panic("implement me")
+	return f.Token.Literal
 }
 
 // String ...
 func (f ForwardX11Timeout) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(f.Value)
+	return out.String()
+
 }
 
 // ForwardX11Trusted ...
@@ -822,12 +858,15 @@ type GSSApiAuthentication struct {
 
 // TokenLiteral ...
 func (g GSSApiAuthentication) TokenLiteral() string {
-	panic("implement me")
+	return g.Token.Literal
 }
 
 // String ...
 func (g GSSApiAuthentication) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(g.Value)
+	return out.String()
+
 }
 
 // GSSApiDelegateCredentials ...
@@ -838,12 +877,15 @@ type GSSApiDelegateCredentials struct {
 
 // TokenLiteral ...
 func (g GSSApiDelegateCredentials) TokenLiteral() string {
-	panic("implement me")
+	return g.Token.Literal
 }
 
 // String ...
 func (g GSSApiDelegateCredentials) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(g.Value)
+	return out.String()
+
 }
 
 // HashKnownHosts ...
@@ -854,12 +896,14 @@ type HashKnownHosts struct {
 
 // TokenLiteral ...
 func (h HashKnownHosts) TokenLiteral() string {
-	panic("implement me")
+	return h.Token.Literal
 }
 
 // String ...
 func (h HashKnownHosts) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(h.Value)
+	return out.String()
 }
 
 // HostBasedAuthentication ...
@@ -870,12 +914,14 @@ type HostBasedAuthentication struct {
 
 // TokenLiteral ...
 func (h HostBasedAuthentication) TokenLiteral() string {
-	panic("implement me")
+	return h.Token.Literal
 }
 
 // String ...
 func (h HostBasedAuthentication) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(h.Value)
+	return out.String()
 }
 
 // HostBasedKeyTypes ...
@@ -921,12 +967,14 @@ type HostKeyAlias struct {
 
 // TokenLiteral ...
 func (h HostKeyAlias) TokenLiteral() string {
-	panic("implement me")
+	return h.Token.Literal
 }
 
 // String ...
 func (h HostKeyAlias) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(h.Value)
+	return out.String()
 }
 
 // IdentitiesOnly ...
@@ -937,12 +985,14 @@ type IdentitiesOnly struct {
 
 // TokenLiteral ...
 func (i IdentitiesOnly) TokenLiteral() string {
-	panic("implement me")
+	return i.Token.Literal
 }
 
 // String ...
 func (i IdentitiesOnly) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(i.Value)
+	return out.String()
 }
 
 // IdentityAgent ...
@@ -989,12 +1039,14 @@ type KbdInteractiveAuthentication struct {
 
 // TokenLiteral ...
 func (k KbdInteractiveAuthentication) TokenLiteral() string {
-	panic("implement me")
+	return k.Token.Literal
 }
 
 // String
 func (k KbdInteractiveAuthentication) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(k.Value)
+	return out.String()
 }
 
 // KbdInteractiveDevices ...
@@ -1059,12 +1111,14 @@ type NoHostAuthentication struct {
 
 // TokenLiteral ...
 func (n NoHostAuthentication) TokenLiteral() string {
-	panic("implement me")
+	return n.Token.Literal
 }
 
 // String ...
 func (n NoHostAuthentication) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(n.Value)
+	return out.String()
 }
 
 // NumberOfPasswordPrompts ...
@@ -1075,11 +1129,13 @@ type NumberOfPasswordPrompts struct {
 
 // TokenLiteral ...
 func (n NumberOfPasswordPrompts) TokenLiteral() string {
-	panic("implement me")
+	return n.Token.Literal
 }
 
 func (n NumberOfPasswordPrompts) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(n.Value)
+	return out.String()
 }
 
 // PasswordAuthentication ...
@@ -1090,12 +1146,14 @@ type PasswordAuthentication struct {
 
 // TokenLiteral ...
 func (p PasswordAuthentication) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 // String ...
 func (p PasswordAuthentication) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 // PermitLocalCommand ...
@@ -1106,12 +1164,14 @@ type PermitLocalCommand struct {
 
 // TokenLiteral ...
 func (p PermitLocalCommand) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 // String ...
 func (p PermitLocalCommand) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 // PCKS11Provider ...
@@ -1122,12 +1182,14 @@ type PCKS11Provider struct {
 
 // TokenLiteral ...
 func (p PCKS11Provider) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 // String ...
 func (p PCKS11Provider) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 // PreferredAuthentications ...
@@ -1138,12 +1200,14 @@ type PreferredAuthentications struct {
 
 // TokenLiteral ...
 func (p PreferredAuthentications) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 // String ...
 func (p PreferredAuthentications) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 // ProxyJump ...
@@ -1154,12 +1218,14 @@ type ProxyJump struct {
 
 // TokenLiteral ...
 func (p ProxyJump) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 // String ...
 func (p ProxyJump) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 // ProxyUserFDPass ...
@@ -1170,12 +1236,14 @@ type ProxyUserFDPass struct {
 
 // TokenLiteral ...
 func (p ProxyUserFDPass) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 // String ...
 func (p ProxyUserFDPass) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 // PubkeyAcceptedKeyTypes ...
@@ -1204,12 +1272,14 @@ type PubkeyAuthentication struct {
 
 // TokenLiteral ...
 func (p PubkeyAuthentication) TokenLiteral() string {
-	panic("implement me")
+	return p.Token.Literal
 }
 
 // String ...
 func (p PubkeyAuthentication) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(p.Value)
+	return out.String()
 }
 
 // RekeyLimit ...
@@ -1220,12 +1290,14 @@ type RekeyLimit struct {
 
 // TokenLiteral ...
 func (r RekeyLimit) TokenLiteral() string {
-	panic("implement me")
+	return r.Token.Literal
 }
 
 // String ...
 func (r RekeyLimit) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(r.Value)
+	return out.String()
 }
 
 // RemoteCommand ...
@@ -1272,12 +1344,14 @@ type RequestTTY struct {
 
 // TokenLiteral ...
 func (r RequestTTY) TokenLiteral() string {
-	panic("implement me")
+	return r.Token.Literal
 }
 
 // String ...
 func (r RequestTTY) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(r.Value)
+	return out.String()
 }
 
 // SendEnv ...
@@ -1288,12 +1362,14 @@ type SendEnv struct {
 
 // TokenLiteral ...
 func (s SendEnv) TokenLiteral() string {
-	panic("implement me")
+	return s.Token.Literal
 }
 
 // String ...
 func (s SendEnv) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(s.Value)
+	return out.String()
 }
 
 // SetEnv ...
@@ -1322,12 +1398,14 @@ type StreamLocalBindMask struct {
 
 // TokenLiteral ...
 func (s StreamLocalBindMask) TokenLiteral() string {
-	panic("implement me")
+	return s.Token.Literal
 }
 
 // String ...
 func (s StreamLocalBindMask) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(s.Value)
+	return out.String()
 }
 
 // StreamLocalBindUnlink ...
@@ -1338,12 +1416,14 @@ type StreamLocalBindUnlink struct {
 
 // TokenLiteral ...
 func (s StreamLocalBindUnlink) TokenLiteral() string {
-	panic("implement me")
+	return s.Token.Literal
 }
 
 // String ...
 func (s StreamLocalBindUnlink) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(s.Value)
+	return out.String()
 }
 
 // TCPKeepAlive ...
@@ -1354,12 +1434,14 @@ type TCPKeepAlive struct {
 
 // TokenLiteral ...
 func (t TCPKeepAlive) TokenLiteral() string {
-	panic("implement me")
+	return t.Token.Literal
 }
 
 // String ...
 func (t TCPKeepAlive) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(t.Value)
+	return out.String()
 }
 
 // Tunnel ...
@@ -1370,12 +1452,14 @@ type Tunnel struct {
 
 // TokenLiteral ...
 func (t Tunnel) TokenLiteral() string {
-	panic("implement me")
+	return t.Token.Literal
 }
 
 // String ...
 func (t Tunnel) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(t.Value)
+	return out.String()
 }
 
 // TunnelDevice ...
@@ -1386,12 +1470,14 @@ type TunnelDevice struct {
 
 // TokenLiteral ...
 func (t TunnelDevice) TokenLiteral() string {
-	panic("implement me")
+	return t.Token.Literal
 }
 
 // String ...
 func (t TunnelDevice) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(t.Value)
+	return out.String()
 }
 
 // UpdateHostKeys ...
@@ -1402,12 +1488,14 @@ type UpdateHostKeys struct {
 
 // TokenLiteral ...
 func (u UpdateHostKeys) TokenLiteral() string {
-	panic("implement me")
+	return u.Token.Literal
 }
 
 // String ...
 func (u UpdateHostKeys) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(u.Value)
+	return out.String()
 }
 
 // VerifyHostKeyDNS ...
@@ -1418,12 +1506,14 @@ type VerifyHostKeyDNS struct {
 
 // TokenLiteral ...
 func (v *VerifyHostKeyDNS) TokenLiteral() string {
-	panic("implement me")
+	return v.Token.Literal
 }
 
 // String ...
 func (v *VerifyHostKeyDNS) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(v.Value)
+	return out.String()
 }
 
 // VisualHostKey ...
@@ -1434,12 +1524,14 @@ type VisualHostKey struct {
 
 // TokenLiteral ...
 func (v *VisualHostKey) TokenLiteral() string {
-	panic("implement me")
+	return v.Token.Literal
 }
 
 // String ...
 func (v *VisualHostKey) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(v.Value)
+	return out.String()
 }
 
 // XAuthLocation ...
