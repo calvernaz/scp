@@ -1,0 +1,116 @@
+ControlPath ~/.ssh/tmp/%r@%h:%p
+ControlPersist 60m
+
+TCPKeepAlive true
+ServerAliveInterval 15
+ServerAliveCountMax 30
+
+Host *.wm.az.*.* 10.128.*.* 10.13?.*.*
+  ControlMaster auto
+  StrictHostKeyChecking no
+
+Host *.play.com *.dev.com *.perf.com
+  IdentityFile ~/.ssh/play.key
+  ForwardAgent yes
+  User ec2-user
+
+Host *.play.com
+  ProxyJump bastion.com
+  IdentityFile ~/.ssh/play.key
+  StrictHostKeyChecking no
+  User ec2-user
+
+Host bastion.com
+  IdentityFile ~/.ssh/play.key
+  ForwardAgent yes
+  User ec2-user
+
+Host *.play.com 10.200.16.* 10.200.17.* 10.200.18.* 10.200.19.* 10.200.20.* 10.200.21.* 10.200.22.* 10.200.23.*
+  ProxyJump bastion.com
+  IdentityFile ~/.ssh/play.key
+  StrictHostKeyChecking no
+  User ec2-user
+
+Host 10.200.145.*
+  ProxyCommand ssh ec2-user@play.com -W %h:%p
+  StrictHostKeyChecking no
+  IdentityFile ~/.ssh/play.key
+  User ec2-user
+
+Host 10.217.192.*
+  ProxyCommand sh -c "~/.ssh/hostmatch.py %h %p"
+  IdentityFile ~/.ssh/play.key
+  StrictHostKeyChecking no
+  User ec2-user
+
+
+Host *-impl.io *.work.com
+  ProxyCommand ssh work.com -W %h:%p
+  IdentityFile ~/.ssh/key.key
+  StrictHostKeyChecking no
+  User ec2-user
+
+Host bastion.work.com
+  IdentityFile ~/.ssh/sg.key
+  ForwardAgent yes
+  User ec2-user
+
+Host 10.200.144.*
+  ProxyCommand sh -c "~/.ssh/hostmatch.py %h %p"
+  IdentityFile ~/.ssh/key.key
+  StrictHostKeyChecking no
+  User ec2-user
+
+Host !bastion.work.net *.work.net 10.200.192.* 10.200.197.* !*m1* !*m2*
+  ProxyJump bastion.work.net
+  IdentityFile ~/.ssh/key.key
+  StrictHostKeyChecking no
+  User ec2-user
+
+Host !us.work.com *.work.com 10.217.0.* 10.217.1.* 10.217.2.* 10.217.3.* 10.217.4.* 10.217.5.* !*us-content-cloud* !*m1* !*m2* !10.217.192.*
+  ProxyJump bastion.work.com
+  IdentityFile ~/.ssh/key.key
+  StrictHostKeyChecking no
+  User ec2-user
+
+Host bastion.play.com play.com
+  IdentityFile ~/.ssh/play.key
+  ForwardAgent yes
+  User ec2-user
+  DynamicForward 0.0.0.0:37744
+
+Host bastion.play.com bastion.play.com
+  IdentityFile ~/.ssh/play.key
+  ForwardAgent yes
+  User ec2-user
+  DynamicForward 0.0.0.0:37756
+
+Host *.work.com
+  User root
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host code.work.com
+  Port 321
+
+Host jump-01
+  HostName svc.com
+  DynamicForward 0.0.0.0:59996
+  DynamicForward 0.0.0.0:21121
+  ProxyJump play-bastion
+  ForwardAgent yes
+  ControlMaster auto
+
+Host aws.*.bastion*
+  Port 321
+
+Host bastion.io
+  Port 321
+
+Host dev.bastion1
+  Hostname bastion.ipc
+  LocalForward 14020 127.0.0.1:14020
+  LocalForward 14010 127.0.0.1:14010
+  LocalForward 11030 127.0.0.1:11030
+  LocalForward 25601 127.0.0.1:5601
+  LocalForward 8080 services:8080
