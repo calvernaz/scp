@@ -8,6 +8,7 @@ type Lexer struct {
 	input        string
 	position     int
 	readPosition int
+	line         int
 	ch           byte
 }
 
@@ -53,15 +54,24 @@ func isIdentifier(ch byte) bool {
 }
 
 func (l *Lexer) skipWhitespace() {
-	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
+	for l.ch == ' ' || l.ch == '\t' || l.newLine() {
 		l.readChar()
 	}
+}
+
+func (l *Lexer) newLine() bool {
+	if l.ch == '\n' || l.ch == '\r' {
+		l.line += 1
+		return true
+	}
+	return false
 }
 
 func (l *Lexer) skipComments() {
 	for {
 		l.readChar()
 		if l.ch == '\n' || l.ch == '\r' {
+			l.line += 1
 			break
 		}
 	}
