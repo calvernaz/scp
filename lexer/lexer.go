@@ -4,6 +4,7 @@ import (
 	"github.com/calvernaz/scp/token"
 )
 
+// Lexer ...
 type Lexer struct {
 	input        string
 	position     int
@@ -12,12 +13,14 @@ type Lexer struct {
 	ch           byte
 }
 
+// New ...
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
 	return l
 }
 
+// NextToken ...
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
@@ -26,7 +29,7 @@ start:
 
 	switch l.ch {
 	case ',':
-		tok = newToken(token.COMMA, l.ch)
+		tok = newToken(token.Comma, l.ch)
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
@@ -42,7 +45,7 @@ start:
 			l.skipComments()
 			goto start
 		} else {
-			tok = newToken(token.ILLEGAL, l.ch)
+			tok = newToken(token.Illegal, l.ch)
 		}
 	}
 	l.readChar()
@@ -61,7 +64,7 @@ func (l *Lexer) skipWhitespace() {
 
 func (l *Lexer) newLine() bool {
 	if l.ch == '\n' || l.ch == '\r' {
-		l.line += 1
+		l.line++
 		return true
 	}
 	return false
@@ -71,7 +74,7 @@ func (l *Lexer) skipComments() {
 	for {
 		l.readChar()
 		if l.ch == '\n' || l.ch == '\r' {
-			l.line += 1
+			l.line++
 			break
 		}
 	}
@@ -92,7 +95,7 @@ func (l *Lexer) readChar() {
 		l.ch = l.input[l.readPosition]
 	}
 	l.position = l.readPosition
-	l.readPosition += 1
+	l.readPosition++
 }
 
 func (l *Lexer) readString() string {
@@ -131,14 +134,10 @@ func (l *Lexer) readNumber() string {
 	return l.input[position:l.position]
 }
 
-func (l *Lexer) Input() string {
-	return l.input
-}
-
 func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9' || ch == '.' || ch == ':'
 }
 
-func newToken(tokenType token.TokenType, ch byte) token.Token {
+func newToken(tokenType token.Type, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }

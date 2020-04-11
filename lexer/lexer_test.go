@@ -12,13 +12,13 @@ Host weirdloop
 `
 
 	tests := []struct {
-		expectedType    token.TokenType
+		expectedType    token.Type
 		expectedLiteral string
 	}{
-		{token.HOST, "Host"},
-		{token.IDENT, "*"},
-		{token.HOST, "Host"},
-		{token.IDENT, "weirdloop"},
+		{token.Host, "Host"},
+		{token.Ident, "*"},
+		{token.Host, "Host"},
+		{token.Ident, "weirdloop"},
 		{token.EOF, ""},
 	}
 
@@ -42,12 +42,12 @@ func TestNextStringToken(t *testing.T) {
 "foo bar"`
 
 	tests := []struct {
-		expectedType token.TokenType
+		expectedType    token.Type
 		expectedLiteral string
-	} {
-		{ token.IDENT, "foobar"},
-		{ token.IDENT, "foo bar"},
-		{ token.EOF, ""},
+	}{
+		{token.Ident, "foobar"},
+		{token.Ident, "foo bar"},
+		{token.EOF, ""},
 	}
 
 	l := New(input)

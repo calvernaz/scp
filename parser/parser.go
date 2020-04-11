@@ -10,6 +10,7 @@ import (
 	"github.com/calvernaz/scp/token"
 )
 
+// Parser ...
 type Parser struct {
 	l *lexer.Lexer
 
@@ -18,6 +19,7 @@ type Parser struct {
 	errors    []string
 }
 
+// New ...
 func New(l *lexer.Lexer) *Parser {
 	p := &Parser{l: l}
 
@@ -29,8 +31,8 @@ func New(l *lexer.Lexer) *Parser {
 }
 
 // ParseConfig entrypoint to parse the SSH configuration
-func (p *Parser) ParseConfig() *ast.SshConfig {
-	config := &ast.SshConfig{}
+func (p *Parser) ParseConfig() *ast.SSHConfig {
+	config := &ast.SSHConfig{}
 	config.Statements = []ast.Statement{}
 
 	for p.curToken.Type != token.EOF {
@@ -51,182 +53,181 @@ func (p *Parser) nextToken() {
 	p.peekToken = p.l.NextToken()
 }
 
-func (p *Parser) curTokenIs(t token.TokenType) bool {
+func (p *Parser) curTokenIs(t token.Type) bool {
 	return p.curToken.Type == t
 }
 
-func (p *Parser) peekTokenIs(t token.TokenType) bool {
+func (p *Parser) peekTokenIs(t token.Type) bool {
 	return p.peekToken.Type == t
 }
 
-func (p *Parser) expectPeek(t token.TokenType) bool {
+func (p *Parser) expectPeek(t token.Type) bool {
 	if p.peekTokenIs(t) {
 		p.nextToken()
 		return true
-	} else {
-		return false
 	}
+	return false
 }
 
 func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
-	case token.HOST:
+	case token.Host:
 		return p.parseHostStatement()
-	case token.HOSTNAME:
+	case token.Hostname:
 		return p.parseHostname()
-	case token.IDENTITY_FILE:
+	case token.IdentityFile:
 		return p.parseIdentityFile()
-	case token.USER:
+	case token.User:
 		return p.parseUser()
-	case token.PORT:
+	case token.Port:
 		return p.parsePort()
-	case token.USE_KEY_CHAIN:
+	case token.UseKeyChain:
 		return p.parseUseKeyChain()
-	case token.ADD_KEYS_TO_AGENT:
+	case token.AddKeysToAgent:
 		return p.parseAddKeysToAgent()
-	case token.LOCAL_FORWARD:
+	case token.LocalForward:
 		return p.parseLocalForward()
-	case token.CONTROL_MASTER:
+	case token.ControlMaster:
 		return p.parseControlMaster()
-	case token.CONTROL_PATH:
+	case token.ControlPath:
 		return p.parseControlPath()
-	case token.CONTROL_PERSIST:
+	case token.ControlPersist:
 		return p.parseControlPersist()
-	case token.SERVER_ALIVE_INTERVAL, token.SERVER_ALIVE_COUNT_MAX:
+	case token.ServerAliveInterval, token.ServerAliveCountMax:
 		return p.parseServerAlive()
-	case token.COMPRESSION:
+	case token.Compression:
 		return p.parseCompression()
-	case token.USER_KNOWN_HOSTS_FILE:
+	case token.UserKnownHostsFile:
 		return p.parseUserKnownHostsFile()
-	case token.STRICT_HOST_KEY_CHECKING:
+	case token.StrictHostKeyChecking:
 		return p.parseStrictHostKeyChecking()
-	case token.PROXY_COMMAND:
+	case token.ProxyCommand:
 		return p.parseProxyCommand()
-	case token.FORWARD_AGENT:
+	case token.ForwardAgent:
 		return p.parseForwardAgent()
-	case token.LOG_LEVEL:
+	case token.LogLevel:
 		return p.parseLogLevel()
-	case token.CANONICALIZE_FALLBACK_LOCAL:
+	case token.CanonicalizeFallbackLocal:
 		return p.parseCanonicalizeFallback()
-	case token.CANONICALIZE_HOSTNAME:
+	case token.CanonicalizeHostname:
 		return p.parseCanonicalizeHostname()
-	case token.CANONICALIZE_MAX_DOTS:
+	case token.CanonicalizeMaxDots:
 		return p.parseCanonicalizeMaxDots()
-	case token.CANONICALIZE_PERMITTED_CNAMES:
+	case token.CanonicalizePermittedCnames:
 		return p.parseCanonicalizePermittedCNames()
-	case token.CA_SIGNATURE_ALGORITHMS:
+	case token.CaSignatureAlgorithms:
 		return p.parseCaSignatureAlgorithms()
-	case token.CERTIFICATE_FILE:
+	case token.CertificateFile:
 		return p.parseCertificateFile()
-	case token.CHALLENGE_RESPONSE_AUTHENTICATION:
+	case token.ChallengeResponseAuthentication:
 		return p.parseChallengeAuthentication()
-	case token.CHECK_HOST_IP:
+	case token.CheckHostIP:
 		return p.parseCheckHostIP()
-	case token.CIPHERS:
+	case token.Ciphers:
 		return p.parseCiphers()
-	case token.CLEAR_ALL_FORWARDINGS:
+	case token.ClearAllForwardings:
 		return p.parseClearAllForwarding()
-	case token.CONNECTION_ATTEMPTS:
+	case token.ConnectionAttempts:
 		return p.parseConnectionAttempts()
-	case token.CONNECTION_TIMEOUT:
+	case token.ConnectionTimeout:
 		return p.parseConnectionTimeout()
-	case token.DYNAMIC_FORWARD:
+	case token.DynamicForward:
 		return p.parseDynamicForward()
-	case token.ESCAPE_CHAR:
+	case token.EscapeChar:
 		return p.parseEscapeChar()
-	case token.EXIT_ON_FORWARD_FAILURE:
+	case token.ExitOnForwardFailure:
 		return p.parseExitOnForwardFailure()
-	case token.FINGERPRINT_HASH:
+	case token.FingerprintHash:
 		return p.parseFingerprintHash()
-	case token.FORWARD_X11:
+	case token.ForwardX11:
 		return p.parseForwardX11()
-	case token.FORWARD_X11_TIMEOUT:
+	case token.ForwardX11Timeout:
 		return p.parseForwardX11Timeout()
-	case token.FORWARD_X11_TRUSTED:
+	case token.ForwardX11Trusted:
 		return p.parseForwardX11Trusted()
-	case token.GATEWAY_PORTS:
+	case token.GatewayPorts:
 		return p.parseGatewayPorts()
-	case token.GLOBAL_KNOWN_HOSTS_FILE:
+	case token.GlobalKnownHostsFile:
 		return p.parseGlobalKnownHostsFile()
-	case token.GSSAPI_AUTHENTICATION:
+	case token.GSSAPIAuthentication:
 		return p.parseGSSApiAuthentication()
-	case token.GSSAPI_DELEGATE_CREDENTIALS:
+	case token.GSSAPIDelegateCredentials:
 		return p.parseGSSApiDelegateCredentials()
-	case token.HASH_KNOWN_HOSTS:
+	case token.HashKnownHosts:
 		return p.parseHashKnownHosts()
-	case token.HOSTBASED_AUTHENTICATION:
+	case token.HostbasedAuthentication:
 		return p.parseHostBasedAuthentication()
-	case token.HOSTBASED_KEY_TYPES:
+	case token.HostbasedKeyTypes:
 		return p.parseHostBasedKeyTypes()
-	case token.HOSTBASED_KEY_ALGORITHMS:
+	case token.HostbasedKeyAlgorithms:
 		return p.parseHostKeyAlgorithms()
-	case token.HOST_KEY_ALIAS:
+	case token.HostKeyAlias:
 		return p.parseHostKeyAlias()
-	case token.IDENTITIES_ONLY:
+	case token.IdentitiesOnly:
 		return p.parseIdentitiesOnly()
-	case token.IDENTITY_AGENT:
+	case token.IdentityAgent:
 		return p.parseIdentityAgent()
-	case token.IP_QOS:
+	case token.IPQoS:
 		return p.parseIPQoS()
-	case token.KBD_INTERACTIVE_AUTHENTICATION:
+	case token.KbdInteractiveAuthentication:
 		return p.parseKbdInteractiveAuthentication()
-	case token.KBD_INTERACTIVE_DEVICES:
+	case token.KbdInteractiveDevices:
 		return p.parseKbdInteractiveDevices()
-	case token.LOCAL_COMMAND:
+	case token.LocalCommand:
 		return p.parseLocalCommand()
-	case token.MACS:
+	case token.Macs:
 		return p.parseMacs()
-	case token.NO_HOST_AUTHENTICATION_FOR_LOCALHOST:
+	case token.NoHostAuthenticationForLocalhost:
 		return p.parseNoHostAuthentication()
-	case token.NUMBER_OF_PASSWORD_PROMPTS:
+	case token.NumberOfPasswordPrompts:
 		return p.parseNumberOfPasswordPrompts()
-	case token.PASSWORD_AUTHENTICATION:
+	case token.PasswordAuthentication:
 		return p.parsePasswordAuthentication()
-	case token.PERMIT_LOCAL_COMMAND:
+	case token.PermitLocalCommand:
 		return p.parsePermitLocalCommand()
-	case token.PKCS11_PROVIDER:
+	case token.Pkcs11Provider:
 		return p.parsePCKS11Provider()
-	case token.PREFERRED_AUTHENTICATIONS:
+	case token.PreferredAuthentications:
 		return p.parsePreferredAuthentications()
-	case token.PROXY_JUMP:
+	case token.ProxyJump:
 		return p.parseProxyJump()
-	case token.PROXY_USE_FDPASS:
+	case token.ProxyUseFdpass:
 		return p.parseProxyUseFD()
-	case token.PUBKEY_ACCEPTED_KEY_TYPES:
+	case token.PubkeyAcceptedKeyTypes:
 		return p.parsePubkeyAcceptedKeyTypes()
-	case token.PUBKEY_AUTHENTICATION:
+	case token.PubkeyAuthentication:
 		return p.parsePubkeyAuthentication()
-	case token.REKEY_LIMIT:
+	case token.RekeyLimit:
 		return p.parseRekeyLimit()
-	case token.REMOTE_COMMAND:
+	case token.RemoteCommand:
 		return p.parseRemoteCommand()
-	case token.REMOTE_FORWARD:
+	case token.RemoteForward:
 		return p.parseRemoteForward()
-	case token.REQUEST_TTY:
+	case token.RequestTty:
 		return p.parseRequestTTY()
-	case token.SEND_ENV:
+	case token.SendEnv:
 		return p.parseSendEnv()
-	case token.SET_ENV:
+	case token.SetEnv:
 		return p.parseSetEnv()
-	case token.STREAM_LOCAL_BIND_MASK:
+	case token.StreamLocalBindMask:
 		return p.parseStreamLocalBindMask()
-	case token.STREAM_LOCAL_BIND_UNLINK:
+	case token.StreamLocalBindUnlink:
 		return p.parseStreamLocalBindUnlink()
-	case token.TCP_KEEP_ALIVE:
-		return p.parseTcpKeepAlive()
-	case token.TUNNEL:
+	case token.TCPKeepAlive:
+		return p.parseTCPKeepAlive()
+	case token.Tunnel:
 		return p.parseTunnel()
-	case token.TUNNEL_DEVICE:
+	case token.TunnelDevice:
 		return p.parseTunnelDevice()
-	case token.UPDATE_HOST_KEYS:
+	case token.UpdateHostKeys:
 		return p.parseUpdateHostKeys()
-	case token.VERIFY_HOST_KEY_DNS:
+	case token.VerifyHostKeyDNS:
 		return p.parseVerifyHostKeyDNS()
-	case token.VISUAL_HOST_KEY:
+	case token.VisualHostKey:
 		return p.parseVisualHostKey()
-	case token.XAUTH_LOCATION:
+	case token.XauthLocation:
 		return p.parseXAuthLocation()
-	//case token.MATCH:
+	//case token.Match:
 	//	return p.parseMatchStatement()
 	default:
 		return nil
@@ -238,19 +239,19 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 
 	// Host <value>
 	var s []string
-	if  !p.peekTokenIs(token.IDENT) {
+	if !p.peekTokenIs(token.Ident) {
 		p.errors = append(p.errors, fmt.Sprint("failed to parse host statement"))
 		return nil
 	}
 
-	for p.expectPeek(token.IDENT) {
+	for p.expectPeek(token.Ident) {
 		s = append(s, p.curToken.Literal)
 	}
 	stmt.Value = strings.Join(s, " ")
 
 	// we proceed with the host block parsing
 	// if the next token is not "Host"
-	if !p.expectPeek(token.HOST) {
+	if !p.expectPeek(token.Host) {
 		stmt.Statement = p.parseBlockStatement()
 	}
 
@@ -263,7 +264,7 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 
 	p.nextToken()
 
-	for !p.peekTokenIs(token.HOST) && !p.curTokenIs(token.EOF) {
+	for !p.peekTokenIs(token.Host) && !p.curTokenIs(token.EOF) {
 		stmt := p.parseStatement()
 		if stmt != nil {
 			block.Statements = append(block.Statements, stmt)
@@ -274,14 +275,13 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 	return block
 }
 
-
 // Specifies the real host name to log into.
 func (p *Parser) parseHostname() ast.Statement {
 	stmt := &ast.HostName{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -293,7 +293,7 @@ func (p *Parser) parseIdentityFile() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -305,7 +305,7 @@ func (p *Parser) parseUser() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -317,7 +317,7 @@ func (p *Parser) parsePort() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -329,7 +329,7 @@ func (p *Parser) parseUseKeyChain() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -341,7 +341,7 @@ func (p *Parser) parseAddKeysToAgent() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -353,13 +353,13 @@ func (p *Parser) parseLocalForward() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = stmt.Value + " " + p.curToken.Literal
 	}
 	return stmt
@@ -370,7 +370,7 @@ func (p *Parser) parseControlMaster() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -382,7 +382,7 @@ func (p *Parser) parseControlPersist() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -394,7 +394,7 @@ func (p *Parser) parseServerAlive() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -402,11 +402,11 @@ func (p *Parser) parseServerAlive() ast.Statement {
 }
 
 func (p *Parser) parseCompression() ast.Statement {
-	stmt := &ast.CompressionStatement{Token: p.curToken}
+	stmt := &ast.Compression{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -418,7 +418,7 @@ func (p *Parser) parseCompressionLevel() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -430,11 +430,11 @@ func (p *Parser) parseUserKnownHostsFile() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -447,11 +447,11 @@ func (p *Parser) parseStrictHostKeyChecking() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -460,15 +460,15 @@ func (p *Parser) parseStrictHostKeyChecking() ast.Statement {
 }
 
 func (p *Parser) parseProxyCommand() ast.Statement {
-	stmt := &ast.ProxyCommandStatement{Token: p.curToken}
+	stmt := &ast.ProxyCommand{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.IDENT) {
+	for p.expectPeek(token.Ident) {
 		stmt.Value = stmt.Value + " " + p.curToken.Literal
 	}
 	return stmt
@@ -479,7 +479,7 @@ func (p *Parser) parseForwardAgent() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -491,7 +491,7 @@ func (p *Parser) parseLogLevel() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -503,50 +503,47 @@ func (p *Parser) parseCanonicalizeFallback() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseCanonicalizeHostname() ast.Statement {
 	stmt := &ast.CanonicalizeHostname{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseCanonicalizeMaxDots() ast.Statement {
 	stmt := &ast.CanonicalizeMaxDots{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseCanonicalizePermittedCNames() ast.Statement {
 	stmt := &ast.CanonicalizePermittedCNames{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.IDENT) {
+	for p.expectPeek(token.Ident) {
 		stmt.Value = stmt.Value + " " + p.curToken.Literal
 	}
 	return stmt
@@ -557,11 +554,11 @@ func (p *Parser) parseCaSignatureAlgorithms() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -569,13 +566,12 @@ func (p *Parser) parseCaSignatureAlgorithms() ast.Statement {
 	return stmt
 }
 
-
 func (p *Parser) parseCertificateFile() ast.Statement {
 	stmt := &ast.CertificateFile{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -587,7 +583,7 @@ func (p *Parser) parseChallengeAuthentication() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -599,24 +595,23 @@ func (p *Parser) parseCheckHostIP() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseCiphers() ast.Statement {
 	stmt := &ast.Ciphers{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -629,33 +624,31 @@ func (p *Parser) parseClearAllForwarding() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseConnectionAttempts() ast.Statement {
 	stmt := &ast.ConnectionAttempts{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseConnectionTimeout() ast.Statement {
 	stmt := &ast.ConnectionTimeout{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -667,20 +660,19 @@ func (p *Parser) parseDynamicForward() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseEscapeChar() ast.Statement {
 	stmt := &ast.EscapeChar{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -692,7 +684,7 @@ func (p *Parser) parseExitOnForwardFailure() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -704,7 +696,7 @@ func (p *Parser) parseFingerprintHash() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -716,20 +708,19 @@ func (p *Parser) parseForwardX11() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseForwardX11Timeout() ast.Statement {
 	stmt := &ast.ForwardX11Timeout{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -741,7 +732,7 @@ func (p *Parser) parseForwardX11Trusted() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -753,24 +744,23 @@ func (p *Parser) parseGatewayPorts() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseGlobalKnownHostsFile() ast.Statement {
 	stmt := &ast.GlobalKnownHostsFile{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -778,13 +768,12 @@ func (p *Parser) parseGlobalKnownHostsFile() ast.Statement {
 	return stmt
 }
 
-
 func (p *Parser) parseGSSApiAuthentication() ast.Statement {
 	stmt := &ast.GSSApiAuthentication{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -796,50 +785,47 @@ func (p *Parser) parseGSSApiDelegateCredentials() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseHashKnownHosts() ast.Statement {
 	stmt := &ast.HashKnownHosts{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseHostBasedAuthentication() ast.Statement {
 	stmt := &ast.HostBasedAuthentication{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseHostBasedKeyTypes() ast.Statement {
 	stmt := &ast.HostBasedKeyTypes{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -852,11 +838,11 @@ func (p *Parser) parseHostKeyAlgorithms() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -864,65 +850,60 @@ func (p *Parser) parseHostKeyAlgorithms() ast.Statement {
 	return stmt
 }
 
-
 func (p *Parser) parseHostKeyAlias() ast.Statement {
 	stmt := &ast.HostKeyAlias{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseIdentitiesOnly() ast.Statement {
 	stmt := &ast.IdentitiesOnly{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseIdentityAgent() ast.Statement {
 	stmt := &ast.IdentityAgent{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseIPQoS() ast.Statement {
 	stmt := &ast.IPQoS{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseKbdInteractiveAuthentication() ast.Statement {
 	stmt := &ast.KbdInteractiveAuthentication{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -934,11 +915,11 @@ func (p *Parser) parseKbdInteractiveDevices() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -951,27 +932,26 @@ func (p *Parser) parseLocalCommand() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.IDENT) {
+	for p.expectPeek(token.Ident) {
 		stmt.Value = stmt.Value + " " + p.curToken.Literal
 	}
 	return stmt
 }
-
 
 func (p *Parser) parseMacs() ast.Statement {
 	stmt := &ast.Macs{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -984,46 +964,43 @@ func (p *Parser) parseNoHostAuthentication() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseNumberOfPasswordPrompts() ast.Statement {
 	stmt := &ast.NumberOfPasswordPrompts{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parsePasswordAuthentication() ast.Statement {
 	stmt := &ast.PasswordAuthentication{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parsePermitLocalCommand() ast.Statement {
 	stmt := &ast.PermitLocalCommand{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -1035,24 +1012,23 @@ func (p *Parser) parsePCKS11Provider() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parsePreferredAuthentications() ast.Statement {
 	stmt := &ast.PreferredAuthentications{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.COMMA) {
+	for p.expectPeek(token.Comma) {
 		p.nextToken()
 		stmt.Value = stmt.Value + ", " + p.curToken.Literal
 	}
@@ -1060,26 +1036,24 @@ func (p *Parser) parsePreferredAuthentications() ast.Statement {
 	return stmt
 }
 
-
 func (p *Parser) parseProxyJump() ast.Statement {
 	stmt := &ast.ProxyJump{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseProxyUseFD() ast.Statement {
 	stmt := &ast.ProxyUserFDPass{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -1091,7 +1065,7 @@ func (p *Parser) parsePubkeyAcceptedKeyTypes() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -1103,94 +1077,88 @@ func (p *Parser) parsePubkeyAuthentication() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseRekeyLimit() ast.Statement {
 	stmt := &ast.RekeyLimit{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseRemoteCommand() ast.Statement {
 	stmt := &ast.RemoteCommand{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.IDENT) {
+	for p.expectPeek(token.Ident) {
 		stmt.Value = stmt.Value + " " + p.curToken.Literal
 	}
 	return stmt
 }
-
 
 func (p *Parser) parseRemoteForward() ast.Statement {
 	stmt := &ast.RemoteForward{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.IDENT) {
+	for p.expectPeek(token.Ident) {
 		stmt.Value = stmt.Value + " " + p.curToken.Literal
 	}
 	return stmt
 }
-
 
 func (p *Parser) parseRequestTTY() ast.Statement {
 	stmt := &ast.RequestTTY{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseSendEnv() ast.Statement {
 	stmt := &ast.SendEnv{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
-	for p.expectPeek(token.IDENT) {
+	for p.expectPeek(token.Ident) {
 		stmt.Value = stmt.Value + " " + p.curToken.Literal
 	}
 	return stmt
 }
-
 
 func (p *Parser) parseSetEnv() ast.Statement {
 	stmt := &ast.SetEnv{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -1202,111 +1170,103 @@ func (p *Parser) parseStreamLocalBindMask() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseStreamLocalBindUnlink() ast.Statement {
 	stmt := &ast.StreamLocalBindUnlink{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
-func (p *Parser) parseTcpKeepAlive() ast.Statement {
-	stmt := &ast.TcpKeepAlive{Token: p.curToken}
+func (p *Parser) parseTCPKeepAlive() ast.Statement {
+	stmt := &ast.TCPKeepAlive{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseTunnel() ast.Statement {
 	stmt := &ast.Tunnel{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseTunnelDevice() ast.Statement {
 	stmt := &ast.TunnelDevice{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseUpdateHostKeys() ast.Statement {
 	stmt := &ast.UpdateHostKeys{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseVerifyHostKeyDNS() ast.Statement {
 	stmt := &ast.VerifyHostKeyDNS{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
-
 
 func (p *Parser) parseVisualHostKey() ast.Statement {
 	stmt := &ast.VisualHostKey{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
-
 func (p *Parser) parseXAuthLocation() ast.Statement {
 	stmt := &ast.XAuthLocation{Token: p.curToken}
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
@@ -1318,19 +1278,17 @@ func (p *Parser) parseControlPath() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.IDENT) {
+	if p.curTokenIs(token.Ident) {
 		stmt.Value = p.curToken.Literal
 	}
 
 	return stmt
 }
 
+// Errors ....
 func (p *Parser) Errors() []string {
 	return p.errors
 }
-
-
-
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {
 //	match := &ast.MatchStatement{Token: p.curToken}

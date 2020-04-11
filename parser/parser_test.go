@@ -183,7 +183,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "HostName host1.example.com",
 			want: &ast.HostName{
 				Token: token.Token{
-					Type:    token.HOSTNAME,
+					Type:    token.Hostname,
 					Literal: "HostName",
 				},
 				Value: "host1.example.com",
@@ -193,7 +193,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "IdentityFile ~/.ssh/key_name_for_github",
 			want: &ast.IdentityFile{
 				Token: token.Token{
-					Type:    token.IDENTITY_FILE,
+					Type:    token.IdentityFile,
 					Literal: "IdentityFile",
 				},
 				Value: "~/.ssh/key_name_for_github",
@@ -203,7 +203,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "User user1",
 			want: &ast.User{
 				Token: token.Token{
-					Type:    token.USER,
+					Type:    token.User,
 					Literal: "User",
 				},
 				Value: "user1",
@@ -213,7 +213,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "Port 22",
 			want: &ast.Port{
 				Token: token.Token{
-					Type:    token.PORT,
+					Type:    token.Port,
 					Literal: "Port",
 				},
 				Value: "22",
@@ -223,7 +223,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "UseKeyChain yes",
 			want: &ast.UseKeyChain{
 				Token: token.Token{
-					Type:    token.USE_KEY_CHAIN,
+					Type:    token.UseKeyChain,
 					Literal: "UseKeyChain",
 				},
 				Value: "yes",
@@ -233,7 +233,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "AddKeysToAgent yes",
 			want: &ast.AddKeysToAgent{
 				Token: token.Token{
-					Type:    token.ADD_KEYS_TO_AGENT,
+					Type:    token.AddKeysToAgent,
 					Literal: "AddKeysToAgent",
 				},
 				Value: "yes",
@@ -243,7 +243,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "LocalForward 8443 127.0.0.1:443",
 			want: &ast.LocalForward{
 				Token: token.Token{
-					Type:    token.LOCAL_FORWARD,
+					Type:    token.LocalForward,
 					Literal: "LocalForward",
 				},
 				Value: "8443 127.0.0.1:443",
@@ -253,7 +253,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ControlMaster yes",
 			want: &ast.ControlMaster{
 				Token: token.Token{
-					Type:    token.CONTROL_MASTER,
+					Type:    token.ControlMaster,
 					Literal: "ControlMaster",
 				},
 				Value: "yes",
@@ -263,7 +263,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ControlPersist no",
 			want: &ast.ControlPersist{
 				Token: token.Token{
-					Type:    token.CONTROL_PERSIST,
+					Type:    token.ControlPersist,
 					Literal: "ControlPersist",
 				},
 				Value: "no",
@@ -273,7 +273,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "DynamicForward localhost:3333",
 			want: &ast.DynamicForward{
 				Token: token.Token{
-					Type:    token.DYNAMIC_FORWARD,
+					Type:    token.DynamicForward,
 					Literal: "DynamicForward",
 				},
 				Value: "localhost:3333",
@@ -283,7 +283,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "EscapeChar ~",
 			want: &ast.EscapeChar{
 				Token: token.Token{
-					Type:    token.ESCAPE_CHAR,
+					Type:    token.EscapeChar,
 					Literal: "EscapeChar",
 				},
 				Value: "~",
@@ -293,7 +293,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ExitOnForwardFailure yes",
 			want: &ast.ExitOnForwardFailure{
 				Token: token.Token{
-					Type:    token.EXIT_ON_FORWARD_FAILURE,
+					Type:    token.ExitOnForwardFailure,
 					Literal: "ExitOnForwardFailure",
 				},
 				Value: "yes",
@@ -303,7 +303,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "FingerprintHash sha256",
 			want: &ast.FingerprintHash{
 				Token: token.Token{
-					Type:    token.FINGERPRINT_HASH,
+					Type:    token.FingerprintHash,
 					Literal: "FingerprintHash",
 				},
 				Value: "sha256",
@@ -313,7 +313,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ForwardAgent yes",
 			want: &ast.ForwardAgent{
 				Token: token.Token{
-					Type:    token.FORWARD_AGENT,
+					Type:    token.ForwardAgent,
 					Literal: "ForwardAgent",
 				},
 				Value: "yes",
@@ -323,7 +323,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ForwardX11Timeout 0",
 			want: &ast.ForwardX11Timeout{
 				Token: token.Token{
-					Type:    token.FORWARD_X11_TIMEOUT,
+					Type:    token.ForwardX11Timeout,
 					Literal: "ForwardX11Timeout",
 				},
 				Value: "0",
@@ -333,7 +333,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ForwardX11Trusted yes",
 			want: &ast.ForwardX11Trusted{
 				Token: token.Token{
-					Type:    token.FORWARD_X11_TRUSTED,
+					Type:    token.ForwardX11Trusted,
 					Literal: "ForwardX11Trusted",
 				},
 				Value: "yes",
@@ -343,7 +343,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "GatewayPorts yes",
 			want: &ast.GatewayPorts{
 				Token: token.Token{
-					Type:    token.GATEWAY_PORTS,
+					Type:    token.GatewayPorts,
 					Literal: "GatewayPorts",
 				},
 				Value: "yes",
@@ -353,7 +353,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "GlobalKnownHostsFile /etc/ssh/ssh_known_hosts, /etc/ssh/ssh_known_hosts2, /etc/ssh/ssh_known_hosts3",
 			want: &ast.GlobalKnownHostsFile{
 				Token: token.Token{
-					Type:    token.GLOBAL_KNOWN_HOSTS_FILE,
+					Type:    token.GlobalKnownHostsFile,
 					Literal: "GlobalKnownHostsFile",
 				},
 				Value: "/etc/ssh/ssh_known_hosts, /etc/ssh/ssh_known_hosts2, /etc/ssh/ssh_known_hosts3",
@@ -363,7 +363,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "GSSAPIAuthentication yes",
 			want: &ast.GSSApiAuthentication{
 				Token: token.Token{
-					Type:    token.GSSAPI_AUTHENTICATION,
+					Type:    token.GSSAPIAuthentication,
 					Literal: "GSSAPIAuthentication",
 				},
 				Value: "yes",
@@ -373,7 +373,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "GSSAPIDeleteCredentials yes",
 			want: &ast.GSSApiDelegateCredentials{
 				Token: token.Token{
-					Type:    token.GSSAPI_DELEGATE_CREDENTIALS,
+					Type:    token.GSSAPIDelegateCredentials,
 					Literal: "GSSAPIDeleteCredentials",
 				},
 				Value: "yes",
@@ -383,7 +383,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "HashKnownHosts yes",
 			want: &ast.HashKnownHosts{
 				Token: token.Token{
-					Type:    token.HASH_KNOWN_HOSTS,
+					Type:    token.HashKnownHosts,
 					Literal: "HashKnownHosts",
 				},
 				Value: "yes",
@@ -393,7 +393,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "HostbasedAuthentication yes",
 			want: &ast.HostBasedAuthentication{
 				Token: token.Token{
-					Type:    token.HOSTBASED_AUTHENTICATION,
+					Type:    token.HostbasedAuthentication,
 					Literal: "HostbasedAuthentication",
 				},
 				Value: "yes",
@@ -403,7 +403,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "HostbasedKeyTypes ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
 			want: &ast.HostBasedKeyTypes{
 				Token: token.Token{
-					Type:    token.HOSTBASED_KEY_TYPES,
+					Type:    token.HostbasedKeyTypes,
 					Literal: "HostbasedKeyTypes",
 				},
 				Value: "ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
@@ -413,7 +413,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "HostKeyAlgorithms ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
 			want: &ast.HostKeyAlgorithms{
 				Token: token.Token{
-					Type:    token.HOSTBASED_KEY_ALGORITHMS,
+					Type:    token.HostbasedKeyAlgorithms,
 					Literal: "HostKeyAlgorithms",
 				},
 				Value: "ecdsa-sha2-nistp256-cert-v01@openssh.com, ecdsa-sha2-nistp384-cert-v01@openssh.com",
@@ -423,7 +423,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "HostKeyAlias server1",
 			want: &ast.HostKeyAlias{
 				Token: token.Token{
-					Type:    token.HOST_KEY_ALIAS,
+					Type:    token.HostKeyAlias,
 					Literal: "HostKeyAlias",
 				},
 				Value: "server1",
@@ -433,7 +433,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "IdentitiesOnly yes",
 			want: &ast.IdentitiesOnly{
 				Token: token.Token{
-					Type:    token.IDENTITIES_ONLY,
+					Type:    token.IdentitiesOnly,
 					Literal: "IdentitiesOnly",
 				},
 				Value: "yes",
@@ -443,7 +443,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "IdentityAgent ~/.dir/agent.sock",
 			want: &ast.IdentityAgent{
 				Token: token.Token{
-					Type:    token.IDENTITY_AGENT,
+					Type:    token.IdentityAgent,
 					Literal: "IdentityAgent",
 				},
 				Value: "~/.dir/agent.sock",
@@ -453,7 +453,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "IdentityFile ~/.ssh/id_ecdsa",
 			want: &ast.IdentityFile{
 				Token: token.Token{
-					Type:    token.IDENTITY_FILE,
+					Type:    token.IdentityFile,
 					Literal: "IdentityFile",
 				},
 				Value: "~/.ssh/id_ecdsa",
@@ -463,7 +463,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "IPQoS af31",
 			want: &ast.IPQoS{
 				Token: token.Token{
-					Type:    token.IP_QOS,
+					Type:    token.IPQoS,
 					Literal: "IPQoS",
 				},
 				Value: "af31",
@@ -473,7 +473,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "KbdInteractiveAuthentication no",
 			want: &ast.KbdInteractiveAuthentication{
 				Token: token.Token{
-					Type:    token.KBD_INTERACTIVE_AUTHENTICATION,
+					Type:    token.KbdInteractiveAuthentication,
 					Literal: "KbdInteractiveAuthentication",
 				},
 				Value: "no",
@@ -483,7 +483,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "KbdInteractiveDevices pam, skey, bsdauth",
 			want: &ast.KbdInteractiveDevices{
 				Token: token.Token{
-					Type:    token.KBD_INTERACTIVE_DEVICES,
+					Type:    token.KbdInteractiveDevices,
 					Literal: "KbdInteractiveDevices",
 				},
 				Value: "pam, skey, bsdauth",
@@ -493,7 +493,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "LocalCommand rsync -e ssh %d/testfile %r@%n:testfile",
 			want: &ast.LocalCommand{
 				Token: token.Token{
-					Type:    token.LOCAL_COMMAND,
+					Type:    token.LocalCommand,
 					Literal: "LocalCommand",
 				},
 				Value: "rsync -e ssh %d/testfile %r@%n:testfile",
@@ -503,7 +503,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "LogLevel DEBUG",
 			want: &ast.LogLevelStatement{
 				Token: token.Token{
-					Type:    token.LOG_LEVEL,
+					Type:    token.LogLevel,
 					Literal: "LogLevel",
 				},
 				Value: "DEBUG",
@@ -513,7 +513,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "MACs hmac-sha2-256, hmac-sha2-512, hmac-sha1",
 			want: &ast.Macs{
 				Token: token.Token{
-					Type:    token.MACS,
+					Type:    token.Macs,
 					Literal: "MACs",
 				},
 				Value: "hmac-sha2-256, hmac-sha2-512, hmac-sha1",
@@ -523,7 +523,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "NoHostAuthenticationForLocalhost yes",
 			want: &ast.NoHostAuthentication{
 				Token: token.Token{
-					Type:    token.NO_HOST_AUTHENTICATION_FOR_LOCALHOST,
+					Type:    token.NoHostAuthenticationForLocalhost,
 					Literal: "NoHostAuthenticationForLocalhost",
 				},
 				Value: "yes",
@@ -533,7 +533,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "NumberOfPasswordPrompts 1",
 			want: &ast.NumberOfPasswordPrompts{
 				Token: token.Token{
-					Type:    token.NUMBER_OF_PASSWORD_PROMPTS,
+					Type:    token.NumberOfPasswordPrompts,
 					Literal: "NumberOfPasswordPrompts",
 				},
 				Value: "1",
@@ -543,7 +543,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "PasswordAuthentication no",
 			want: &ast.PasswordAuthentication{
 				Token: token.Token{
-					Type:    token.PASSWORD_AUTHENTICATION,
+					Type:    token.PasswordAuthentication,
 					Literal: "PasswordAuthentication",
 				},
 				Value: "no",
@@ -553,7 +553,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "PermitLocalCommand yes",
 			want: &ast.PermitLocalCommand{
 				Token: token.Token{
-					Type:    token.PERMIT_LOCAL_COMMAND,
+					Type:    token.PermitLocalCommand,
 					Literal: "PermitLocalCommand",
 				},
 				Value: "yes",
@@ -563,7 +563,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "PKCS11Provider /usr/lib/i386-linux-gnu/opensc-pkcs11.so",
 			want: &ast.PCKS11Provider{
 				Token: token.Token{
-					Type:    token.PKCS11_PROVIDER,
+					Type:    token.Pkcs11Provider,
 					Literal: "PKCS11Provider",
 				},
 				Value: "/usr/lib/i386-linux-gnu/opensc-pkcs11.so",
@@ -573,7 +573,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "PreferredAuthentications password, keyboard-interactive",
 			want: &ast.PreferredAuthentications{
 				Token: token.Token{
-					Type:    token.PREFERRED_AUTHENTICATIONS,
+					Type:    token.PreferredAuthentications,
 					Literal: "PreferredAuthentications",
 				},
 				Value: "password, keyboard-interactive",
@@ -581,9 +581,9 @@ func TestParser_parseStatement(t *testing.T) {
 		},
 		{
 			input: "ProxyCommand ssh -l jerry %h nc server2.nixcraft.com 22",
-			want: &ast.ProxyCommandStatement{
+			want: &ast.ProxyCommand{
 				Token: token.Token{
-					Type:    token.PROXY_COMMAND,
+					Type:    token.ProxyCommand,
 					Literal: "ProxyCommand",
 				},
 				Value: "ssh -l jerry %h nc server2.nixcraft.com 22",
@@ -593,7 +593,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ProxyJump bastion-host-nickname",
 			want: &ast.ProxyJump{
 				Token: token.Token{
-					Type:    token.PROXY_JUMP,
+					Type:    token.ProxyJump,
 					Literal: "ProxyJump",
 				},
 				Value: "bastion-host-nickname",
@@ -603,7 +603,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ProxyUseFdpass yes",
 			want: &ast.ProxyUserFDPass{
 				Token: token.Token{
-					Type:    token.PROXY_USE_FDPASS,
+					Type:    token.ProxyUseFdpass,
 					Literal: "ProxyUseFdpass",
 				},
 				Value: "yes",
@@ -613,7 +613,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "PubkeyAcceptedKeyTypes +ssh-dss",
 			want: &ast.PubkeyAcceptedKeyTypes{
 				Token: token.Token{
-					Type:    token.PUBKEY_ACCEPTED_KEY_TYPES,
+					Type:    token.PubkeyAcceptedKeyTypes,
 					Literal: "PubkeyAcceptedKeyTypes",
 				},
 				Value: "+ssh-dss",
@@ -623,7 +623,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "PubkeyAuthentication yes",
 			want: &ast.PubkeyAuthentication{
 				Token: token.Token{
-					Type:    token.PUBKEY_AUTHENTICATION,
+					Type:    token.PubkeyAuthentication,
 					Literal: "PubkeyAuthentication",
 				},
 				Value: "yes",
@@ -633,7 +633,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "RekeyLimit 1G",
 			want: &ast.RekeyLimit{
 				Token: token.Token{
-					Type:    token.REKEY_LIMIT,
+					Type:    token.RekeyLimit,
 					Literal: "RekeyLimit",
 				},
 				Value: "1G",
@@ -643,7 +643,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "RemoteCommand cd /tmp && bash",
 			want: &ast.RemoteCommand{
 				Token: token.Token{
-					Type:    token.REMOTE_COMMAND,
+					Type:    token.RemoteCommand,
 					Literal: "RemoteCommand",
 				},
 				Value: "cd /tmp && bash",
@@ -653,7 +653,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "RemoteForward 55555 localhost:22",
 			want: &ast.RemoteForward{
 				Token: token.Token{
-					Type:    token.REMOTE_FORWARD,
+					Type:    token.RemoteForward,
 					Literal: "RemoteForward",
 				},
 				Value: "55555 localhost:22",
@@ -663,7 +663,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "RequestTTY force",
 			want: &ast.RequestTTY{
 				Token: token.Token{
-					Type:    token.REQUEST_TTY,
+					Type:    token.RequestTty,
 					Literal: "RequestTTY",
 				},
 				Value: "force",
@@ -673,7 +673,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "SendEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES",
 			want: &ast.SendEnv{
 				Token: token.Token{
-					Type:    token.SEND_ENV,
+					Type:    token.SendEnv,
 					Literal: "SendEnv",
 				},
 				Value: "LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES",
@@ -683,7 +683,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ServerAliveInterval 10",
 			want: &ast.ServerAliveOption{
 				Token: token.Token{
-					Type:    token.SERVER_ALIVE_INTERVAL,
+					Type:    token.ServerAliveInterval,
 					Literal: "ServerAliveInterval",
 				},
 				Value: "10",
@@ -693,7 +693,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ServerAliveCountMax 3",
 			want: &ast.ServerAliveOption{
 				Token: token.Token{
-					Type:    token.SERVER_ALIVE_COUNT_MAX,
+					Type:    token.ServerAliveCountMax,
 					Literal: "ServerAliveCountMax",
 				},
 				Value: "3",
@@ -703,7 +703,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "SetEnv FOO=bar",
 			want: &ast.SetEnv{
 				Token: token.Token{
-					Type:    token.SET_ENV,
+					Type:    token.SetEnv,
 					Literal: "SetEnv",
 				},
 				Value: "FOO=bar",
@@ -713,7 +713,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "StreamLocalBindMask 0177",
 			want: &ast.StreamLocalBindMask{
 				Token: token.Token{
-					Type:    token.STREAM_LOCAL_BIND_MASK,
+					Type:    token.StreamLocalBindMask,
 					Literal: "StreamLocalBindMask",
 				},
 				Value: "0177",
@@ -723,7 +723,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "StreamLocalBindUnlink yes",
 			want: &ast.StreamLocalBindUnlink{
 				Token: token.Token{
-					Type:    token.STREAM_LOCAL_BIND_UNLINK,
+					Type:    token.StreamLocalBindUnlink,
 					Literal: "StreamLocalBindUnlink",
 				},
 				Value: "yes",
@@ -733,7 +733,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "StrictHostKeyChecking chacha20-poly1305@openssh.com, aes128-ctr, aes192-ctr, aes256-ctr",
 			want: &ast.StrictHostKeyChecking{
 				Token: token.Token{
-					Type:    token.STRICT_HOST_KEY_CHECKING,
+					Type:    token.StrictHostKeyChecking,
 					Literal: "StrictHostKeyChecking",
 				},
 				Value: "chacha20-poly1305@openssh.com, aes128-ctr, aes192-ctr, aes256-ctr",
@@ -741,9 +741,9 @@ func TestParser_parseStatement(t *testing.T) {
 		},
 		{
 			input: "TCPKeepAlive no",
-			want: &ast.TcpKeepAlive{
+			want: &ast.TCPKeepAlive{
 				Token: token.Token{
-					Type:    token.TCP_KEEP_ALIVE,
+					Type:    token.TCPKeepAlive,
 					Literal: "TCPKeepAlive",
 				},
 				Value: "no",
@@ -753,7 +753,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "Tunnel point-to-point",
 			want: &ast.Tunnel{
 				Token: token.Token{
-					Type:    token.TUNNEL,
+					Type:    token.Tunnel,
 					Literal: "Tunnel",
 				},
 				Value: "point-to-point",
@@ -763,7 +763,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "TunnelDevice any",
 			want: &ast.TunnelDevice{
 				Token: token.Token{
-					Type:    token.TUNNEL_DEVICE,
+					Type:    token.TunnelDevice,
 					Literal: "TunnelDevice",
 				},
 				Value: "any",
@@ -773,7 +773,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "UpdateHostKeys ask",
 			want: &ast.UpdateHostKeys{
 				Token: token.Token{
-					Type:    token.UPDATE_HOST_KEYS,
+					Type:    token.UpdateHostKeys,
 					Literal: "UpdateHostKeys",
 				},
 				Value: "ask",
@@ -783,7 +783,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "UserKnownHostsFile ~/.ssh/known_hosts, ~/.ssh/known_hosts2",
 			want: &ast.UserKnownHostsFile{
 				Token: token.Token{
-					Type:    token.USER_KNOWN_HOSTS_FILE,
+					Type:    token.UserKnownHostsFile,
 					Literal: "UserKnownHostsFile",
 				},
 				Value: "~/.ssh/known_hosts, ~/.ssh/known_hosts2",
@@ -793,7 +793,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "VerifyHostKeyDNS yes",
 			want: &ast.VerifyHostKeyDNS{
 				Token: token.Token{
-					Type:    token.VERIFY_HOST_KEY_DNS,
+					Type:    token.VerifyHostKeyDNS,
 					Literal: "VerifyHostKeyDNS",
 				},
 				Value: "yes",
@@ -803,7 +803,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "VisualHostKey yes",
 			want: &ast.VisualHostKey{
 				Token: token.Token{
-					Type:    token.VISUAL_HOST_KEY,
+					Type:    token.VisualHostKey,
 					Literal: "VisualHostKey",
 				},
 				Value: "yes",
@@ -813,7 +813,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "XAuthLocation /usr/X11R6/bin/xauth",
 			want: &ast.XAuthLocation{
 				Token: token.Token{
-					Type:    token.XAUTH_LOCATION,
+					Type:    token.XauthLocation,
 					Literal: "XAuthLocation",
 				},
 				Value: "/usr/X11R6/bin/xauth",
@@ -823,7 +823,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ControlPath ~/.ssh/control-%h-%p-%r",
 			want: &ast.ControlPath{
 				Token: token.Token{
-					Type:    token.CONTROL_PATH,
+					Type:    token.ControlPath,
 					Literal: "ControlPath",
 				},
 				Value: "~/.ssh/control-%h-%p-%r",
@@ -831,9 +831,9 @@ func TestParser_parseStatement(t *testing.T) {
 		},
 		{
 			input: "Compression no",
-			want: &ast.CompressionStatement{
+			want: &ast.Compression{
 				Token: token.Token{
-					Type:    token.COMPRESSION,
+					Type:    token.Compression,
 					Literal: "Compression",
 				},
 				Value: "no",
@@ -843,7 +843,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ForwardX11 yes",
 			want: &ast.ForwardX11{
 				Token: token.Token{
-					Type:    token.FORWARD_X11,
+					Type:    token.ForwardX11,
 					Literal: "ForwardX11",
 				},
 				Value: "yes",
@@ -853,7 +853,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ConnectionTimeout 0",
 			want: &ast.ConnectionTimeout{
 				Token: token.Token{
-					Type:    token.CONNECTION_TIMEOUT,
+					Type:    token.ConnectionTimeout,
 					Literal: "ConnectionTimeout",
 				},
 				Value: "0",
@@ -863,7 +863,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ConnectionAttempts 1",
 			want: &ast.ConnectionAttempts{
 				Token: token.Token{
-					Type:    token.CONNECTION_ATTEMPTS,
+					Type:    token.ConnectionAttempts,
 					Literal: "ConnectionAttempts",
 				},
 				Value: "1",
@@ -873,7 +873,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "CheckHostIP no",
 			want: &ast.CheckHostIP{
 				Token: token.Token{
-					Type:    token.CHECK_HOST_IP,
+					Type:    token.CheckHostIP,
 					Literal: "CheckHostIP",
 				},
 				Value: "no",
@@ -883,7 +883,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "Ciphers aes128-ctr,aes192-ctr,aes256-ctr",
 			want: &ast.Ciphers{
 				Token: token.Token{
-					Type:    token.CIPHERS,
+					Type:    token.Ciphers,
 					Literal: "Ciphers",
 				},
 				Value: "aes128-ctr, aes192-ctr, aes256-ctr",
@@ -893,7 +893,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ClearAllForwardings yes",
 			want: &ast.ClearAllForwardings{
 				Token: token.Token{
-					Type:    token.CLEAR_ALL_FORWARDINGS,
+					Type:    token.ClearAllForwardings,
 					Literal: "ClearAllForwardings",
 				},
 				Value: "yes",
@@ -903,7 +903,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "ChallengeResponseAuthentication no",
 			want: &ast.ChallengeAuthentication{
 				Token: token.Token{
-					Type:    token.CHALLENGE_RESPONSE_AUTHENTICATION,
+					Type:    token.ChallengeResponseAuthentication,
 					Literal: "ChallengeResponseAuthentication",
 				},
 				Value: "no",
@@ -913,7 +913,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "CanonicalizeFallbackLocal yes",
 			want: &ast.CanonicalizeFallbackLocal{
 				Token: token.Token{
-					Type:    token.CANONICALIZE_FALLBACK_LOCAL,
+					Type:    token.CanonicalizeFallbackLocal,
 					Literal: "CanonicalizeFallbackLocal",
 				},
 				Value: "yes",
@@ -923,7 +923,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "CanonicalizeHostname yes",
 			want: &ast.CanonicalizeHostname{
 				Token: token.Token{
-					Type:    token.CANONICALIZE_HOSTNAME,
+					Type:    token.CanonicalizeHostname,
 					Literal: "CanonicalizeHostname",
 				},
 				Value: "yes",
@@ -933,7 +933,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "CanonicalizeMaxDots 0",
 			want: &ast.CanonicalizeMaxDots{
 				Token: token.Token{
-					Type:    token.CANONICALIZE_MAX_DOTS,
+					Type:    token.CanonicalizeMaxDots,
 					Literal: "CanonicalizeMaxDots",
 				},
 				Value: "0",
@@ -943,7 +943,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "CanonicalizePermittedCNAMEs mail.*.example.com:anycast-mail.int.example.com dns*.example.com:dns*.dmz.example.com",
 			want: &ast.CanonicalizePermittedCNames{
 				Token: token.Token{
-					Type:    token.CANONICALIZE_PERMITTED_CNAMES,
+					Type:    token.CanonicalizePermittedCnames,
 					Literal: "CanonicalizePermittedCNAMEs",
 				},
 				Value: "mail.*.example.com:anycast-mail.int.example.com dns*.example.com:dns*.dmz.example.com",
@@ -953,7 +953,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "CASignatureAlgorithms ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521",
 			want: &ast.CASignatureAlgorithms{
 				Token: token.Token{
-					Type:    token.CA_SIGNATURE_ALGORITHMS,
+					Type:    token.CaSignatureAlgorithms,
 					Literal: "CASignatureAlgorithms",
 				},
 				Value: "ecdsa-sha2-nistp256, ecdsa-sha2-nistp384, ecdsa-sha2-nistp521",
@@ -963,7 +963,7 @@ func TestParser_parseStatement(t *testing.T) {
 			input: "CertificateFile ~/.ssh/id_ecdsa",
 			want: &ast.CertificateFile{
 				Token: token.Token{
-					Type:    token.CERTIFICATE_FILE,
+					Type:    token.CertificateFile,
 					Literal: "CertificateFile",
 				},
 				Value: "~/.ssh/id_ecdsa",
@@ -982,7 +982,6 @@ func TestParser_parseStatement(t *testing.T) {
 		})
 	}
 }
-
 
 func testHostConfigStatement(t *testing.T, s ast.Statement, name string) bool {
 	if s.TokenLiteral() != "Host" {
