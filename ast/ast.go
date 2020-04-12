@@ -1,6 +1,5 @@
 package ast
 
-import "C"
 import (
 	"bytes"
 
