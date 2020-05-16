@@ -98,6 +98,7 @@ const (
 	VerifyHostKeyDNS                 = "VerifyHostKeyDNS"
 	VisualHostKey                    = "VisualHostKey"
 	XauthLocation                    = "XAuthLocation"
+	Include                          = "Include"
 )
 
 var keywords = map[string]Type{
@@ -185,6 +186,7 @@ var keywords = map[string]Type{
 	"visualhostkey":                    VisualHostKey,
 	"xauthlocation":                    XauthLocation,
 	"match":                            Match,
+	"include":                          Include,
 }
 
 // LookupIndent ...

@@ -227,6 +227,8 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseVisualHostKey()
 	case token.XauthLocation:
 		return p.parseXAuthLocation()
+	case token.Include:
+		return p.parseInclude()
 	//case token.Match:
 	//	return p.parseMatchStatement()
 	default:
@@ -1288,6 +1290,10 @@ func (p *Parser) parseControlPath() ast.Statement {
 // Errors ....
 func (p *Parser) Errors() []string {
 	return p.errors
+}
+
+func (p *Parser) parseInclude() ast.Statement {
+	stmt := &ast.Include{ Token: p.curToken }
 }
 
 //func (p *Parser) parseMatchStatement() *ast.MatchStatement {

@@ -88,6 +88,7 @@ var (
 	_ Statement = (*XAuthLocation)(nil)
 	_ Statement = (*ControlPath)(nil)
 	// _ Statement = (*MatchStatement)(nil)
+	_ Statement = (*Include)(nil)
 )
 
 // Node AST node
@@ -1569,6 +1570,22 @@ func (c ControlPath) String() string {
 	return out.String()
 }
 
+type Include struct {
+	Token token.Token
+	Value string
+}
+
+// TokenLiteral ...
+func (i Include) TokenLiteral() string {
+	return i.Token.Literal
+}
+
+// String ...
+func (i Include) String() string {
+	var out bytes.Buffer
+	out.WriteString(i.Value)
+	return out.String()
+}
 // MatchStatement statement
 //type MatchStatement struct {
 //	Token      token.Token // the Match token
