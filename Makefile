@@ -17,7 +17,7 @@ M = $(shell printf "\033[34;1m▶\033[0m")
 export GO111MODULE=on
 
 .PHONY: all
-all: fmt lint | $(BIN) ; $(info $(M) building executable…) @ ## Build program binary
+all: fmt lint embedmd | $(BIN) ; $(info $(M) building executable…) @ ## Build program binary
 	$Q $(GO) install ./...
 
 # Tools
@@ -41,6 +41,9 @@ $(BIN)/gocov-xml: PACKAGE=github.com/AlekSi/gocov-xml
 
 GO2XUNIT = $(BIN)/go2xunit
 $(BIN)/go2xunit: PACKAGE=github.com/tebeka/go2xunit
+
+EMBEDMD = $(BIN)/embedmd
+$(BIN)/embedmd: PACKAGE=github.com/campoy/embedmd
 
 # Tests
 
@@ -67,7 +70,7 @@ COVERAGE_HTML    = $(COVERAGE_DIR)/index.html
 .PHONY: test-coverage test-coverage-tools
 test-coverage-tools: | $(GOCOV) $(GOCOVXML)
 test-coverage: COVERAGE_DIR := $(CURDIR)/test/coverage.$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-test-coverage: fmt lint test-coverage-tools ; $(info $(M) running coverage tests…) @ ## Run coverage tests
+test-coverage: fmt lint embedmd test-coverage-tools ; $(info $(M) running coverage tests…) @ ## Run coverage tests
 	$Q mkdir -p $(COVERAGE_DIR)
 	$Q $(GO) test \
 		-coverpkg=$$($(GO) list -f '{{ join .Deps "\n" }}' $(TESTPKGS) | \
@@ -85,6 +88,10 @@ lint: | $(GOLINT) ; $(info $(M) running golint…) @ ## Run golint
 .PHONY: fmt
 fmt: ; $(info $(M) running gofmt…) @ ## Run gofmt on all source files
 	$Q $(GO) fmt $(PKGS)
+
+.PHONY: embedmd
+embedmd: | $(EMBEDMD) ; $(info $(M) running embedmd…) @ ## Run embedmd
+	$Q $(EMBEDMD) -w README.md
 
 # Misc
 
