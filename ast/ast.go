@@ -1573,6 +1573,7 @@ func (c ControlPath) String() string {
 	return out.String()
 }
 
+// Include ...
 type Include struct {
 	Token token.Token
 	Value string
@@ -1590,15 +1591,18 @@ func (i Include) String() string {
 	return out.String()
 }
 
+// Match ...
 type Match struct {
-	Token      token.Token // the Match token
-	Value      string
+	Token token.Token // the Match token
+	Value string
 }
 
+// TokenLiteral ...
 func (ms *Match) TokenLiteral() string {
 	return ms.Token.Literal
 }
 
+// String ...
 func (ms *Match) String() string {
 	var out bytes.Buffer
 	out.WriteString(ms.Value)
