@@ -241,7 +241,7 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 
 	// Host <value>
 	var s []string
-	if !p.peekTokenIs(token.Ident) {
+	if !p.peekTokenIs(token.Ident) && !p.peekTokenIs(token.String){
 		p.errors = append(p.errors, fmt.Sprint("failed to parse host statement"))
 		return nil
 	}
