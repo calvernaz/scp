@@ -45,7 +45,7 @@ import (
 //		t.Errorf("s.TokenLiteral not 'Match'. got=%q", s.TokenLiteral())
 //	}
 //
-//	configStmt, ok := s.(*ast.MatchStatement)
+//	configStmt, ok := s.(*ast.Match)
 //	if !ok {
 //		t.Errorf("s not *ast.ConfigStatement. got=%T", s)
 //		return false
@@ -967,6 +967,76 @@ func TestParser_parseStatement(t *testing.T) {
 					Literal: "CertificateFile",
 				},
 				Value: "~/.ssh/id_ecdsa",
+			},
+		},
+		{
+			input: "Include ~/.ssh/pi_config",
+			want: &ast.Include{
+				Token: token.Token{
+					Type:    token.Include,
+					Literal: "Include",
+				},
+				Value: "~/.ssh/pi_config",
+			},
+		},
+		{
+			input: "Match all",
+			want: &ast.Match{
+				Token: token.Token{
+					Type:    token.Match,
+					Literal: "Match",
+				},
+				Value: "all",
+			},
+		},
+		{
+			input: "Match canonical all",
+			want: &ast.Match{
+				Token: token.Token{
+					Type:    token.Match,
+					Literal: "Match",
+				},
+				Value: "canonical all",
+			},
+		},
+		{
+			input: "Match final all",
+			want: &ast.Match{
+				Token: token.Token{
+					Type:    token.Match,
+					Literal: "Match",
+				},
+				Value: "final all",
+			},
+		},
+		{
+			input: "Match user bob, joe, phil",
+			want: &ast.Match{
+				Token: token.Token{
+					Type:    token.Match,
+					Literal: "Match",
+				},
+				Value: "user bob, joe, phil",
+			},
+		},
+		{
+			input: "Match host \"specified-domain.com\" user \"specified-user\"",
+			want: &ast.Match{
+				Token: token.Token{
+					Type:    token.Match,
+					Literal: "Match",
+				},
+				Value: "host \"specified-domain.com\" user \"specified-user\"",
+			},
+		},
+		{
+			input: "Match exec \"onsubnet --not 10.10.1.\" host my-server",
+			want: &ast.Match{
+				Token: token.Token{
+					Type:    token.Match,
+					Literal: "Match",
+				},
+				Value: "exec \"onsubnet --not 10.10.1.\" host my-server",
 			},
 		},
 	}

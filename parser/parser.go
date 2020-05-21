@@ -229,8 +229,8 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseXAuthLocation()
 	case token.Include:
 		return p.parseInclude()
-	//case token.Match:
-	//	return p.parseMatchStatement()
+	case token.Match:
+		return p.parseMatchStatement()
 	default:
 		return nil
 	}
@@ -1293,23 +1293,148 @@ func (p *Parser) Errors() []string {
 }
 
 func (p *Parser) parseInclude() ast.Statement {
-	stmt := &ast.Include{ Token: p.curToken }
+	stmt := &ast.Include{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curTokenIs(token.Ident) {
+		stmt.Value = p.curToken.Literal
+	}
+
+	return stmt
 }
 
-//func (p *Parser) parseMatchStatement() *ast.MatchStatement {
-//	match := &ast.MatchStatement{Token: p.curToken}
-//
-//	p.nextToken()
-//
-//	if p.curTokenIs(token.Host) {
-//		match.Condition = token.Host
-//	}
-//
-//	if !p.expectPeek(token.STRING) {
-//		return nil
-//	}
-//
-//	match.Value = p.curToken.Literal
-//
-//	return match
-//}
+/*
+ * The available criteria keywords are: canonical, final, exec, host, originalhost, user, and localuser.
+ */
+func (p *Parser) parseMatchStatement() *ast.Match {
+	stmt := &ast.Match{Token: p.curToken}
+
+	p.nextToken()
+
+	/* The all criteria must appear alone or immediately after canonical or final */
+	if p.curTokenIs(token.All) {
+		stmt.Value = p.curToken.Literal
+		return stmt
+	}
+
+	if p.curTokenIs(token.Canonical) || p.curTokenIs(token.Final) {
+		stmt.Value = p.curToken.Literal
+		if p.expectPeek(token.All) {
+			stmt.Value = stmt.Value + " " + p.curToken.Literal
+			return stmt
+		}
+	}
+
+	if p.peekTokenIs(token.EOF) {
+		p.errors = append(p.errors, "missing Match criteria for %s", p.curToken.Literal)
+		return stmt
+	}
+
+	// TODO: extract repeated code
+	for !p.curTokenIs(token.EOF) {
+		switch p.curToken.Type {
+		case token.Host:
+			if len(stmt.Value) == 0 {
+				stmt.Value = p.curToken.Literal
+			} else {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			p.nextToken()
+
+			if p.curTokenIs(token.Ident) {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			if p.curTokenIs(token.String) {
+				stmt.Value = fmt.Sprintf("%s %q", stmt.Value, p.curToken.Literal)
+			}
+
+			for p.expectPeek(token.Comma) {
+				p.nextToken()
+				if p.curTokenIs(token.String) {
+					stmt.Value = fmt.Sprintf("%s %q", stmt.Value, p.curToken.Literal)
+				} else {
+					stmt.Value = stmt.Value + ", " + p.curToken.Literal
+				}
+			}
+		case token.OriginalHost:
+			if len(stmt.Value) == 0 {
+				stmt.Value = p.curToken.Literal
+			} else {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			p.nextToken()
+
+			if p.curTokenIs(token.Ident) {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			if p.curTokenIs(token.String) {
+				stmt.Value = fmt.Sprintf("%s %q", stmt.Value, p.curToken.Literal)
+			}
+
+			for p.expectPeek(token.Comma) {
+				p.nextToken()
+				if p.curTokenIs(token.String) {
+					stmt.Value = fmt.Sprintf("%s %q", stmt.Value, p.curToken.Literal)
+				} else {
+					stmt.Value = stmt.Value + ", " + p.curToken.Literal
+				}
+			}
+		case token.User:
+			if len(stmt.Value) == 0 {
+				stmt.Value = p.curToken.Literal
+			} else {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			p.nextToken()
+
+			if p.curTokenIs(token.Ident) {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			if p.curTokenIs(token.String) {
+				stmt.Value = fmt.Sprintf("%s %q", stmt.Value, p.curToken.Literal)
+			}
+
+			for p.expectPeek(token.Comma) {
+				p.nextToken()
+				if p.curTokenIs(token.String) {
+					stmt.Value = fmt.Sprintf("%s %q", stmt.Value, p.curToken.Literal)
+				} else {
+					stmt.Value = stmt.Value + ", " + p.curToken.Literal
+				}
+			}
+		case token.Exec:
+			if len(stmt.Value) == 0 {
+				stmt.Value = p.curToken.Literal
+			} else {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			p.nextToken()
+
+			if p.curTokenIs(token.Ident) {
+				stmt.Value = stmt.Value + " " + p.curToken.Literal
+			}
+
+			if p.curTokenIs(token.String) {
+				stmt.Value = fmt.Sprintf("%s %q", stmt.Value, p.curToken.Literal)
+			}
+
+			for p.expectPeek(token.Comma) {
+				p.nextToken()
+				stmt.Value = stmt.Value + ", " + p.curToken.Literal
+			}
+		case token.Canonical:
+
+		default:
+			p.nextToken()
+		}
+	}
+	return stmt
+}

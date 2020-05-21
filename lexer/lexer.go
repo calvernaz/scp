@@ -40,7 +40,8 @@ start:
 			return tok
 		} else if isString(l.ch) {
 			tok.Literal = l.readString()
-			tok.Type = token.LookupIndent(tok.Literal)
+			//tok.Type = token.LookupIndent(tok.Literal)
+			tok.Type = token.String
 		} else if isComment(l.ch) {
 			l.skipComments()
 			goto start

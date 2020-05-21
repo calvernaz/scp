@@ -99,6 +99,12 @@ const (
 	VisualHostKey                    = "VisualHostKey"
 	XauthLocation                    = "XAuthLocation"
 	Include                          = "Include"
+	All                              = "All"
+	Canonical                        = "Canonical"
+	Final                            = "Final"
+	Exec                             = "Exec"
+	String                           = "String"
+	OriginalHost                     = "OriginalHost"
 )
 
 var keywords = map[string]Type{
@@ -187,6 +193,12 @@ var keywords = map[string]Type{
 	"xauthlocation":                    XauthLocation,
 	"match":                            Match,
 	"include":                          Include,
+	"all":                              All,
+	"canonical":                        Canonical,
+	"final":                            Final,
+	"exec":                             Exec,
+	"string":                           String,
+	"originalhost":                     OriginalHost,
 }
 
 // LookupIndent ...

@@ -87,7 +87,7 @@ var (
 	_ Statement = (*VisualHostKey)(nil)
 	_ Statement = (*XAuthLocation)(nil)
 	_ Statement = (*ControlPath)(nil)
-	// _ Statement = (*MatchStatement)(nil)
+	_ Statement = (*Match)(nil)
 	_ Statement = (*Include)(nil)
 )
 
@@ -144,11 +144,12 @@ func (ls *HostStatement) TokenLiteral() string {
 func (ls *HostStatement) String() string {
 	var out bytes.Buffer
 
-	out.WriteString(ls.Token.Literal)
-	out.WriteString(ls.Value)
+	out.WriteString(ls.Token.Literal + " " + ls.Value)
+	out.WriteString("\n")
 
 	for _, s := range ls.Statement.Statements {
-		out.WriteString(s.String())
+		out.WriteString(" " + s.String())
+		out.WriteString("\n")
 	}
 
 	return out.String()
@@ -313,7 +314,7 @@ func (c ControlMaster) TokenLiteral() string {
 // String ...
 func (c ControlMaster) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -330,7 +331,7 @@ func (c ControlPersist) TokenLiteral() string {
 
 func (c ControlPersist) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -348,7 +349,7 @@ func (s ServerAliveOption) TokenLiteral() string {
 // String ...
 func (s ServerAliveOption) String() string {
 	var out bytes.Buffer
-	out.WriteString(s.Value)
+	out.WriteString(s.Token.Literal + " " + s.Value)
 	return out.String()
 }
 
@@ -420,7 +421,7 @@ func (s StrictHostKeyChecking) TokenLiteral() string {
 // String ...
 func (s StrictHostKeyChecking) String() string {
 	var out bytes.Buffer
-	out.WriteString(s.Value)
+	out.WriteString(s.Token.Literal + " " + s.Value)
 	return out.String()
 }
 
@@ -1440,7 +1441,7 @@ func (t TCPKeepAlive) TokenLiteral() string {
 // String ...
 func (t TCPKeepAlive) String() string {
 	var out bytes.Buffer
-	out.WriteString(t.Value)
+	out.WriteString(t.Token.Literal + " " + t.Value)
 	return out.String()
 }
 
@@ -1566,6 +1567,8 @@ func (c ControlPath) TokenLiteral() string {
 // String ...
 func (c ControlPath) String() string {
 	var out bytes.Buffer
+	out.WriteString(c.Token.Literal)
+	out.WriteString(" ")
 	out.WriteString(c.Value)
 	return out.String()
 }
@@ -1586,27 +1589,18 @@ func (i Include) String() string {
 	out.WriteString(i.Value)
 	return out.String()
 }
-// MatchStatement statement
-//type MatchStatement struct {
-//	Token      token.Token // the Match token
-//	Condition  string
-//	Value      string
-//	Statements []Statement
-//}
-//func (ms *MatchStatement) statementNode() {}
-//func (ms *MatchStatement) TokenLiteral() string {
-//	return ms.Token.Literal
-//}
-//func (ms *MatchStatement) String() string {
-//	var out bytes.Buffer
-//
-//	out.WriteString(ms.Token.Literal)
-//	out.WriteString(ms.Condition)
-//	out.WriteString(ms.Value)
-//
-//	for _, s := range ms.Statements {
-//		out.WriteString(s.String())
-//	}
-//
-//	return out.String()
-//}
+
+type Match struct {
+	Token      token.Token // the Match token
+	Value      string
+}
+
+func (ms *Match) TokenLiteral() string {
+	return ms.Token.Literal
+}
+
+func (ms *Match) String() string {
+	var out bytes.Buffer
+	out.WriteString(ms.Value)
+	return out.String()
+}

@@ -1,0 +1,10 @@
+ControlPath ~/.ssh/tmp/%r@%h:%p
+ControlPersist 60m
+
+TCPKeepAlive true
+ServerAliveInterval 15
+ServerAliveCountMax 30
+
+Host *.wm.az.*.* 10.128.*.* 10.13?.*.*
+  ControlMaster auto
+  StrictHostKeyChecking no
