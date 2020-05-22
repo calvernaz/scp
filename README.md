@@ -8,7 +8,7 @@ This is a go package to parse the ssh config file (ssh_config).
 go get github.com/calvernaz/scp
 ```
 
-## Usage 
+## Usage
 [embedmd]:# (example/example.go)
 ```go
 package main
@@ -47,6 +47,9 @@ func main() {
 
 }
 ```
+## TODO
+
+- Add validation
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
