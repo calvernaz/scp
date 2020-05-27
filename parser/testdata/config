@@ -1,0 +1,65 @@
+Host *
+    usekeychain yes
+
+Host mobile.host.org
+    identityfile ~/.ssh/id_rsa_be
+    hostname host.org
+    user calvernaz
+    usekeychain yes
+    addkeystoagent yes
+
+Host host.org
+    identityfile ~/.ssh/id_rsa
+    hostname host.org
+    usekeychain yes
+    addkeystoagent yes
+
+Host development
+    identityfile ~/.ssh/dev.pem
+    user ec2-user
+    hostname 10.10.10.11
+    port 22
+    addkeystoagent yes
+
+Host rabbit
+    identityfile ~/.ssh/dev.pem
+    hostname 10.10.10.12
+    user ec2-user
+    localforward 127.0.0.1:27012 127.0.0.1:27012
+    port 22
+
+Host storage-production
+    identityfile /Users/user/.ssh/access.pem
+    hostname ec2.compute.amazonaws.com
+    localforward 3306 dev.amazonaws.com:3306
+    user ec2-user
+    port 22
+
+Host staging
+    identityfile /Users/user/.ssh/dev.pem
+    hostname 10.10.10.13
+    user ec2-user
+    port 22
+
+Host registry
+    identityfile /Users/user/.ssh/dev.pem
+    hostname 10.10.10.15
+    user ec2-user
+    port 22
+
+Host openvpn
+    identityfile "/Users/user/.ssh/dev.pem"
+    hostname 10.10.10.16
+    user openvpnas
+    port 22
+
+Host linode
+    hostname 10.10.10.31
+    user calvernaz
+    port 22
+
+Host onprem
+    identityfile "/Users/user/.ssh/access.pem"
+    hostname 10.10.10.30
+    user ec2-user
+    port 22

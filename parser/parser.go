@@ -295,7 +295,7 @@ func (p *Parser) parseIdentityFile() ast.Statement {
 
 	p.nextToken()
 
-	if p.curTokenIs(token.Ident) {
+	if p.curTokenIs(token.Ident) || p.curTokenIs(token.String) {
 		stmt.Value = p.curToken.Literal
 	}
 

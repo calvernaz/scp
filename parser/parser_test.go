@@ -88,7 +88,39 @@ func TestSshConfig(t *testing.T) {
 	if len(program.Statements) != 25 {
 		t.Fatalf("program does not contain %d statements. got=%d\n", 25, len(program.Statements))
 	}
+}
 
+func TestSshConfig2(t *testing.T) {
+	file, err := os.Open("testdata/config")
+	if err != nil {
+		t.FailNow()
+	}
+
+	input, err := ioutil.ReadAll(file)
+	if err != nil {
+		t.FailNow()
+	}
+
+	l := lexer.New(string(input))
+	p := New(l)
+	program := p.ParseConfig()
+	checkParserErrors(t, p)
+
+	if len(program.Statements) != 11 {
+		t.Fatalf("program does not contain %d statements. got=%d\n", 11, len(program.Statements))
+	}
+
+	for _, stmt := range program.Statements {
+		if hostStmt, ok := stmt.(*ast.HostStatement); ok {
+			for _, blockStmt := range hostStmt.Statement.Statements {
+				if identityStmt, ok := blockStmt.(*ast.IdentityFile); ok {
+					if identityStmt.Value == "" {
+						t.Fatal("identity is empty")
+					}
+ 				}
+			}
+		}
+	}
 }
 
 func TestHostBlockStatement(t *testing.T) {
