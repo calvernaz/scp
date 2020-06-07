@@ -405,7 +405,7 @@ func (u UserKnownHostsFile) TokenLiteral() string {
 // String ...
 func (u UserKnownHostsFile) String() string {
 	var out bytes.Buffer
-	out.WriteString(u.Value)
+	out.WriteString(u.Token.Literal + " " + u.Value)
 	return out.String()
 }
 
@@ -441,7 +441,7 @@ func (p ProxyCommand) TokenLiteral() string {
 // String ...
 func (p ProxyCommand) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -459,7 +459,7 @@ func (f ForwardAgent) TokenLiteral() string {
 // String ...
 func (f ForwardAgent) String() string {
 	var out bytes.Buffer
-	out.WriteString(f.Value)
+	out.WriteString(f.Token.Literal + " " + f.Value)
 	return out.String()
 }
 
@@ -477,7 +477,7 @@ func (l LogLevelStatement) TokenLiteral() string {
 // String ...
 func (l LogLevelStatement) String() string {
 	var out bytes.Buffer
-	out.WriteString(l.Value)
+	out.WriteString(l.Token.Literal + " " + l.Value)
 	return out.String()
 }
 
@@ -488,14 +488,14 @@ type CanonicalizeFallbackLocal struct {
 }
 
 // TokenLiteral ...
-func (c *CanonicalizeFallbackLocal) TokenLiteral() string {
+func (c CanonicalizeFallbackLocal) TokenLiteral() string {
 	return c.Token.Literal
 }
 
 // String ...
-func (c *CanonicalizeFallbackLocal) String() string {
+func (c CanonicalizeFallbackLocal) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -513,7 +513,7 @@ func (c CanonicalizeHostname) TokenLiteral() string {
 // String ...
 func (c CanonicalizeHostname) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -531,7 +531,7 @@ func (c CanonicalizeMaxDots) TokenLiteral() string {
 // String
 func (c CanonicalizeMaxDots) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -549,7 +549,7 @@ func (c CanonicalizePermittedCNames) TokenLiteral() string {
 // String ...
 func (c CanonicalizePermittedCNames) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -560,14 +560,14 @@ type CASignatureAlgorithms struct {
 }
 
 // TokenLiteral ...
-func (c *CASignatureAlgorithms) TokenLiteral() string {
+func (c CASignatureAlgorithms) TokenLiteral() string {
 	return c.Token.Literal
 }
 
 // String ...
-func (c *CASignatureAlgorithms) String() string {
+func (c CASignatureAlgorithms) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -585,7 +585,7 @@ func (c CertificateFile) TokenLiteral() string {
 // String ...
 func (c CertificateFile) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -603,7 +603,7 @@ func (c ChallengeAuthentication) TokenLiteral() string {
 // String ...
 func (c ChallengeAuthentication) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -621,7 +621,7 @@ func (c CheckHostIP) TokenLiteral() string {
 // String ...
 func (c CheckHostIP) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -638,7 +638,7 @@ func (c Ciphers) TokenLiteral() string {
 
 func (c Ciphers) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -656,7 +656,7 @@ func (c ClearAllForwardings) TokenLiteral() string {
 // String ...
 func (c ClearAllForwardings) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 
 }
@@ -674,7 +674,7 @@ func (c ConnectionAttempts) TokenLiteral() string {
 
 func (c ConnectionAttempts) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -692,7 +692,7 @@ func (c ConnectionTimeout) TokenLiteral() string {
 // String ...
 func (c ConnectionTimeout) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
@@ -710,7 +710,7 @@ func (d DynamicForward) TokenLiteral() string {
 // String ...
 func (d DynamicForward) String() string {
 	var out bytes.Buffer
-	out.WriteString(d.Value)
+	out.WriteString(d.Token.Literal + " " + d.Value)
 	return out.String()
 }
 
@@ -728,7 +728,7 @@ func (e EscapeChar) TokenLiteral() string {
 // String ...
 func (e EscapeChar) String() string {
 	var out bytes.Buffer
-	out.WriteString(e.Value)
+	out.WriteString(e.Token.Literal + " " + e.Value)
 	return out.String()
 }
 
@@ -745,7 +745,7 @@ func (e ExitOnForwardFailure) TokenLiteral() string {
 
 func (e ExitOnForwardFailure) String() string {
 	var out bytes.Buffer
-	out.WriteString(e.Value)
+	out.WriteString(e.Token.Literal + " " + e.Value)
 	return out.String()
 }
 
@@ -763,7 +763,7 @@ func (f FingerprintHash) TokenLiteral() string {
 // String ...
 func (f FingerprintHash) String() string {
 	var out bytes.Buffer
-	out.WriteString(f.Value)
+	out.WriteString(f.Token.Literal + " " + f.Value)
 	return out.String()
 }
 
@@ -781,7 +781,7 @@ func (f ForwardX11) TokenLiteral() string {
 // String ...
 func (f ForwardX11) String() string {
 	var out bytes.Buffer
-	out.WriteString(f.Value)
+	out.WriteString(f.Token.Literal + " " + f.Value)
 	return out.String()
 }
 
@@ -799,7 +799,7 @@ func (f ForwardX11Timeout) TokenLiteral() string {
 // String ...
 func (f ForwardX11Timeout) String() string {
 	var out bytes.Buffer
-	out.WriteString(f.Value)
+	out.WriteString(f.Token.Literal + " " + f.Value)
 	return out.String()
 
 }
@@ -812,12 +812,14 @@ type ForwardX11Trusted struct {
 
 // TokenLiteral ...
 func (f ForwardX11Trusted) TokenLiteral() string {
-	panic("implement me")
+	return f.Token.Literal
 }
 
 // String ...
 func (f ForwardX11Trusted) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(f.Token.Literal + " " + f.Value)
+	return out.String()
 }
 
 // GatewayPorts ...
@@ -828,12 +830,14 @@ type GatewayPorts struct {
 
 // TokenLiteral ...
 func (g GatewayPorts) TokenLiteral() string {
-	panic("implement me")
+	return g.Token.Literal
 }
 
 // String ...
 func (g GatewayPorts) String() string {
-	panic("implement me")
+	var out bytes.Buffer
+	out.WriteString(g.Token.Literal + " " + g.Value)
+	return out.String()
 }
 
 // GlobalKnownHostsFile ...
@@ -849,7 +853,7 @@ func (g GlobalKnownHostsFile) TokenLiteral() string {
 
 func (g GlobalKnownHostsFile) String() string {
 	var out bytes.Buffer
-	out.WriteString(g.Value)
+	out.WriteString(g.Token.Literal + " " + g.Value)
 	return out.String()
 }
 
@@ -867,7 +871,7 @@ func (g GSSApiAuthentication) TokenLiteral() string {
 // String ...
 func (g GSSApiAuthentication) String() string {
 	var out bytes.Buffer
-	out.WriteString(g.Value)
+	out.WriteString(g.Token.Literal + " " + g.Value)
 	return out.String()
 
 }
@@ -886,7 +890,7 @@ func (g GSSApiDelegateCredentials) TokenLiteral() string {
 // String ...
 func (g GSSApiDelegateCredentials) String() string {
 	var out bytes.Buffer
-	out.WriteString(g.Value)
+	out.WriteString(g.Token.Literal + " " + g.Value)
 	return out.String()
 
 }
@@ -923,7 +927,7 @@ func (h HostBasedAuthentication) TokenLiteral() string {
 // String ...
 func (h HostBasedAuthentication) String() string {
 	var out bytes.Buffer
-	out.WriteString(h.Value)
+	out.WriteString(h.Token.Literal + " " + h.Value)
 	return out.String()
 }
 
@@ -940,7 +944,7 @@ func (h HostBasedKeyTypes) TokenLiteral() string {
 
 func (h HostBasedKeyTypes) String() string {
 	var out bytes.Buffer
-	out.WriteString(h.Value)
+	out.WriteString(h.Token.Literal + " " + h.Value)
 	return out.String()
 }
 
@@ -958,7 +962,7 @@ func (h HostKeyAlgorithms) TokenLiteral() string {
 // String ...
 func (h HostKeyAlgorithms) String() string {
 	var out bytes.Buffer
-	out.WriteString(h.Value)
+	out.WriteString(h.Token.Literal + " " + h.Value)
 	return out.String()
 }
 
@@ -976,7 +980,7 @@ func (h HostKeyAlias) TokenLiteral() string {
 // String ...
 func (h HostKeyAlias) String() string {
 	var out bytes.Buffer
-	out.WriteString(h.Value)
+	out.WriteString(h.Token.Literal + " " + h.Value)
 	return out.String()
 }
 
@@ -994,7 +998,7 @@ func (i IdentitiesOnly) TokenLiteral() string {
 // String ...
 func (i IdentitiesOnly) String() string {
 	var out bytes.Buffer
-	out.WriteString(i.Value)
+	out.WriteString(i.Token.Literal + " " + i.Value)
 	return out.String()
 }
 
@@ -1012,7 +1016,7 @@ func (i IdentityAgent) TokenLiteral() string {
 // String ...
 func (i IdentityAgent) String() string {
 	var out bytes.Buffer
-	out.WriteString(i.Value)
+	out.WriteString(i.Token.Literal + " " + i.Value)
 	return out.String()
 }
 
@@ -1030,7 +1034,7 @@ func (i IPQoS) TokenLiteral() string {
 // String ...
 func (i IPQoS) String() string {
 	var out bytes.Buffer
-	out.WriteString(i.Value)
+	out.WriteString(i.Token.Literal + " " + i.Value)
 	return out.String()
 }
 
@@ -1048,7 +1052,7 @@ func (k KbdInteractiveAuthentication) TokenLiteral() string {
 // String
 func (k KbdInteractiveAuthentication) String() string {
 	var out bytes.Buffer
-	out.WriteString(k.Value)
+	out.WriteString(k.Token.Literal + " " + k.Value)
 	return out.String()
 }
 
@@ -1066,7 +1070,7 @@ func (k KbdInteractiveDevices) TokenLiteral() string {
 // String
 func (k KbdInteractiveDevices) String() string {
 	var out bytes.Buffer
-	out.WriteString(k.Value)
+	out.WriteString(k.Token.Literal + " " + k.Value)
 	return out.String()
 }
 
@@ -1084,7 +1088,7 @@ func (l LocalCommand) TokenLiteral() string {
 // String ...
 func (l LocalCommand) String() string {
 	var out bytes.Buffer
-	out.WriteString(l.Value)
+	out.WriteString(l.Token.Literal + " " + l.Value)
 	return out.String()
 }
 
@@ -1102,7 +1106,7 @@ func (m Macs) TokenLiteral() string {
 // String ...
 func (m Macs) String() string {
 	var out bytes.Buffer
-	out.WriteString(m.Value)
+	out.WriteString(m.Token.Literal + " " + m.Value)
 	return out.String()
 }
 
@@ -1120,7 +1124,7 @@ func (n NoHostAuthentication) TokenLiteral() string {
 // String ...
 func (n NoHostAuthentication) String() string {
 	var out bytes.Buffer
-	out.WriteString(n.Value)
+	out.WriteString(n.Token.Literal + " " + n.Value)
 	return out.String()
 }
 
@@ -1137,7 +1141,7 @@ func (n NumberOfPasswordPrompts) TokenLiteral() string {
 
 func (n NumberOfPasswordPrompts) String() string {
 	var out bytes.Buffer
-	out.WriteString(n.Value)
+	out.WriteString(n.Token.Literal + " " + n.Value)
 	return out.String()
 }
 
@@ -1155,7 +1159,7 @@ func (p PasswordAuthentication) TokenLiteral() string {
 // String ...
 func (p PasswordAuthentication) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1173,7 +1177,7 @@ func (p PermitLocalCommand) TokenLiteral() string {
 // String ...
 func (p PermitLocalCommand) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1191,7 +1195,7 @@ func (p PCKS11Provider) TokenLiteral() string {
 // String ...
 func (p PCKS11Provider) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1209,7 +1213,7 @@ func (p PreferredAuthentications) TokenLiteral() string {
 // String ...
 func (p PreferredAuthentications) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1227,7 +1231,7 @@ func (p ProxyJump) TokenLiteral() string {
 // String ...
 func (p ProxyJump) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1245,7 +1249,7 @@ func (p ProxyUserFDPass) TokenLiteral() string {
 // String ...
 func (p ProxyUserFDPass) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1263,7 +1267,7 @@ func (p PubkeyAcceptedKeyTypes) TokenLiteral() string {
 // String ...
 func (p PubkeyAcceptedKeyTypes) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1281,7 +1285,7 @@ func (p PubkeyAuthentication) TokenLiteral() string {
 // String ...
 func (p PubkeyAuthentication) String() string {
 	var out bytes.Buffer
-	out.WriteString(p.Value)
+	out.WriteString(p.Token.Literal + " " + p.Value)
 	return out.String()
 }
 
@@ -1299,7 +1303,7 @@ func (r RekeyLimit) TokenLiteral() string {
 // String ...
 func (r RekeyLimit) String() string {
 	var out bytes.Buffer
-	out.WriteString(r.Value)
+	out.WriteString(r.Token.Literal + " " + r.Value)
 	return out.String()
 }
 
@@ -1317,7 +1321,7 @@ func (r RemoteCommand) TokenLiteral() string {
 // String ...
 func (r RemoteCommand) String() string {
 	var out bytes.Buffer
-	out.WriteString(r.Value)
+	out.WriteString(r.Token.Literal + " " + r.Value)
 	return out.String()
 }
 
@@ -1335,7 +1339,7 @@ func (r RemoteForward) TokenLiteral() string {
 // String ...
 func (r RemoteForward) String() string {
 	var out bytes.Buffer
-	out.WriteString(r.Value)
+	out.WriteString(r.Token.Literal + " " + r.Value)
 	return out.String()
 }
 
@@ -1353,7 +1357,7 @@ func (r RequestTTY) TokenLiteral() string {
 // String ...
 func (r RequestTTY) String() string {
 	var out bytes.Buffer
-	out.WriteString(r.Value)
+	out.WriteString(r.Token.Literal + " " + r.Value)
 	return out.String()
 }
 
@@ -1371,7 +1375,7 @@ func (s SendEnv) TokenLiteral() string {
 // String ...
 func (s SendEnv) String() string {
 	var out bytes.Buffer
-	out.WriteString(s.Value)
+	out.WriteString(s.Token.Literal + " " + s.Value)
 	return out.String()
 }
 
@@ -1389,7 +1393,7 @@ func (s SetEnv) TokenLiteral() string {
 // String ...
 func (s SetEnv) String() string {
 	var out bytes.Buffer
-	out.WriteString(s.Value)
+	out.WriteString(s.Token.Literal + " " + s.Value)
 	return out.String()
 }
 
@@ -1407,7 +1411,7 @@ func (s StreamLocalBindMask) TokenLiteral() string {
 // String ...
 func (s StreamLocalBindMask) String() string {
 	var out bytes.Buffer
-	out.WriteString(s.Value)
+	out.WriteString(s.Token.Literal + " " + s.Value)
 	return out.String()
 }
 
@@ -1425,7 +1429,7 @@ func (s StreamLocalBindUnlink) TokenLiteral() string {
 // String ...
 func (s StreamLocalBindUnlink) String() string {
 	var out bytes.Buffer
-	out.WriteString(s.Value)
+	out.WriteString(s.Token.Literal + " " + s.Value)
 	return out.String()
 }
 
@@ -1461,7 +1465,7 @@ func (t Tunnel) TokenLiteral() string {
 // String ...
 func (t Tunnel) String() string {
 	var out bytes.Buffer
-	out.WriteString(t.Value)
+	out.WriteString(t.Token.Literal + " " + t.Value)
 	return out.String()
 }
 
@@ -1479,7 +1483,7 @@ func (t TunnelDevice) TokenLiteral() string {
 // String ...
 func (t TunnelDevice) String() string {
 	var out bytes.Buffer
-	out.WriteString(t.Value)
+	out.WriteString(t.Token.Literal + " " + t.Value)
 	return out.String()
 }
 
@@ -1497,7 +1501,7 @@ func (u UpdateHostKeys) TokenLiteral() string {
 // String ...
 func (u UpdateHostKeys) String() string {
 	var out bytes.Buffer
-	out.WriteString(u.Value)
+	out.WriteString(u.Token.Literal + " " + u.Value)
 	return out.String()
 }
 
@@ -1508,14 +1512,14 @@ type VerifyHostKeyDNS struct {
 }
 
 // TokenLiteral ...
-func (v *VerifyHostKeyDNS) TokenLiteral() string {
+func (v VerifyHostKeyDNS) TokenLiteral() string {
 	return v.Token.Literal
 }
 
 // String ...
-func (v *VerifyHostKeyDNS) String() string {
+func (v VerifyHostKeyDNS) String() string {
 	var out bytes.Buffer
-	out.WriteString(v.Value)
+	out.WriteString(v.Token.Literal + " " + v.Value)
 	return out.String()
 }
 
@@ -1526,14 +1530,14 @@ type VisualHostKey struct {
 }
 
 // TokenLiteral ...
-func (v *VisualHostKey) TokenLiteral() string {
+func (v VisualHostKey) TokenLiteral() string {
 	return v.Token.Literal
 }
 
 // String ...
-func (v *VisualHostKey) String() string {
+func (v VisualHostKey) String() string {
 	var out bytes.Buffer
-	out.WriteString(v.Value)
+	out.WriteString(v.Token.Literal + " " + v.Value)
 	return out.String()
 }
 
@@ -1544,14 +1548,14 @@ type XAuthLocation struct {
 }
 
 // TokenLiteral ...
-func (x *XAuthLocation) TokenLiteral() string {
+func (x XAuthLocation) TokenLiteral() string {
 	return x.Token.Literal
 }
 
 // String ...
-func (x *XAuthLocation) String() string {
+func (x XAuthLocation) String() string {
 	var out bytes.Buffer
-	out.WriteString(x.Value)
+	out.WriteString(x.Token.Literal + " " + x.Value)
 	return out.String()
 }
 
@@ -1589,7 +1593,7 @@ func (i Include) TokenLiteral() string {
 // String ...
 func (i Include) String() string {
 	var out bytes.Buffer
-	out.WriteString(i.Value)
+	out.WriteString(i.Token.Literal + " " + i.Value)
 	return out.String()
 }
 
@@ -1600,13 +1604,13 @@ type Match struct {
 }
 
 // TokenLiteral ...
-func (ms *Match) TokenLiteral() string {
+func (ms Match) TokenLiteral() string {
 	return ms.Token.Literal
 }
 
 // String ...
-func (ms *Match) String() string {
+func (ms Match) String() string {
 	var out bytes.Buffer
-	out.WriteString(ms.Value)
+	out.WriteString(ms.Token.Literal + " " + ms.Value)
 	return out.String()
 }
