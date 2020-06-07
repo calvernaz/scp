@@ -515,27 +515,27 @@ func ExampleGlobalKnownHostsFile_String() {
 }
 
 func ExampleGSSApiAuthentication_String() {
-	gssApiAuthentication := GSSApiAuthentication{
+	gssAPIAuthentication := GSSApiAuthentication{
 		Token: token.Token{
 			Type:    token.GSSAPIAuthentication,
 			Literal: "GSSAPIAuthentication",
 		},
 		Value: "yes",
 	}
-	fmt.Println(gssApiAuthentication)
+	fmt.Println(gssAPIAuthentication)
 	// Output:
 	// GSSAPIAuthentication yes
 }
 
 func ExampleGSSApiDelegateCredentials_String() {
-	gssApiDelegateCredentials := GSSApiDelegateCredentials{
+	gssAPIDelegateCredentials := GSSApiDelegateCredentials{
 		Token: token.Token{
 			Type:    token.GSSAPIDelegateCredentials,
 			Literal: "GSSAPIDeleteCredentials",
 		},
 		Value: "yes",
 	}
-	fmt.Println(gssApiDelegateCredentials)
+	fmt.Println(gssAPIDelegateCredentials)
 	// Output:
 	// GSSAPIDeleteCredentials yes
 }
