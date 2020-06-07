@@ -20,7 +20,7 @@ var (
 	_ Statement = (*ControlPersist)(nil)
 	_ Statement = (*ServerAliveOption)(nil)
 	_ Statement = (*Compression)(nil)
-	_ Statement = (*CompressionLevelStatement)(nil)
+	_ Statement = (*CompressionLevel)(nil)
 	_ Statement = (*UserKnownHostsFile)(nil)
 	_ Statement = (*StrictHostKeyChecking)(nil)
 	_ Statement = (*ProxyCommand)(nil)
@@ -147,9 +147,11 @@ func (ls *HostStatement) String() string {
 	out.WriteString(ls.Token.Literal + " " + ls.Value)
 	out.WriteString("\n")
 
-	for _, s := range ls.Statement.Statements {
-		out.WriteString(" " + s.String())
-		out.WriteString("\n")
+	if ls.Statement != nil {
+		for _, s := range ls.Statement.Statements {
+			out.WriteString(" " + s.String())
+			out.WriteString("\n")
+		}
 	}
 
 	return out.String()
@@ -188,7 +190,7 @@ func (h HostName) TokenLiteral() string {
 // String ...
 func (h HostName) String() string {
 	var out bytes.Buffer
-	out.WriteString(h.Value)
+	out.WriteString(h.Token.Literal + " " + h.Value)
 	return out.String()
 }
 
@@ -206,7 +208,7 @@ func (i *IdentityFile) TokenLiteral() string {
 // String ...
 func (i IdentityFile) String() string {
 	var out bytes.Buffer
-	out.WriteString(i.Value)
+	out.WriteString(i.Token.Literal + " " + i.Value)
 	return out.String()
 }
 
@@ -224,7 +226,7 @@ func (u User) TokenLiteral() string {
 // String ...
 func (u User) String() string {
 	var out bytes.Buffer
-	out.WriteString(u.Value)
+	out.WriteString(u.Token.Literal + " " + u.Value)
 	return out.String()
 }
 
@@ -242,7 +244,7 @@ func (u Port) TokenLiteral() string {
 // String ...
 func (u Port) String() string {
 	var out bytes.Buffer
-	out.WriteString(u.Value)
+	out.WriteString(u.Token.Literal + " " + u.Value)
 	return out.String()
 }
 
@@ -260,7 +262,7 @@ func (u UseKeyChain) TokenLiteral() string {
 // String ...
 func (u UseKeyChain) String() string {
 	var out bytes.Buffer
-	out.WriteString(u.Value)
+	out.WriteString(u.Token.Literal + " " + u.Value)
 	return out.String()
 }
 
@@ -278,7 +280,7 @@ func (a AddKeysToAgent) TokenLiteral() string {
 // String ...
 func (a AddKeysToAgent) String() string {
 	var out bytes.Buffer
-	out.WriteString(a.Value)
+	out.WriteString(a.Token.Literal + " " + a.Value)
 	return out.String()
 }
 
@@ -296,7 +298,7 @@ func (l LocalForward) TokenLiteral() string {
 // String ...
 func (l LocalForward) String() string {
 	var out bytes.Buffer
-	out.WriteString(l.Value)
+	out.WriteString(l.Token.Literal + " " + l.Value)
 	return out.String()
 }
 
@@ -367,25 +369,25 @@ func (c Compression) TokenLiteral() string {
 // String ...
 func (c Compression) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 
-// CompressionLevelStatement ...
-type CompressionLevelStatement struct {
+// CompressionLevel ...
+type CompressionLevel struct {
 	Token token.Token
 	Value string
 }
 
 // TokenLiteral ...
-func (c CompressionLevelStatement) TokenLiteral() string {
+func (c CompressionLevel) TokenLiteral() string {
 	return c.Token.Literal
 }
 
 // String ...
-func (c CompressionLevelStatement) String() string {
+func (c CompressionLevel) String() string {
 	var out bytes.Buffer
-	out.WriteString(c.Value)
+	out.WriteString(c.Token.Literal + " " + c.Value)
 	return out.String()
 }
 

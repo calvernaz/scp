@@ -416,7 +416,7 @@ func (p *Parser) parseCompression() ast.Statement {
 }
 
 func (p *Parser) parseCompressionLevel() ast.Statement {
-	stmt := &ast.CompressionLevelStatement{Token: p.curToken}
+	stmt := &ast.CompressionLevel{Token: p.curToken}
 
 	p.nextToken()
 

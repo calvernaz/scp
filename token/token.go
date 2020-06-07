@@ -29,6 +29,7 @@ const (
 	Ciphers                          = "Ciphers"
 	ClearAllForwardings              = "ClearAllForwardings"
 	Compression                      = "Compression"
+	CompressionLevel                 = "CompressionLevel"
 	ConnectionAttempts               = "ConnectionAttempts"
 	ConnectionTimeout                = "ConnectionTimeout"
 	ControlMaster                    = "ControlMaster"
@@ -124,6 +125,7 @@ var keywords = map[string]Type{
 	"ciphers":                          Ciphers,
 	"clearallforwardings":              ClearAllForwardings,
 	"compression":                      Compression,
+	"compressionlevel":                 CompressionLevel,
 	"connectionattempts":               ConnectionAttempts,
 	"connectiontimeout":                ConnectionTimeout,
 	"controlmaster":                    ControlMaster,
