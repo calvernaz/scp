@@ -69,6 +69,10 @@ func (p *Parser) expectPeek(t token.Type) bool {
 	return false
 }
 
+func (p *Parser) position() (int, int) {
+	return p.l.Position()
+}
+
 func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.Host:
@@ -242,7 +246,9 @@ func (p *Parser) parseHostStatement() *ast.HostStatement {
 	// Host <value>
 	var s []string
 	if !p.peekTokenIs(token.Ident) && !p.peekTokenIs(token.String) {
-		p.errors = append(p.errors, fmt.Sprint("failed to parse host statement"))
+		line, pos := p.l.Position()
+		err := fmt.Errorf("line %d at position %d", line, pos)
+		p.errors = append(p.errors, fmt.Sprintf("failed to parse host statement: %v", err))
 		return nil
 	}
 

@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"reflect"
@@ -117,7 +118,7 @@ func TestSshConfig2(t *testing.T) {
 					if identityStmt.Value == "" {
 						t.Fatal("identity is empty")
 					}
- 				}
+				}
 			}
 		}
 	}
@@ -202,6 +203,39 @@ func TestHostStatement(t *testing.T) {
 		if !testHostConfigStatement(t, stmt, tt.expectedString) {
 			return
 		}
+	}
+}
+
+func TestParserValidation(t *testing.T) {
+	tests := []struct {
+		input string
+		want  string
+	}{
+		{
+			input: "Host Host 10.217.198.*",
+			want:  "failed to parse host statement: line %d at position %d",
+		},
+		{
+			input: "Host *",
+			want:  "failed to parse host statement: line %d at position %d",
+		},
+	}
+
+	for _, tt := range tests {
+		l := lexer.New(tt.input)
+		p := New(l)
+
+		t.Run(tt.input, func(t *testing.T) {
+			if got := p.parseStatement(); len(p.errors) == 0 {
+				t.Errorf("parseStatement() = %q, want %q", got, tt.want)
+			} else {
+				line, pos := p.l.Position()
+				want := fmt.Sprintf(tt.want, line, pos)
+				if !reflect.DeepEqual(p.errors[0], want) {
+					t.Errorf("parseStatement() = %q, want %q", p.errors[0], want)
+				}
+			}
+		})
 	}
 }
 

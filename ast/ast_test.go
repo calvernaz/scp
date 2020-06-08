@@ -580,7 +580,7 @@ func ExampleHostKeyAlgorithms_String() {
 }
 
 func ExampleHostKeyAlias_String() {
-	 hostKeyAlias := HostKeyAlias{
+	hostKeyAlias := HostKeyAlias{
 		Token: token.Token{
 			Type:    token.HostKeyAlias,
 			Literal: "HostKeyAlias",

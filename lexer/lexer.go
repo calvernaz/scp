@@ -54,7 +54,7 @@ start:
 }
 
 func isIdentifier(ch byte) bool {
-	return isLetter(ch) || isDigit(ch) || isExtraCharacter(ch)
+	return isLetter(ch) || isDigit(ch) || isMetaCharacter(ch)
 }
 
 func (l *Lexer) skipWhitespace() {
@@ -83,7 +83,7 @@ func (l *Lexer) skipComments() {
 
 func (l *Lexer) readIdentifier() string {
 	position := l.position
-	for isLetter(l.ch) || isDigit(l.ch) || isExtraCharacter(l.ch) {
+	for isLetter(l.ch) || isDigit(l.ch) || isMetaCharacter(l.ch) {
 		l.readChar()
 	}
 	return l.input[position:l.position]
@@ -110,11 +110,16 @@ func (l *Lexer) readString() string {
 	return l.input[position:l.position]
 }
 
+// Position ...
+func (l *Lexer) Position() (int, int) {
+	return l.line, l.position
+}
+
 func isLetter(ch byte) bool {
 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z'
 }
 
-func isExtraCharacter(ch byte) bool {
+func isMetaCharacter(ch byte) bool {
 	return ch == '/' || ch == '_' || ch == '.' || ch == '-' || ch ==
 		'+' || ch == '~' || ch == '@' || ch == '%' || ch == ':' || ch == '&' || ch == '=' || ch == '*' || ch == '?' || ch == '!'
 }
