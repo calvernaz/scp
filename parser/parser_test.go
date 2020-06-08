@@ -216,7 +216,7 @@ func TestParserValidation(t *testing.T) {
 			want:  "failed to parse host statement: line %d at position %d",
 		},
 		{
-			input: "Host *",
+			input: "Host",
 			want:  "failed to parse host statement: line %d at position %d",
 		},
 	}
