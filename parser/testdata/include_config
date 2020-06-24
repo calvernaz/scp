@@ -1,0 +1,36 @@
+Include ./ssh_config
+
+Host *
+    usekeychain yes
+
+Host digitalocean
+    hostname 5.85.7.0
+    user user
+    port 22
+
+Host ci-runner
+    hostname 98.211.120.5
+    user root
+    port 22
+
+
+Host aws
+    identityfile /Users/user/.ssh/key.pem
+    hostname 2.209.219.24
+    user ec2-user
+    port 22
+
+Host raspberry
+    hostname pi.local
+    user pi
+    port 22
+
+Host nas
+    hostname 192.168.1.4
+    user admin
+    port 22
+
+Host linode
+    hostname 9.162.212.1
+    user calvernaz
+    port 22
